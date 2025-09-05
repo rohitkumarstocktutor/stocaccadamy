@@ -1,0 +1,80 @@
+"use client"
+
+
+
+import Link from "next/link";
+import dynamic from "next/dynamic";
+import { useEffect, useState } from "react";
+
+const Confetti = dynamic(() => import("react-confetti"), { ssr: false });
+
+
+export default function ThankYouPage() {
+  const [showConfetti, setShowConfetti] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setShowConfetti(false), 3500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
+    <div className="min-h-screen w-full relative overflow-hidden flex flex-col items-center justify-center px-4 py-10 bg-gradient-to-br from-green-50 via-blue-50 to-yellow-50 dark:from-zinc-900 dark:via-zinc-800 dark:to-zinc-900">
+      {/* Decorative background shapes */}
+      <div className="absolute inset-0 pointer-events-none z-0">
+        <svg className="absolute top-0 left-0 w-1/2 h-1/2 opacity-20" viewBox="0 0 400 400" fill="none">
+          <circle cx="200" cy="200" r="200" fill="#22C55E" />
+        </svg>
+        <svg className="absolute bottom-0 right-0 w-1/3 h-1/3 opacity-10" viewBox="0 0 300 300" fill="none">
+          <circle cx="150" cy="150" r="150" fill="#2563EB" />
+        </svg>
+      </div>
+
+      {/* Confetti animation */}
+      {showConfetti && (
+        <Confetti
+          width={typeof window !== "undefined" ? window.innerWidth : 1200}
+          height={typeof window !== "undefined" ? window.innerHeight : 800}
+          numberOfPieces={250}
+          recycle={false}
+        />
+      )}
+
+      {/* Animated checkmark */}
+      <div className="z-10 flex flex-col items-center w-full max-w-3xl mx-auto">
+        <div className="mb-8">
+          <svg width="96" height="96" viewBox="0 0 56 56" fill="none" className="animate-bounce">
+            <circle cx="28" cy="28" r="28" fill="#22C55E" />
+            <path d="M18 29.5L25 36.5L38 23.5" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </div>
+        <h1 className="text-6xl font-black text-primary mb-4 tracking-tight text-center">Thank You!</h1>
+        <p className="text-2xl text-muted-foreground mb-2 text-center font-medium">Your submission was successful.</p>
+        <p className="text-lg text-muted-foreground mb-10 text-center max-w-2xl">We're excited to welcome you to our community. Get ready for exclusive updates and resources!</p>
+
+        {/* WhatsApp CTA */}
+        <div className="w-full flex flex-col items-center justify-center py-10 mb-10 bg-gradient-to-r from-green-200 via-green-100 to-green-200 dark:from-green-900 dark:via-green-800 dark:to-green-900 border-2 border-green-400 dark:border-green-700 rounded-3xl relative">
+          <div className="absolute -top-8 left-1/2 -translate-x-1/2">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="#25D366" viewBox="0 0 48 48" width="64" height="64">
+              <circle cx="24" cy="24" r="24" fill="#25D366" />
+              <path d="M33.75 27.75c-.6-.3-3.45-1.65-3.9-1.8-.45-.15-.75-.3-1.05.3-.3.6-1.2 1.8-1.5 2.1-.3.3-.6.3-1.2 0-.6-.3-2.55-.9-4.8-3-1.8-1.65-3-3.6-3.3-4.2-.3-.6 0-.9.3-1.2.3-.3.6-.75.9-1.05.3-.3.3-.6.45-.9.15-.3 0-.75 0-1.05 0-.3-1.05-2.55-1.5-3.45-.3-.75-.75-.75-1.05-.75h-.9c-.3 0-.75.15-1.05.45-.3.3-1.65 1.65-1.65 4.05 0 2.4 1.8 4.65 2.1 4.95.3.3 3.45 5.4 8.4 7.2 1.2.45 2.1.75 2.85.9 1.2.15 2.25.15 3.15.15.9 0 2.7-1.05 3-2.1.3-1.05.3-1.95.15-2.1-.15-.15-.6-.3-1.2-.6z" fill="#fff" />
+            </svg>
+          </div>
+          <div className="flex flex-col items-center gap-4 mt-8">
+            <span className="text-3xl font-bold text-green-700 dark:text-green-300">Join our WhatsApp Group</span>
+            <p className="text-lg text-green-800 dark:text-green-200 mb-4 text-center max-w-xl">Get instant updates, connect with fellow learners, and never miss an announcement. Click below to join now!</p>
+            <Link href="https://chat.whatsapp.com/your-group-link" target="_blank" rel="noopener noreferrer">
+              <button className="bg-green-500 hover:bg-green-600 transition-colors text-white font-extrabold py-5 px-12 rounded-full flex items-center gap-4 text-2xl tracking-wide">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-8 h-8">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 17.487A9.001 9.001 0 1 1 21 12c0 1.657-.45 3.214-1.238 4.55l1.13 4.13a1 1 0 0 1-1.25 1.25l-4.13-1.13z" />
+                </svg>
+                Join WhatsApp Group
+              </button>
+            </Link>
+          </div>
+        </div>
+
+        <p className="text-lg text-muted-foreground text-center">If you have any questions, feel free to <Link href="mailto:support@example.com" className="underline text-primary font-semibold">contact us</Link>.</p>
+      </div>
+    </div>
+  );
+}

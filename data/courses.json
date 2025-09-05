@@ -1,0 +1,82 @@
+{
+  "courses": {
+    "ai-trading-indicator": {
+      "title": "AI Indicator Trading Strategies",
+      "subtitle": "For NIFTY and Stock Options",
+      "coverImage": "/ai-indicator-cover.jpg",
+      "teacherImage": "https://www.stocktutor.live/_next/image?url=%2Fprabhu-selvaraj.jpg&w=3840&q=75",
+      "teacher": {
+        "name": "Prabhu Selvaraj",
+        "experience": "12+ years",
+        "certification": "NISM Certified",
+        "description": "Expert trader with proven strategies for Nifty and Stock Options trading. Has empowered over 11,000+ students with AI-powered trading techniques.",
+        "achievements": [
+          "11,000+ Students Trained",
+          "NISM Certified Expert",
+          "12+ Years Experience",
+          "Proven AI Trading Strategies"
+        ]
+      },
+      "course": {
+        "price": "₹999",
+        "discountPrice": "₹0",
+        "language": "Hindi",
+        "duration": "2+ Hours",
+        "date": "31st August, Sunday | 12:00 PM",
+        "offerEnd": "Sep 5, 2025",
+        "students": "48k+",
+        "rating": "4.9",
+        "reviews": "14k+"
+      },
+      "integrations": {
+        "googleScriptUrl": "https://script.google.com/macros/s/AKfycby-TiE4gLk4bUC-mSYaT_lDwyOU1T6JTMNw2pIeYQ59qJ2Mk0x9jk_6x47QR5ASCcdasQ/exec",
+        "pablyWebhookUrl": "YOUR_PABLY_WEBHOOK_URL_HERE"
+      },
+      "features": [
+        "Maximize Your Accuracy & Profit",
+        "Learn, Trade & Earn",
+        "Live Trading Sessions",
+        "AI-Powered Indicators"
+      ]
+    },
+    "options-trading": {
+      "title": "Options Trading Mastery",
+      "subtitle": "Advanced Strategies for Consistent Profits",
+      "coverImage": "/options-trading-cover.jpg",
+      "teacherImage": "https://www.stocktutor.live/_next/image?url=%2Fprabhu-selvaraj.jpg&w=3840&q=75",
+      "teacher": {
+        "name": "Prabhu Selvaraj",
+        "experience": "12+ years",
+        "certification": "NISM Certified",
+        "description": "Master options trader specializing in advanced strategies for consistent profits in volatile markets.",
+        "achievements": [
+          "15,000+ Students Trained",
+          "NISM Certified Expert",
+          "12+ Years Experience",
+          "Options Trading Specialist"
+        ]
+      },
+      "course": {
+        "price": "₹1499",
+        "discountPrice": "₹0",
+        "language": "Hindi & English",
+        "duration": "3+ Hours",
+        "date": "5th September, Tuesday | 7:00 PM",
+        "offerEnd": "Sep 10, 2025",
+        "students": "35k+",
+        "rating": "4.8",
+        "reviews": "12k+"
+      },
+      "integrations": {
+        "googleScriptUrl": "https://script.google.com/macros/s/AKfycby-TiE4gLk4bUC-mSYaT_lDwyOU1T6JTMNw2pIeYQ59qJ2Mk0x9jk_6x47QR5ASCcdasQ/exec",
+        "pablyWebhookUrl": "YOUR_PABLY_WEBHOOK_URL_HERE"
+      },
+      "features": [
+        "Advanced Options Strategies",
+        "Risk Management Techniques",
+        "Live Market Analysis",
+        "Profit Maximization Methods"
+      ]
+    }
+  }
+}
