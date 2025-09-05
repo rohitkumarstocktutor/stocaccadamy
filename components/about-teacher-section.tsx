@@ -23,7 +23,7 @@ export function AboutTeacherSection({ courseData }: AboutTeacherSectionProps) {
                     alt={`${courseData.teacher.name} - Stock Market Expert`}
                     width={400}
                     height={500}
-                    className="rounded-2xl shadow-2xl w-full border-2 border-border/20"
+                    className="rounded-2xl w-full border-2 border-border/20 object-cover"
                   />
                 </div>
               </div>
@@ -57,7 +57,7 @@ export function AboutTeacherSection({ courseData }: AboutTeacherSectionProps) {
                   return (
                     <Card
                       key={index}
-                      className={`p-6 hover:shadow-lg transition-all duration-300 border-0 ${bgColor} text-white`}
+                      className={`p-6 transition-all duration-300 border-0 ${bgColor} text-white transform hover:scale-105`}
                     >
                       <CardContent className="p-0 text-center">
                         <div className="flex items-center justify-center w-14 h-14 bg-white/20 rounded-xl mb-4 mx-auto">

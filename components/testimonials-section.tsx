@@ -76,7 +76,7 @@ export function TestimonialsSection({ courseData }: TestimonialsSectionProps) {
 
         <div className="max-w-5xl mx-auto">
           <div className="relative">
-            <Card className="border-border/50 shadow-2xl bg-card/80 backdrop-blur-sm">
+            <Card className="border-border/50 bg-card/80 backdrop-blur-sm">
               <CardContent className="p-10 lg:p-16">
                 <div className="grid lg:grid-cols-3 gap-10 items-center">
                   <div className="text-center lg:text-left space-y-4">

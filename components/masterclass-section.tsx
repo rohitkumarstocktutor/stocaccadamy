@@ -117,7 +117,7 @@ export function MasterclassSection() {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {courses.map((course) => (
-            <Card key={course.id} className="border-0 shadow-lg hover:shadow-xl transition-all hover:-translate-y-1">
+            <Card key={course.id} className="border-0 transition-all hover:-translate-y-1">
               <CardContent className="p-6 space-y-4">
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">

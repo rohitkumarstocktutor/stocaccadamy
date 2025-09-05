@@ -46,7 +46,7 @@ export function AboutSection({ courseData }: AboutSectionProps) {
           {features.map((feature, index) => (
             <Card
               key={index}
-              className="border-border/50 shadow-lg hover:shadow-xl transition-all duration-300 bg-card/50 backdrop-blur-sm group"
+              className="border-border/50 transition-all duration-300 bg-card/50 backdrop-blur-sm group"
             >
               <CardContent className="p-8 text-center space-y-6">
                 <div className="flex items-center justify-center w-20 h-20 bg-primary/10 rounded-2xl mx-auto group-hover:bg-primary/20 transition-colors">

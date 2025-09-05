@@ -9,7 +9,7 @@ interface StickyFooterProps {
 
 export function StickyFooter({ courseData }: StickyFooterProps) {
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-primary text-primary-foreground shadow-2xl z-50 border-t-2 border-secondary/30">
+    <div className="fixed bottom-0 left-0 right-0 bg-gradient-to-r from-primary via-primary to-primary/95 text-primary-foreground z-50 border-t-2 border-secondary/30 backdrop-blur-md">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-6">
@@ -27,7 +27,7 @@ export function StickyFooter({ courseData }: StickyFooterProps) {
           </div>
           <Button
             size="lg"
-            className="bg-background cursor-pointer text-primary hover:bg-background/90 font-bold px-8 py-3 shadow-lg border-2 border-background/20"
+            className="bg-background cursor-pointer text-primary hover:bg-background/90 font-bold px-8 py-3 border-2 border-background/20 transition-all duration-300 transform hover:scale-105"
             onClick={() => {
               document.querySelector("form")?.scrollIntoView({ behavior: "smooth" })
             }}

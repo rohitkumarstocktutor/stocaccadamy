@@ -4,11 +4,11 @@
       "title": "AI Indicator Trading Strategies",
       "subtitle": "For NIFTY and Stock Options",
       "coverImage": "/ai-indicator-cover.jpg",
-      "teacherImage": "https://www.stocktutor.live/_next/image?url=%2Fprabhu-selvaraj.jpg&w=3840&q=75",
+      "teacherImage": "/ai-indicator-cover.jpg",
       "teacher": {
-        "name": "Prabhu Selvaraj",
-        "experience": "12+ years",
-        "certification": "NISM Certified",
+        "name": "Prabhu Selvaraj Sir",
+        "experience": "12+ Years",
+        "certification": "NISM Certified Expert",
         "description": "Expert trader with proven strategies for Nifty and Stock Options trading. Has empowered over 11,000+ students with AI-powered trading techniques.",
         "achievements": [
           "11,000+ Students Trained",
@@ -43,11 +43,11 @@
       "title": "Options Trading Mastery",
       "subtitle": "Advanced Strategies for Consistent Profits",
       "coverImage": "/options-trading-cover.jpg",
-      "teacherImage": "https://www.stocktutor.live/_next/image?url=%2Fprabhu-selvaraj.jpg&w=3840&q=75",
+      "teacherImage": "/options-trading-cover.jpg",
       "teacher": {
-        "name": "Prabhu Selvaraj",
-        "experience": "12+ years",
-        "certification": "NISM Certified",
+        "name": "Prabhu Selvaraj Sir",
+        "experience": "12+ Years",
+        "certification": "NISM Certified Expert",
         "description": "Master options trader specializing in advanced strategies for consistent profits in volatile markets.",
         "achievements": [
           "15,000+ Students Trained",
@@ -76,6 +76,162 @@
         "Risk Management Techniques",
         "Live Market Analysis",
         "Profit Maximization Methods"
+      ]
+    },
+    "vibhor": {
+      "title": "Algorithmic Trading Mastery",
+      "subtitle": "Build Profitable Trading Algorithms",
+      "coverImage": "/vibhor-algo.jpg",
+      "teacherImage": "/vibhor-algo.jpg",
+      "teacher": {
+        "name": "Vibhor Sir",
+        "experience": "8+ Years",
+        "certification": "Algorithmic Trading Expert",
+        "description": "Expert algorithmic trader and developer with proven strategies for automated trading systems. Specializes in building profitable trading algorithms for various markets.",
+        "achievements": [
+          "8,000+ Students Trained",
+          "Algorithmic Trading Expert",
+          "8+ Years Experience",
+          "Automated Trading Specialist"
+        ]
+      },
+      "course": {
+        "price": "₹1999",
+        "discountPrice": "₹0",
+        "language": "Hindi & English",
+        "duration": "4+ Hours",
+        "date": "15th September, Saturday | 2:00 PM",
+        "offerEnd": "Sep 20, 2025",
+        "students": "25k+",
+        "rating": "4.9",
+        "reviews": "8k+"
+      },
+      "integrations": {
+        "googleScriptUrl": "https://script.google.com/macros/s/AKfycby-TiE4gLk4bUC-mSYaT_lDwyOU1T6JTMNw2pIeYQ59qJ2Mk0x9jk_6x47QR5ASCcdasQ/exec",
+        "pablyWebhookUrl": "YOUR_PABLY_WEBHOOK_URL_HERE"
+      },
+      "features": [
+        "Build Trading Algorithms",
+        "Backtesting Strategies",
+        "Risk Management Systems",
+        "Live Algorithm Deployment"
+      ]
+    },
+    "ayushi": {
+      "title": "Forex Trading Mastery",
+      "subtitle": "Master Global Currency Markets",
+      "coverImage": "/ayushi-forex.jpg",
+      "teacherImage": "/ayushi-forex.jpg",
+      "teacher": {
+        "name": "Ayushi Ma'am",
+        "experience": "6+ Years",
+        "certification": "Forex Trading Specialist",
+        "description": "Expert forex trader with deep knowledge of global currency markets. Specializes in technical analysis and risk management for consistent forex profits.",
+        "achievements": [
+          "6,000+ Students Trained",
+          "Forex Trading Specialist",
+          "6+ Years Experience",
+          "Currency Market Expert"
+        ]
+      },
+      "course": {
+        "price": "₹1799",
+        "discountPrice": "₹0",
+        "language": "Hindi & English",
+        "duration": "3.5+ Hours",
+        "date": "20th September, Thursday | 6:00 PM",
+        "offerEnd": "Sep 25, 2025",
+        "students": "18k+",
+        "rating": "4.8",
+        "reviews": "6k+"
+      },
+      "integrations": {
+        "googleScriptUrl": "https://script.google.com/macros/s/AKfycby-TiE4gLk4bUC-mSYaT_lDwyOU1T6JTMNw2pIeYQ59qJ2Mk0x9jk_6x47QR5ASCcdasQ/exec",
+        "pablyWebhookUrl": "YOUR_PABLY_WEBHOOK_URL_HERE"
+      },
+      "features": [
+        "Currency Pair Analysis",
+        "Technical Analysis Mastery",
+        "Risk Management in Forex",
+        "Live Trading Sessions"
+      ]
+    },
+    "crypto-skills": {
+      "title": "Cryptocurrency Trading Skills",
+      "subtitle": "Master Digital Asset Trading",
+      "coverImage": "/crypto-skills.jpg",
+      "teacherImage": "/crypto-skills.jpg",
+      "teacher": {
+        "name": "Priya Ma'am",
+        "experience": "5+ Years",
+        "certification": "Crypto Trading Expert",
+        "description": "Expert cryptocurrency trader with extensive experience in digital asset markets. Specializes in DeFi, NFTs, and advanced crypto trading strategies.",
+        "achievements": [
+          "4,500+ Students Trained",
+          "Crypto Trading Expert",
+          "5+ Years Experience",
+          "Digital Asset Specialist"
+        ]
+      },
+      "course": {
+        "price": "₹1599",
+        "discountPrice": "₹0",
+        "language": "Hindi & English",
+        "duration": "3+ Hours",
+        "date": "25th September, Tuesday | 7:30 PM",
+        "offerEnd": "Sep 30, 2025",
+        "students": "22k+",
+        "rating": "4.7",
+        "reviews": "7k+"
+      },
+      "integrations": {
+        "googleScriptUrl": "https://script.google.com/macros/s/AKfycby-TiE4gLk4bUC-mSYaT_lDwyOU1T6JTMNw2pIeYQ59qJ2Mk0x9jk_6x47QR5ASCcdasQ/exec",
+        "pablyWebhookUrl": "YOUR_PABLY_WEBHOOK_URL_HERE"
+      },
+      "features": [
+        "Cryptocurrency Fundamentals",
+        "DeFi Trading Strategies",
+        "NFT Market Analysis",
+        "Portfolio Management"
+      ]
+    },
+    "funded-accounts": {
+      "title": "Funded Trading Accounts",
+      "subtitle": "Trade with Capital, Keep the Profits",
+      "coverImage": "/funded-accounts.jpg",
+      "teacherImage": "/funded-accounts.jpg",
+      "teacher": {
+        "name": "Rajesh Sir",
+        "experience": "10+ Years",
+        "certification": "Prop Trading Expert",
+        "description": "Expert in funded trading programs and prop trading. Helps traders secure funding and maximize profits through disciplined trading strategies.",
+        "achievements": [
+          "12,000+ Students Trained",
+          "Prop Trading Expert",
+          "10+ Years Experience",
+          "Funded Account Specialist"
+        ]
+      },
+      "course": {
+        "price": "₹2299",
+        "discountPrice": "₹0",
+        "language": "Hindi & English",
+        "duration": "4.5+ Hours",
+        "date": "30th September, Sunday | 3:00 PM",
+        "offerEnd": "Oct 5, 2025",
+        "students": "30k+",
+        "rating": "4.9",
+        "reviews": "10k+"
+      },
+      "integrations": {
+        "googleScriptUrl": "https://script.google.com/macros/s/AKfycby-TiE4gLk4bUC-mSYaT_lDwyOU1T6JTMNw2pIeYQ59qJ2Mk0x9jk_6x47QR5ASCcdasQ/exec",
+        "pablyWebhookUrl": "YOUR_PABLY_WEBHOOK_URL_HERE"
+      },
+      "features": [
+        "Funded Account Programs",
+        "Risk Management Rules",
+        "Profit Sharing Models",
+        "Account Scaling Strategies"
       ]
     }
   }

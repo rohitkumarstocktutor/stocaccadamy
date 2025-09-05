@@ -38,7 +38,7 @@ export function CtaSection({ courseData }: CtaSectionProps) {
             </p>
           </div>
 
-          <Card className="bg-white/10 backdrop-blur-md border-white/20 shadow-2xl">
+          <Card className="bg-white/10 backdrop-blur-md border-white/20 ring-1 ring-white/10">
             <CardContent className="p-10 lg:p-16">
               <div className="grid lg:grid-cols-2 gap-12 items-center">
                 <div className="space-y-6">
@@ -66,7 +66,7 @@ export function CtaSection({ courseData }: CtaSectionProps) {
 
                   <Button
                     size="lg"
-                    className="w-full bg-white text-primary hover:bg-white/90 text-xl font-bold h-16 shadow-xl"
+                    className="w-full bg-white text-primary hover:bg-white/90 text-xl font-bold h-16 transition-all duration-300 transform hover:scale-105"
                     onClick={scrollToForm}
                   >
                     Claim Your Free Spot Now

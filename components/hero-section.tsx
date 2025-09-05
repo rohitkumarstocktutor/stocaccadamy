@@ -87,19 +87,19 @@ export function HeroSection({ courseData }: HeroSectionProps) {
       {/* Professional background pattern */}
       <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(5,150,105,0.02)_25%,rgba(5,150,105,0.02)_50%,transparent_50%,transparent_75%,rgba(5,150,105,0.02)_75%)] bg-[length:20px_20px]" />
 
-      <div className="relative container mx-auto px-4 py-8 lg:py-16">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+      <div className="relative container mx-auto px-4 py-12 lg:py-20">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Left side - Cover Image */}
           <div className="space-y-6">
             <div className="relative group">
               <div className="absolute -inset-1 bg-gradient-to-r from-primary to-secondary rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-1000"></div>
               <div className="relative">
                 <Image
-                  src={"https://www.stocktutor.live/_next/image?url=%2Fprabhu-selvaraj.jpg&w=3840&q=75"}
+                  src={courseData.coverImage}
                   alt={courseData.title}
                   width={600}
                   height={400}
-                  className="rounded-2xl shadow-2xl w-full border border-border/50"
+                  className="rounded-2xl w-full border border-border/50 object-cover"
                   priority
                 />
                 <div className="absolute top-4 left-4 bg-red-600 text-white px-3 py-1.5 rounded-full text-sm font-semibold flex items-center gap-1">
@@ -111,28 +111,28 @@ export function HeroSection({ courseData }: HeroSectionProps) {
 
             {/* Course Details Cards */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-              <Card className="text-center p-3 hover:shadow-md transition-shadow border-border/50">
+              <Card className="text-center p-3 border-border/50">
                 <CardContent className="p-0">
                   <Clock className="w-4 h-4 mx-auto mb-1 text-muted-foreground" />
                   <div className="text-xs text-muted-foreground">Date</div>
                   <div className="font-semibold text-sm">{courseData.course.date}</div>
                 </CardContent>
               </Card>
-              <Card className="text-center p-3 hover:shadow-md transition-shadow border-border/50">
+              <Card className="text-center p-3  border-border/50">
                 <CardContent className="p-0">
                   <Shield className="w-4 h-4 mx-auto mb-1 text-muted-foreground" />
                   <div className="text-xs text-muted-foreground">Offer End</div>
                   <div className="font-semibold text-sm">{courseData.course.offerEnd}</div>
                 </CardContent>
               </Card>
-              <Card className="text-center p-3 hover:shadow-md transition-shadow border-border/50">
+              <Card className="text-center p-3  border-border/50">
                 <CardContent className="p-0">
                   <Users className="w-4 h-4 mx-auto mb-1 text-muted-foreground" />
                   <div className="text-xs text-muted-foreground">Language</div>
                   <div className="font-semibold text-sm">{courseData.course.language}</div>
                 </CardContent>
               </Card>
-              <Card className="text-center p-3 hover:shadow-md transition-shadow border-border/50">
+              <Card className="text-center p-3  border-border/50">
                 <CardContent className="p-0">
                   <Clock className="w-4 h-4 mx-auto mb-1 text-muted-foreground" />
                   <div className="text-xs text-muted-foreground">Duration</div>
@@ -144,16 +144,16 @@ export function HeroSection({ courseData }: HeroSectionProps) {
 
           {/* Right side - Registration Form */}
           <div className="lg:pl-8">
-            <Card className="shadow-2xl border-0 bg-card/90 backdrop-blur-sm">
-              <CardContent className="p-8">
+            <Card className="border-0 bg-card/95 backdrop-blur-md ring-1 ring-border/20">
+              <CardContent className="p-8 lg:p-10">
                 <div className="space-y-6">
                   <div className="text-center space-y-4">
                     <div className="flex items-center justify-center gap-2 mb-4">
 
                       <span className="text-2xl font-bold text-primary">Stutor Academy</span>
                     </div>
-                    <h1 className="text-3xl font-bold text-balance">{courseData.title}</h1>
-                    <p className="text-lg text-muted-foreground">{courseData.subtitle}</p>
+                    <h1 className="text-3xl lg:text-4xl font-bold text-balance">{courseData.title}</h1>
+                    <p className="text-lg lg:text-xl text-muted-foreground">{courseData.subtitle}</p>
                     <div className="flex items-center justify-center gap-2">
                       <span className="text-3xl font-bold text-foreground">{courseData.course.discountPrice}</span>
                       <span className="text-lg line-through text-muted-foreground">{courseData.course.price}</span>
@@ -229,7 +229,7 @@ export function HeroSection({ courseData }: HeroSectionProps) {
 
                     <Button
                       type="submit"
-                      className="w-full h-12 cursor-pointer text-lg font-semibold bg-primary hover:bg-primary/90 text-primary-foreground"
+                      className="w-full h-14 cursor-pointer text-lg font-bold bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-primary-foreground transition-all duration-300"
                       disabled={isSubmitting}
                     >
                       {isSubmitting ? "Registering..." : "Register Now For Free"}

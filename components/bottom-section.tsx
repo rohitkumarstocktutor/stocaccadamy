@@ -4,8 +4,8 @@ export function BottomSection() {
   return (
     <section className="py-20 bg-muted/20">
      
-                    <div className="bg-white pt-10 pb-40  px-4">
-                        <div className="max-w-5xl mx-auto">
+                    <div className="bg-white pt-16 pb-40 px-6">
+                        <div className="max-w-6xl mx-auto">
                             <p className="text-center text-sm text-gray-700 leading-relaxed">
                                 All content on this site is for educational purposes only and does not constitute financial advice.
                                 Investing in stocks involves risks, including the loss of principal. Past performance is not indicative
@@ -28,8 +28,8 @@ export function BottomSection() {
                         </div>
                     </div>
 
-                    <div className="fixed bottom-0 left-0 right-0 z-50 bg-white inset-shadow-sm px-4 py-2 md:py-4 shadow-md border-t border-gray-200">
-                        <div className="flex flex-col md:flex-row items-center justify-between gap-1 md:gap-4 max-w-6xl mx-auto">
+                    <div className="fixed bottom-0 left-0 right-0 z-50 bg-white px-6 py-4 md:py-6 border-t border-gray-200">
+                        <div className="flex flex-col md:flex-row items-center justify-between gap-3 md:gap-6 max-w-6xl mx-auto">
                             <div className="text-center md:text-left">
                                 <span className="text-lg md:text-2xl font-bold text-black block">
                                     Join Our Premium Stock Advisory
@@ -39,7 +39,7 @@ export function BottomSection() {
                                 </span>
                             </div>
                             <Link href="#form">
-                                <button className="bg-background text-primary hover:bg-background/90 font-bold px-8 py-3 shadow-lg border-2 border-background/20 border-radius-lg transition-all duration-300 border-cursor-pointer border-1 border-solid">
+                                <button className="bg-background text-primary hover:bg-background/90 font-bold px-8 py-3 border-2 border-background/20 border-radius-lg transition-all duration-300 border-cursor-pointer border-1 border-solid">
 Register Now For Free                                </button>
                             </Link>
                         </div>

@@ -23,14 +23,14 @@ export default function CoursePage({ params }: CoursePageProps) {
   }
 
   return (
-    <main className="min-h-screen pb-20">
+    <main className="min-h-screen">
       <HeroSection courseData={courseData} />
       <AboutSection courseData={courseData} />
       <AboutTeacherSection courseData={courseData} />
       <TestimonialsSection courseData={courseData} />
       <CtaSection courseData={courseData} />
-      <StickyFooter courseData={courseData} />
       <BottomSection />
+      <StickyFooter courseData={courseData} />
     </main>
   )
 }
