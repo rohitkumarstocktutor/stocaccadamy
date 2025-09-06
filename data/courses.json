@@ -147,7 +147,7 @@
       },
       "integrations": {
         "googleScriptUrl": "https://script.google.com/macros/s/AKfycby-TiE4gLk4bUC-mSYaT_lDwyOU1T6JTMNw2pIeYQ59qJ2Mk0x9jk_6x47QR5ASCcdasQ/exec",
-        "pablyWebhookUrl": "YOUR_PABLY_WEBHOOK_URL_HERE"
+        "pablyWebhookUrl": "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjYwNTY4MDYzMzA0MzM1MjY5NTUzMjUxM2Ii_pc"
       },
       "features": [
         "Currency Pair Analysis",
@@ -186,7 +186,7 @@
       },
       "integrations": {
         "googleScriptUrl": "https://script.google.com/macros/s/AKfycby-TiE4gLk4bUC-mSYaT_lDwyOU1T6JTMNw2pIeYQ59qJ2Mk0x9jk_6x47QR5ASCcdasQ/exec",
-        "pablyWebhookUrl": "YOUR_PABLY_WEBHOOK_URL_HERE"
+        "pablyWebhookUrl": "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjYwNTY4MDYzMzA0MzM1MjY5NTUzMjUxM2Ii_pc"
       },
       "features": [
         "Cryptocurrency Fundamentals",
@@ -225,7 +225,7 @@
       },
       "integrations": {
         "googleScriptUrl": "https://script.google.com/macros/s/AKfycby-TiE4gLk4bUC-mSYaT_lDwyOU1T6JTMNw2pIeYQ59qJ2Mk0x9jk_6x47QR5ASCcdasQ/exec",
-        "pablyWebhookUrl": "YOUR_PABLY_WEBHOOK_URL_HERE"
+        "pablyWebhookUrl": "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjYwNTY4MDYzMzA0MzM1MjY5NTUzMjUxM2Ii_pc"
       },
       "features": [
         "Funded Account Programs",
