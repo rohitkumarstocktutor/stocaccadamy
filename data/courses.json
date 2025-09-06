@@ -128,7 +128,7 @@
         "certification": "Forex Trading Specialist",
         "description": "Expert forex trader with deep knowledge of global currency markets. Specializes in technical analysis and risk management for consistent forex profits.",
         "achievements": [
-          "6,000+ Students Trained",
+          "6,000+ Students ",
           "Forex Trading Specialist",
           "6+ Years Experience",
           "Currency Market Expert"
@@ -157,17 +157,17 @@
       ]
     },
     "crypto-skills": {
-      "title": "Cryptocurrency Trading Skills",
+      "title": "Crypto Trading Skills",
       "subtitle": "Master Digital Asset Trading",
-      "coverImage": "/crypto-skills.jpg",
-      "teacherImage": "/crypto-skills.jpg",
+      "coverImage": "/ayushi-crypto.jpg",
+      "teacherImage": "/ayushi-crypto.jpg",
       "teacher": {
-        "name": "Priya Ma'am",
+        "name": "Ayushi Ma'am",
         "experience": "5+ Years",
         "certification": "Crypto Trading Expert",
         "description": "Expert cryptocurrency trader with extensive experience in digital asset markets. Specializes in DeFi, NFTs, and advanced crypto trading strategies.",
         "achievements": [
-          "4,500+ Students Trained",
+          "4,500+ Students ",
           "Crypto Trading Expert",
           "5+ Years Experience",
           "Digital Asset Specialist"
@@ -198,8 +198,8 @@
     "funded-accounts": {
       "title": "Funded Trading Accounts",
       "subtitle": "Trade with Capital, Keep the Profits",
-      "coverImage": "/funded-accounts.jpg",
-      "teacherImage": "/funded-accounts.jpg",
+      "coverImage": "/ayushi-funded-account.jpg",
+      "teacherImage": "/ayushi-funded-account.jpg",
       "teacher": {
         "name": "Rajesh Sir",
         "experience": "10+ Years",

@@ -88,9 +88,9 @@ export function HeroSection({ courseData }: HeroSectionProps) {
       <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(5,150,105,0.02)_25%,rgba(5,150,105,0.02)_50%,transparent_50%,transparent_75%,rgba(5,150,105,0.02)_75%)] bg-[length:20px_20px]" />
 
       <div className="relative container mx-auto px-4 py-12 lg:py-20">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
           {/* Left side - Cover Image */}
-          <div className="space-y-6">
+          <div className="space-y-6 lg:pt-8">
             <div className="relative group">
               <div className="absolute -inset-1 bg-gradient-to-r from-primary to-secondary rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-1000"></div>
               <div className="relative">
@@ -145,24 +145,23 @@ export function HeroSection({ courseData }: HeroSectionProps) {
           {/* Right side - Registration Form */}
           <div className="lg:pl-8">
             <Card className="border-0 bg-card/95 backdrop-blur-md ring-1 ring-border/20">
-              <CardContent className="p-8 lg:p-10">
-                <div className="space-y-6">
-                  <div className="text-center space-y-4">
-                    <div className="flex items-center justify-center gap-2 mb-4">
-
-                      <span className="text-2xl font-bold text-primary">Stutor Academy</span>
+              <CardContent className="p-6 lg:p-8">
+                <div className="space-y-4">
+                  <div className="text-center space-y-3">
+                    <div className="flex items-center justify-center gap-2 mb-2">
+                      <span className="text-xl font-bold text-primary">Stutor Academy</span>
                     </div>
-                    <h1 className="text-3xl lg:text-4xl font-bold text-balance">{courseData.title}</h1>
-                    <p className="text-lg lg:text-xl text-muted-foreground">{courseData.subtitle}</p>
+                    <h1 className="text-2xl lg:text-3xl font-bold text-balance">{courseData.title}</h1>
+                    <p className="text-base lg:text-lg text-muted-foreground">{courseData.subtitle}</p>
                     <div className="flex items-center justify-center gap-2">
-                      <span className="text-3xl font-bold text-foreground">{courseData.course.discountPrice}</span>
-                      <span className="text-lg line-through text-muted-foreground">{courseData.course.price}</span>
+                      <span className="text-2xl font-bold text-foreground">{courseData.course.discountPrice}</span>
+                      <span className="text-base line-through text-muted-foreground">{courseData.course.price}</span>
                       <span className="bg-red-500 text-white px-2 py-1 rounded text-sm font-semibold">FREE!</span>
                     </div>
                   </div>
 
-                  <form onSubmit={handleSubmit} className="space-y-4">
-                    <div className="space-y-2">
+                  <form onSubmit={handleSubmit} className="space-y-3">
+                    <div className="space-y-1">
                       <Label htmlFor="name" className="text-sm font-medium">
                         Full Name
                       </Label>
@@ -173,11 +172,11 @@ export function HeroSection({ courseData }: HeroSectionProps) {
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         required
-                        className="h-12 border-border/50 focus:border-primary"
+                        className="h-10 border-border/50 focus:border-primary"
                       />
                     </div>
 
-                    <div className="space-y-2">
+                    <div className="space-y-1">
                       <Label htmlFor="email" className="text-sm font-medium">
                         Email Address
                       </Label>
@@ -188,11 +187,11 @@ export function HeroSection({ courseData }: HeroSectionProps) {
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         required
-                        className="h-12 border-border/50 focus:border-primary"
+                        className="h-10 border-border/50 focus:border-primary"
                       />
                     </div>
 
-                    <div className="space-y-2">
+                    <div className="space-y-1">
                       <Label htmlFor="phone" className="text-sm font-medium">
                         Phone Number
                       </Label>
@@ -201,7 +200,7 @@ export function HeroSection({ courseData }: HeroSectionProps) {
                           value={formData.countryCode}
                           onValueChange={(value) => setFormData({ ...formData, countryCode: value })}
                         >
-                          <SelectTrigger className="w-28 h-12 border-border/50">
+                          <SelectTrigger className="w-28 h-10 border-border/50">
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent>
@@ -222,33 +221,33 @@ export function HeroSection({ courseData }: HeroSectionProps) {
                           value={formData.phone}
                           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                           required
-                          className="flex-1 h-12 border-border/50 focus:border-primary"
+                          className="flex-1 h-10 border-border/50 focus:border-primary"
                         />
                       </div>
                     </div>
 
                     <Button
                       type="submit"
-                      className="w-full h-14 cursor-pointer text-lg font-bold bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-primary-foreground transition-all duration-300"
+                      className="w-full h-12 cursor-pointer text-base font-bold bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-primary-foreground transition-all duration-300"
                       disabled={isSubmitting}
                     >
                       {isSubmitting ? "Registering..." : "Register Now For Free"}
                     </Button>
                   </form>
 
-                  <div className="flex items-center justify-center gap-6 text-sm pt-4 border-t border-border/50">
+                  <div className="flex items-center justify-center gap-4 text-xs pt-3 border-t border-border/50">
                     <div className="flex items-center gap-2">
                       <div className="flex -space-x-1">
-                        <div className="w-6 h-6 bg-primary rounded-full border-2 border-white"></div>
-                        <div className="w-6 h-6 bg-secondary rounded-full border-2 border-white"></div>
-                        <div className="w-6 h-6 bg-accent rounded-full border-2 border-white"></div>
+                        <div className="w-5 h-5 bg-primary rounded-full border-2 border-white"></div>
+                        <div className="w-5 h-5 bg-secondary rounded-full border-2 border-white"></div>
+                        <div className="w-5 h-5 bg-accent rounded-full border-2 border-white"></div>
                       </div>
                       <span className="text-primary font-semibold">{courseData.course.students} Students</span>
                     </div>
                     <div className="flex items-center gap-1">
                       <div className="flex">
                         {[...Array(5)].map((_, i) => (
-                          <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                          <Star key={i} className="w-3 h-3 fill-yellow-400 text-yellow-400" />
                         ))}
                       </div>
                       <span className="text-muted-foreground">
