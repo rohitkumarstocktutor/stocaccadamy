@@ -30,7 +30,7 @@ export function AboutSection({ courseData }: AboutSectionProps) {
   ]
 
   return (
-    <section className="py-24 bg-background">
+    <section className="pt-0 pb-24 bg-background">
       <div className="container mx-auto px-4">
         <div className="text-center space-y-6 mb-20">
           <h2 className="text-4xl lg:text-5xl font-bold text-balance text-foreground">

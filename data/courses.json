@@ -18,7 +18,7 @@
         ]
       },
       "course": {
-        "price": "₹999",
+        "price": "₹499",
         "discountPrice": "₹0",
         "language": "Hindi",
         "duration": "2+ Hours",
@@ -30,7 +30,7 @@
       },
       "integrations": {
         "googleScriptUrl": "https://script.google.com/macros/s/AKfycby-TiE4gLk4bUC-mSYaT_lDwyOU1T6JTMNw2pIeYQ59qJ2Mk0x9jk_6x47QR5ASCcdasQ/exec",
-        "pablyWebhookUrl": "YOUR_PABLY_WEBHOOK_URL_HERE"
+        "pablyWebhookUrl": "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjYwNTY4MDYzMzA0M2Q1MjZjNTUzZDUxMzMi_pc"
       },
       "features": [
         "Maximize Your Accuracy & Profit",
@@ -57,7 +57,7 @@
         ]
       },
       "course": {
-        "price": "₹1499",
+        "price": "₹499",
         "discountPrice": "₹0",
         "language": "Hindi & English",
         "duration": "3+ Hours",
@@ -96,7 +96,7 @@
         ]
       },
       "course": {
-        "price": "₹1999",
+        "price": "₹499",
         "discountPrice": "₹0",
         "language": "Hindi & English",
         "duration": "4+ Hours",
@@ -108,7 +108,7 @@
       },
       "integrations": {
         "googleScriptUrl": "https://script.google.com/macros/s/AKfycby-TiE4gLk4bUC-mSYaT_lDwyOU1T6JTMNw2pIeYQ59qJ2Mk0x9jk_6x47QR5ASCcdasQ/exec",
-        "pablyWebhookUrl": "YOUR_PABLY_WEBHOOK_URL_HERE"
+        "pablyWebhookUrl": "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjYwNTY4MDYzMzA0MzM1MjY5NTUzMjUxM2Ii_pc"
       },
       "features": [
         "Build Trading Algorithms",
@@ -174,7 +174,7 @@
         ]
       },
       "course": {
-        "price": "₹1599",
+        "price": "₹499",
         "discountPrice": "₹0",
         "language": "Hindi & English",
         "duration": "3+ Hours",
@@ -213,7 +213,7 @@
         ]
       },
       "course": {
-        "price": "₹2299",
+        "price": "₹499",
         "discountPrice": "₹0",
         "language": "Hindi & English",
         "duration": "4.5+ Hours",

@@ -87,10 +87,10 @@ export function HeroSection({ courseData }: HeroSectionProps) {
       {/* Professional background pattern */}
       <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(5,150,105,0.02)_25%,rgba(5,150,105,0.02)_50%,transparent_50%,transparent_75%,rgba(5,150,105,0.02)_75%)] bg-[length:20px_20px]" />
 
-      <div className="relative container mx-auto px-4 py-12 lg:py-20">
+      <div className="relative container mx-auto px-4 pt-12 lg:pt-20 pb-0">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
-          {/* Left side - Cover Image */}
-          <div className="space-y-6 lg:pt-8">
+          {/* Left side - Cover Image (hidden on mobile, shown on desktop) */}
+          <div className="hidden lg:block space-y-6 lg:pt-8">
             <div className="relative group">
               <div className="absolute -inset-1 bg-gradient-to-r from-primary to-secondary rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-1000"></div>
               <div className="relative">
@@ -142,7 +142,7 @@ export function HeroSection({ courseData }: HeroSectionProps) {
             </div>
           </div>
 
-          {/* Right side - Registration Form */}
+          {/* Right side - Registration Form (first on mobile, second on desktop) */}
           <div className="lg:pl-8">
             <Card className="border-0 bg-card/95 backdrop-blur-md ring-1 ring-border/20">
               <CardContent className="p-6 lg:p-8">
@@ -258,6 +258,61 @@ export function HeroSection({ courseData }: HeroSectionProps) {
                 </div>
               </CardContent>
             </Card>
+          </div>
+        </div>
+
+        {/* Mobile Cover Image Section - shown after form on mobile */}
+        <div className="block lg:hidden mt-12">
+          <div className="space-y-6">
+            <div className="relative group">
+              <div className="absolute -inset-1 bg-gradient-to-r from-primary to-secondary rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-1000"></div>
+              <div className="relative">
+                <Image
+                  src={courseData.coverImage}
+                  alt={courseData.title}
+                  width={600}
+                  height={400}
+                  className="rounded-2xl w-full border border-border/50 object-cover"
+                  priority
+                />
+                <div className="absolute top-4 left-4 bg-red-600 text-white px-3 py-1.5 rounded-full text-sm font-semibold flex items-center gap-1">
+                  <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                  LIVE
+                </div>
+              </div>
+            </div>
+
+            {/* Course Details Cards */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+              <Card className="text-center p-3 border-border/50">
+                <CardContent className="p-0">
+                  <Clock className="w-4 h-4 mx-auto mb-1 text-muted-foreground" />
+                  <div className="text-xs text-muted-foreground">Date</div>
+                  <div className="font-semibold text-sm">{courseData.course.date}</div>
+                </CardContent>
+              </Card>
+              <Card className="text-center p-3  border-border/50">
+                <CardContent className="p-0">
+                  <Shield className="w-4 h-4 mx-auto mb-1 text-muted-foreground" />
+                  <div className="text-xs text-muted-foreground">Offer End</div>
+                  <div className="font-semibold text-sm">{courseData.course.offerEnd}</div>
+                </CardContent>
+              </Card>
+              <Card className="text-center p-3  border-border/50">
+                <CardContent className="p-0">
+                  <Users className="w-4 h-4 mx-auto mb-1 text-muted-foreground" />
+                  <div className="text-xs text-muted-foreground">Language</div>
+                  <div className="font-semibold text-sm">{courseData.course.language}</div>
+                </CardContent>
+              </Card>
+              <Card className="text-center p-3  border-border/50">
+                <CardContent className="p-0">
+                  <Clock className="w-4 h-4 mx-auto mb-1 text-muted-foreground" />
+                  <div className="text-xs text-muted-foreground">Duration</div>
+                  <div className="font-semibold text-sm">{courseData.course.duration}</div>
+                </CardContent>
+              </Card>
+            </div>
           </div>
         </div>
       </div>
