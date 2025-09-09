@@ -1,3 +1,5 @@
+"use client"
+
 import Link from "next/link";
 
 export function BottomSection() {
@@ -44,12 +46,6 @@ export function BottomSection() {
                                     data-meta-pixel-exclude="true"
                                     role="button"
                                     tabIndex={0}
-                                    onKeyDown={(e) => {
-                                        if (e.key === 'Enter' || e.key === ' ') {
-                                            e.preventDefault();
-                                            document.getElementById('form')?.scrollIntoView({ behavior: 'smooth' });
-                                        }
-                                    }}
                                 >
                                     Submit
                                 </div>
