@@ -1,6 +1,6 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
+// import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { CheckCircle, ArrowRight, Clock } from "lucide-react"
 
@@ -64,14 +64,21 @@ export function CtaSection({ courseData }: CtaSectionProps) {
                     </div>
                   </div>
 
-                  <Button
-                    size="lg"
-                    className="w-full bg-white text-primary hover:bg-white/90 text-xl font-bold h-16 transition-all duration-300 transform hover:scale-105"
+                  <div
+                    className="w-full bg-white text-primary hover:bg-white/90 text-xl font-bold h-16 transition-all duration-300 transform hover:scale-105 rounded-lg flex items-center justify-center cursor-pointer border-2 border-transparent hover:border-primary/20 shadow-lg hover:shadow-xl"
                     onClick={scrollToForm}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        scrollToForm();
+                      }
+                    }}
                   >
                     Claim Your Free Spot Now
                     <ArrowRight className="w-6 h-6 ml-3" />
-                  </Button>
+                  </div>
 
                   <p className="text-lg opacity-75 text-center">⏰ Only 50 spots available per session</p>
                 </div>

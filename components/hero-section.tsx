@@ -2,10 +2,10 @@
 
 import type React from "react"
 import { useState, useEffect } from "react"
-// import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+// import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Card, CardContent } from "@/components/ui/card"
 import { Star, Shield, Users, Clock } from "lucide-react"
 import Image from "next/image"
@@ -13,13 +13,7 @@ import { useMetaPixelTracking } from "@/components/meta-pixel"
 import { fetchWorkshopData, formatWorkshopDateTime, getTeacherNameFromCourseKey, WorkshopData } from "@/lib/workshop-service"
 import { useRouter } from 'next/navigation'
 
-const countryCodes = [
-  { code: "+91", country: "India", flag: "🇮🇳" },
-  { code: "+1", country: "US", flag: "🇺🇸" },
-  { code: "+44", country: "GB", flag: "🇬🇧" },
-  { code: "+971", country: "AE", flag: "🇦🇪" },
-  { code: "+65", country: "SG", flag: "🇸🇬" },
-]
+// Removed countryCodes array - now using fixed +91 for India
 
 interface HeroSectionProps {
   courseData: any
@@ -140,15 +134,8 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
                   <Clock className="w-4 h-4 mx-auto mb-1 text-muted-foreground" />
                   <div className="text-xs text-muted-foreground">Date</div>
                   <div className="font-semibold text-sm">
-                    {workshopData ? formatWorkshopDateTime(workshopData.wDateTime) : courseData.course.date}
+                    {courseData.course.offerEnd}
                   </div>
-                </CardContent>
-              </Card>
-              <Card className="text-center p-3  border-border/50">
-                <CardContent className="p-0">
-                  <Shield className="w-4 h-4 mx-auto mb-1 text-muted-foreground" />
-                  <div className="text-xs text-muted-foreground">Offer End</div>
-                  <div className="font-semibold text-sm">{courseData.course.offerEnd}</div>
                 </CardContent>
               </Card>
               <Card className="text-center p-3  border-border/50">
@@ -221,45 +208,29 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
                       <Label htmlFor="phone" className="text-sm font-medium">
                         Phone Number
                       </Label>
-                      <div className="flex gap-2">
-                        <Select
-                          value={formData.countryCode}
-                          onValueChange={(value) => setFormData({ ...formData, countryCode: value })}
-                        >
-                          <SelectTrigger className="w-28 h-10 border-border/50">
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {countryCodes.map((country) => (
-                              <SelectItem key={country.code} value={country.code}>
-                                <span className="flex items-center gap-2">
-                                  <span>{country.flag}</span>
-                                  <span>{country.code}</span>
-                                </span>
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
+                      <div className="relative">
+                        <div className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">
+                          +91
+                        </div>
                         <Input
                           id="phone"
                           type="tel"
-                          placeholder="Enter phone number"
+                          placeholder="Enter your phone number"
                           value={formData.phone}
                           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                           required
-                          className="flex-1 h-10 border-border/50 focus:border-primary"
+                          className="pl-12 h-10 border-border/50 focus:border-primary"
                         />
                       </div>
                     </div>
 
-                    <div
-                      onClick={handleSubmit}
-                      className={`w-full h-12 cursor-pointer text-base font-bold bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-primary-foreground transition-all duration-300 rounded-md flex items-center justify-center ${
-                        isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
-                      }`}
+                    <Button
+                      type="submit"
+                      className="w-full h-12 text-base font-bold bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-primary-foreground transition-all duration-300"
+                      disabled={isSubmitting}
                     >
                       {isSubmitting ? "Registering..." : "Submit "}
-                    </div>
+                    </Button>
                   </form>
 
                   <div className="flex items-center justify-center gap-4 text-xs pt-3 border-t border-border/50">

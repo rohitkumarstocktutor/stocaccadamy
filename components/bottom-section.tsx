@@ -39,8 +39,8 @@ export function BottomSection() {
                                 </span>
                             </div>
                             <Link href="#form">
-                                <button className="bg-background text-primary hover:bg-background/90 font-bold px-8 py-3 border-2 border-background/20 border-radius-lg transition-all duration-300 border-cursor-pointer border-1 border-solid">
-Submit                                 </button>
+                                <div className="bg-background text-primary hover:bg-background/90 font-bold px-8 py-3 border-2 border-background/20 border-radius-lg transition-all duration-300 border-cursor-pointer border-1 border-solid">
+Submit                                 </div>
                             </Link>
                         </div>
                     </div>

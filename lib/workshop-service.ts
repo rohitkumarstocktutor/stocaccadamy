@@ -41,16 +41,27 @@ export async function fetchWorkshopData(teacherName: string = 'vibhor'): Promise
 export function formatWorkshopDateTime(dateTimeString: string): string {
   try {
     const date = new Date(dateTimeString);
-    const options: Intl.DateTimeFormatOptions = {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-      timeZone: 'Asia/Kolkata'
-    };
-    return date.toLocaleDateString('en-IN', options);
+    
+    // Convert to Indian timezone
+    const indianDate = new Date(date.toLocaleString("en-US", {timeZone: "Asia/Kolkata"}));
+    
+    // Get individual components
+    const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    
+    const weekday = weekdays[indianDate.getDay()];
+    const day = indianDate.getDate();
+    const month = months[indianDate.getMonth()];
+    
+    // Format time in 12-hour format
+    let hours = indianDate.getHours();
+    const minutes = indianDate.getMinutes();
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // 0 should be 12
+    const minutesStr = minutes < 10 ? '0' + minutes : minutes;
+    
+    return `${weekday}, ${day} ${month} at ${hours}:${minutesStr} ${ampm}`;
   } catch (error) {
     console.error('Error formatting date:', error);
     return 'Date TBA';
