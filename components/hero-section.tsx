@@ -2,17 +2,19 @@
 
 import type React from "react"
 import { useState, useEffect } from "react"
-import { Button } from "@/components/ui/button"
+// import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Card, CardContent } from "@/components/ui/card"
-import { TrendingUp, Star, Shield, Users, Clock } from "lucide-react"
+import { Star, Shield, Users, Clock } from "lucide-react"
 import Image from "next/image"
 import { useMetaPixelTracking } from "@/components/meta-pixel"
+import { fetchWorkshopData, formatWorkshopDateTime, getTeacherNameFromCourseKey, WorkshopData } from "@/lib/workshop-service"
+import { useRouter } from 'next/navigation'
 
 const countryCodes = [
-  { code: "+91", country: "IN", flag: "🇮🇳" },
+  { code: "+91", country: "India", flag: "🇮🇳" },
   { code: "+1", country: "US", flag: "🇺🇸" },
   { code: "+44", country: "GB", flag: "🇬🇧" },
   { code: "+971", country: "AE", flag: "🇦🇪" },
@@ -33,7 +35,8 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
   })
   const [utmParams, setUtmParams] = useState<Record<string, string>>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const router = require('next/navigation').useRouter();
+  const [workshopData, setWorkshopData] = useState<WorkshopData | null>(null)
+  const router = useRouter();
   const { trackLead } = useMetaPixelTracking(courseData.integrations.metaPixelId);
 
   useEffect(() => {
@@ -48,6 +51,21 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
     }
     setUtmParams(params)
   }, [])
+
+  useEffect(() => {
+    // Fetch workshop data
+    const loadWorkshopData = async () => {
+      try {
+        const teacherName = getTeacherNameFromCourseKey(courseKey || 'vibhor')
+        const data = await fetchWorkshopData(teacherName)
+        setWorkshopData(data)
+      } catch (error) {
+        console.error('Failed to load workshop data:', error)
+      }
+    }
+
+    loadWorkshopData()
+  }, [courseKey])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -121,7 +139,9 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
                 <CardContent className="p-0">
                   <Clock className="w-4 h-4 mx-auto mb-1 text-muted-foreground" />
                   <div className="text-xs text-muted-foreground">Date</div>
-                  <div className="font-semibold text-sm">{courseData.course.date}</div>
+                  <div className="font-semibold text-sm">
+                    {workshopData ? formatWorkshopDateTime(workshopData.wDateTime) : courseData.course.date}
+                  </div>
                 </CardContent>
               </Card>
               <Card className="text-center p-3  border-border/50">
@@ -232,13 +252,14 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
                       </div>
                     </div>
 
-                    <Button
-                      type="submit"
-                      className="w-full h-12 cursor-pointer text-base font-bold bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-primary-foreground transition-all duration-300"
-                      disabled={isSubmitting}
+                    <div
+                      onClick={handleSubmit}
+                      className={`w-full h-12 cursor-pointer text-base font-bold bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-primary-foreground transition-all duration-300 rounded-md flex items-center justify-center ${
+                        isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
+                      }`}
                     >
-                      {isSubmitting ? "Registering..." : "Register Now For Free"}
-                    </Button>
+                      {isSubmitting ? "Registering..." : "Submit "}
+                    </div>
                   </form>
 
                   <div className="flex items-center justify-center gap-4 text-xs pt-3 border-t border-border/50">
@@ -294,7 +315,9 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
                 <CardContent className="p-0">
                   <Clock className="w-4 h-4 mx-auto mb-1 text-muted-foreground" />
                   <div className="text-xs text-muted-foreground">Date</div>
-                  <div className="font-semibold text-sm">{courseData.course.date}</div>
+                  <div className="font-semibold text-sm">
+                    {workshopData ? formatWorkshopDateTime(workshopData.wDateTime) : courseData.course.date}
+                  </div>
                 </CardContent>
               </Card>
               <Card className="text-center p-3  border-border/50">

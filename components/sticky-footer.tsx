@@ -33,7 +33,7 @@ export function StickyFooter({ courseData }: StickyFooterProps) {
               document.querySelector("form")?.scrollIntoView({ behavior: "smooth" })
             }}
           >
-            Register Now For Free
+            Submit 
           </Button>
         </div>
 
@@ -59,7 +59,7 @@ export function StickyFooter({ courseData }: StickyFooterProps) {
               document.querySelector("form")?.scrollIntoView({ behavior: "smooth" })
             }}
           >
-            Register Now For Free
+            Submit 
           </Button>
         </div>
       </div>

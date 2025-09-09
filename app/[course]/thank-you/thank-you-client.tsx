@@ -4,6 +4,7 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { MetaPixel, useMetaPixelTracking } from "@/components/meta-pixel";
+import { fetchWorkshopData, formatWorkshopDateTime, getTeacherNameFromCourseKey, WorkshopData } from "@/lib/workshop-service";
 
 const Confetti = dynamic(() => import("react-confetti"), { ssr: false });
 
@@ -14,6 +15,8 @@ interface ThankYouClientProps {
 
 export default function ThankYouClient({ courseData, courseKey }: ThankYouClientProps) {
   const [showConfetti, setShowConfetti] = useState(true);
+  const [workshopData, setWorkshopData] = useState<WorkshopData | null>(null);
+  const [isLoadingWorkshop, setIsLoadingWorkshop] = useState(true);
   const { trackPurchase } = useMetaPixelTracking(courseData.integrations.metaPixelId);
 
   useEffect(() => {
@@ -25,6 +28,23 @@ export default function ThankYouClient({ courseData, courseKey }: ThankYouClient
     // Track purchase on thank you page load
     trackPurchase(courseData);
   }, [trackPurchase, courseData]);
+
+  useEffect(() => {
+    // Fetch workshop data
+    const loadWorkshopData = async () => {
+      try {
+        const teacherName = getTeacherNameFromCourseKey(courseKey);
+        const data = await fetchWorkshopData(teacherName);
+        setWorkshopData(data);
+      } catch (error) {
+        console.error('Failed to load workshop data:', error);
+      } finally {
+        setIsLoadingWorkshop(false);
+      }
+    };
+
+    loadWorkshopData();
+  }, [courseKey]);
 
   // Course-specific colors and content
   const getCourseTheme = (courseKey: string) => {
@@ -152,7 +172,33 @@ export default function ThankYouClient({ courseData, courseKey }: ThankYouClient
         </div>
         <h1 className="text-6xl lg:text-7xl font-black text-primary mb-6 tracking-tight text-center">Thank You!</h1>
         <p className="text-2xl lg:text-3xl text-muted-foreground mb-4 text-center font-medium">Welcome to {courseData.title}!</p>
-        <p className="text-lg lg:text-xl text-muted-foreground mb-12 text-center max-w-3xl leading-relaxed">You've successfully enrolled in {theme.teacherName}'s {courseData.title} course. Get ready to {courseData.subtitle.toLowerCase()}!</p>
+        <p className="text-lg lg:text-xl text-muted-foreground mb-8 text-center max-w-3xl leading-relaxed">You&apos;ve successfully enrolled in {theme.teacherName}&apos;s {courseData.title} course. Get ready to {courseData.subtitle.toLowerCase()}!</p>
+        
+        {/* Workshop Date/Time Information */}
+        {workshopData && (
+          <div className={`mb-12 p-6 rounded-2xl border-2 ${theme.borderColor} bg-gradient-to-r ${theme.bgGradientCTA} ${theme.darkBgGradientCTA}`}>
+            <div className="text-center">
+              <h3 className={`text-2xl font-bold ${theme.textColorDark} mb-2`}>Workshop Details</h3>
+              <p className={`text-lg ${theme.textColor} mb-1`}>
+                <strong>Date & Time:</strong> {formatWorkshopDateTime(workshopData.wDateTime)}
+              </p>
+              <p className={`text-lg ${theme.textColor} mb-1`}>
+                <strong>Day:</strong> {workshopData.wDay}
+              </p>
+              <p className={`text-lg ${theme.textColor}`}>
+                <strong>Workshop:</strong> {workshopData.name}
+              </p>
+            </div>
+          </div>
+        )}
+        
+        {isLoadingWorkshop && (
+          <div className="mb-12 p-6 rounded-2xl border-2 border-gray-300 bg-gray-100 dark:bg-gray-800">
+            <div className="text-center">
+              <p className="text-lg text-gray-600 dark:text-gray-400">Loading workshop details...</p>
+            </div>
+          </div>
+        )}
 
         {/* Course-specific CTA */}
         <div className={`w-full flex flex-col items-center justify-center py-12 mb-12 bg-gradient-to-r ${theme.bgGradientCTA} ${theme.darkBgGradientCTA} border-2 ${theme.borderColor} rounded-3xl relative`}>
@@ -165,12 +211,16 @@ export default function ThankYouClient({ courseData, courseKey }: ThankYouClient
           <div className="flex flex-col items-center gap-6 mt-10 px-6">
             <span className={`text-3xl lg:text-4xl font-bold ${theme.textColor} text-center`}>Join {theme.communityName}</span>
             <p className={`text-lg lg:text-xl ${theme.textColorDark} mb-6 text-center max-w-2xl leading-relaxed`}>Connect with fellow traders, share insights, and get exclusive updates from {theme.teacherName}. Click below to join our community!</p>
-            <Link href="https://chat.whatsapp.com/your-group-link" target="_blank" rel="noopener noreferrer">
+            <Link 
+              href={workshopData?.wAurl || "https://chat.whatsapp.com/your-group-link"} 
+              target="_blank" 
+              rel="noopener noreferrer"
+            >
               <button className={`${theme.buttonColor} transition-colors text-white font-extrabold py-6 px-16 rounded-full flex items-center gap-4 text-xl lg:text-2xl tracking-wide`}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-8 h-8">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 17.487A9.001 9.001 0 1 1 21 12c0 1.657-.45 3.214-1.238 4.55l1.13 4.13a1 1 0 0 1-1.25 1.25l-4.13-1.13z" />
                 </svg>
-                Join {theme.groupName}
+                {isLoadingWorkshop ? "Loading..." : `Join ${theme.groupName}`}
               </button>
             </Link>
           </div>
