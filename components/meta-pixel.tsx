@@ -24,6 +24,13 @@ export function MetaPixel({ pixelId, courseData }: MetaPixelProps) {
       'https://connect.facebook.net/en_US/fbevents.js');
       fbq('init', '${pixelId}');
       fbq('track', 'PageView');
+      
+      // Prevent tracking on elements with data-meta-pixel-exclude
+      document.addEventListener('click', function(e) {
+        if (e.target && e.target.closest('[data-meta-pixel-exclude="true"]')) {
+          e.stopPropagation();
+        }
+      }, true);
     `
     document.head.appendChild(script)
 
