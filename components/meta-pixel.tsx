@@ -27,24 +27,6 @@ export function MetaPixel({ pixelId, courseData }: MetaPixelProps) {
     `
     document.head.appendChild(script)
 
-    // Track course-specific events
-    if (courseData) {
-      // Track course view
-      const trackCourseView = () => {
-        if (typeof window !== 'undefined' && (window as any).fbq) {
-          (window as any).fbq('track', 'ViewContent', {
-            content_name: courseData.title,
-            content_category: 'Course',
-            value: courseData.course.price,
-            currency: 'INR'
-          })
-        }
-      }
-
-      // Track after a short delay to ensure pixel is loaded
-      setTimeout(trackCourseView, 1000)
-    }
-
     return () => {
       // Cleanup script on unmount
       const existingScript = document.querySelector(`script[src*="fbevents.js"]`)
@@ -52,16 +34,17 @@ export function MetaPixel({ pixelId, courseData }: MetaPixelProps) {
         existingScript.remove()
       }
     }
-  }, [pixelId, courseData])
+  }, [pixelId])
 
   return null
 }
 
-// Hook for tracking form submissions
+// Hook for tracking form submissions only
 export function useMetaPixelTracking(pixelId: string) {
   const trackLead = (formData: any, courseData: any) => {
     if (!pixelId || pixelId === 'YOUR_META_PIXEL_ID_HERE') return
 
+    // Only track when form is actually submitted
     if (typeof window !== 'undefined' && (window as any).fbq) {
       (window as any).fbq('track', 'Lead', {
         content_name: courseData.title,
@@ -71,12 +54,21 @@ export function useMetaPixelTracking(pixelId: string) {
         email: formData.email,
         phone: formData.phone
       })
+      
+      // Also track ViewContent when form is submitted
+      (window as any).fbq('track', 'ViewContent', {
+        content_name: courseData.title,
+        content_category: 'Course',
+        value: courseData.course.price,
+        currency: 'INR'
+      })
     }
   }
 
   const trackPurchase = (courseData: any) => {
     if (!pixelId || pixelId === 'YOUR_META_PIXEL_ID_HERE') return
 
+    // Only track when user reaches thank you page
     if (typeof window !== 'undefined' && (window as any).fbq) {
       (window as any).fbq('track', 'Purchase', {
         content_name: courseData.title,
@@ -89,3 +81,4 @@ export function useMetaPixelTracking(pixelId: string) {
 
   return { trackLead, trackPurchase }
 }
+

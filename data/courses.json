@@ -3,6 +3,7 @@
     "ai-trading-indicator": {
       "title": "AI Indicator Trading Strategies",
       "subtitle": "For NIFTY and Stock Options",
+      "metaTitle": "⭐⭐⭐⭐⭐ (4.9/5) - Join Free AI Trading Masterclass",
       "coverImage": "/ai-indicator-cover.jpg",
       "teacherImage": "/ai-indicator-cover.jpg",
       "teacher": {
@@ -43,6 +44,7 @@
     "options-trading": {
       "title": "Options Trading Mastery",
       "subtitle": "Advanced Strategies for Consistent Profits",
+      "metaTitle": "⭐⭐⭐⭐⭐ (4.8/5) - Join Free Options Trading Masterclass",
       "coverImage": "/options-trading-cover.jpg",
       "teacherImage": "/options-trading-cover.jpg",
       "teacher": {
@@ -83,6 +85,7 @@
     "vibhor": {
       "title": "Algorithmic Trading Mastery",
       "subtitle": "Build Profitable Trading Algorithms",
+      "metaTitle": "⭐⭐⭐⭐⭐ (4.9/5) - Join Free Algo Trading Masterclass",
       "coverImage": "/vibhor-algo.jpg",
       "teacherImage": "/vibhor-algo.jpg",
       "teacher": {
@@ -122,6 +125,7 @@
     "ayushi": {
       "title": "Forex Trading Mastery",
       "subtitle": "Master Global Currency Markets",
+      "metaTitle": "⭐⭐⭐⭐⭐ (4.8/5) - Join Free Forex Trading Masterclass",
       "coverImage": "/ayushi-forex.jpg",
       "teacherImage": "/ayushi-forex.jpg",
       "teacher": {
@@ -162,6 +166,7 @@
     "crypto-skills": {
       "title": "Crypto Trading Skills",
       "subtitle": "Master Digital Asset Trading",
+      "metaTitle": "⭐⭐⭐⭐⭐ (4.7/5) - Join Free Crypto Trading Masterclass",
       "coverImage": "/ayushi-crypto.jpg",
       "teacherImage": "/ayushi-crypto.jpg",
       "teacher": {
@@ -201,6 +206,7 @@
     "funded-accounts": {
       "title": "Funded Trading Accounts",
       "subtitle": "Trade with Capital, Keep the Profits",
+      "metaTitle": "⭐⭐⭐⭐⭐ (4.9/5) - Join Free Funded Trading Masterclass",
       "coverImage": "/ayushi-funded-account.jpg",
       "teacherImage": "/ayushi-funded-account.jpg",
       "teacher": {
