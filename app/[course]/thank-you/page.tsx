@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { notFound } from "next/navigation";
 import coursesData from "@/data/courses.json";
+import { MetaPixel, useMetaPixelTracking } from "@/components/meta-pixel";
 
 const Confetti = dynamic(() => import("react-confetti"), { ssr: false });
 
@@ -17,6 +18,7 @@ interface ThankYouPageProps {
 export default function ThankYouPage({ params }: ThankYouPageProps) {
   const [showConfetti, setShowConfetti] = useState(true);
   const courseData = coursesData.courses[params.course as keyof typeof coursesData.courses];
+  const { trackPurchase } = useMetaPixelTracking(courseData.integrations.metaPixelId);
 
   if (!courseData) {
     notFound()
@@ -26,6 +28,11 @@ export default function ThankYouPage({ params }: ThankYouPageProps) {
     const timer = setTimeout(() => setShowConfetti(false), 3500);
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    // Track purchase on thank you page load
+    trackPurchase(courseData);
+  }, [trackPurchase, courseData]);
 
   // Course-specific colors and content
   const getCourseTheme = (courseKey: string) => {
@@ -122,6 +129,7 @@ export default function ThankYouPage({ params }: ThankYouPageProps) {
 
   return (
     <div className={`min-h-screen w-full relative overflow-hidden flex flex-col items-center justify-center px-6 py-16 bg-gradient-to-br ${theme.bgGradient} ${theme.darkBgGradient}`}>
+      <MetaPixel pixelId={courseData.integrations.metaPixelId} courseData={courseData} />
       {/* Decorative background shapes */}
       <div className="absolute inset-0 pointer-events-none z-0">
         <svg className="absolute top-0 left-0 w-1/2 h-1/2 opacity-20" viewBox="0 0 400 400" fill="none">

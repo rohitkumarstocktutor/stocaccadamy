@@ -9,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card, CardContent } from "@/components/ui/card"
 import { TrendingUp, Star, Shield, Users, Clock } from "lucide-react"
 import Image from "next/image"
+import { useMetaPixelTracking } from "@/components/meta-pixel"
 
 const countryCodes = [
   { code: "+91", country: "IN", flag: "🇮🇳" },
@@ -20,9 +21,10 @@ const countryCodes = [
 
 interface HeroSectionProps {
   courseData: any
+  courseKey?: string
 }
 
-export function HeroSection({ courseData }: HeroSectionProps) {
+export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -32,6 +34,7 @@ export function HeroSection({ courseData }: HeroSectionProps) {
   const [utmParams, setUtmParams] = useState<Record<string, string>>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const router = require('next/navigation').useRouter();
+  const { trackLead } = useMetaPixelTracking(courseData.integrations.metaPixelId);
 
   useEffect(() => {
     // Capture UTM parameters from URL
@@ -70,10 +73,13 @@ export function HeroSection({ courseData }: HeroSectionProps) {
         body: JSON.stringify(webhookData),
       })
 
+      // Track lead with Meta Pixel
+      trackLead(formData, courseData)
+
       // Reset form
       setFormData({ name: "", email: "", phone: "", countryCode: "+91" })
       // Redirect to thank you page
-      router.push("/thank-you")
+      router.push(`/${courseKey}/thank-you`)
     } catch (error) {
       console.error("Error submitting form:", error)
       alert("Something went wrong. Please try again.")

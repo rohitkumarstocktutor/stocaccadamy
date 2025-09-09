@@ -30,7 +30,8 @@
       },
       "integrations": {
         "googleScriptUrl": "https://script.google.com/macros/s/AKfycby-TiE4gLk4bUC-mSYaT_lDwyOU1T6JTMNw2pIeYQ59qJ2Mk0x9jk_6x47QR5ASCcdasQ/exec",
-        "pablyWebhookUrl": "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjYwNTY4MDYzMzA0M2Q1MjZjNTUzZDUxMzMi_pc"
+        "pablyWebhookUrl": "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjYwNTY4MDYzMzA0M2Q1MjZjNTUzZDUxMzMi_pc",
+        "metaPixelId": "YOUR_META_PIXEL_ID_HERE"
       },
       "features": [
         "Maximize Your Accuracy & Profit",
@@ -69,7 +70,8 @@
       },
       "integrations": {
         "googleScriptUrl": "https://script.google.com/macros/s/AKfycby-TiE4gLk4bUC-mSYaT_lDwyOU1T6JTMNw2pIeYQ59qJ2Mk0x9jk_6x47QR5ASCcdasQ/exec",
-        "pablyWebhookUrl": "YOUR_PABLY_WEBHOOK_URL_HERE"
+        "pablyWebhookUrl": "YOUR_PABLY_WEBHOOK_URL_HERE",
+        "metaPixelId": "YOUR_META_PIXEL_ID_HERE"
       },
       "features": [
         "Advanced Options Strategies",
@@ -147,7 +149,8 @@
       },
       "integrations": {
         "googleScriptUrl": "https://script.google.com/macros/s/AKfycby-TiE4gLk4bUC-mSYaT_lDwyOU1T6JTMNw2pIeYQ59qJ2Mk0x9jk_6x47QR5ASCcdasQ/exec",
-        "pablyWebhookUrl": "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjYwNTY4MDYzMzA0MzM1MjY5NTUzMjUxM2Ii_pc"
+        "pablyWebhookUrl": "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjYwNTY4MDYzMzA0MzM1MjY5NTUzMjUxM2Ii_pc",
+        "metaPixelId": "4050173501915831"
       },
       "features": [
         "Currency Pair Analysis",

@@ -8,6 +8,7 @@ import { notFound } from "next/navigation"
 import coursesData from "@/data/courses.json"
 import { Bot } from "lucide-react"
 import { BottomSection } from "@/components/bottom-section"
+import { MetaPixel } from "@/components/meta-pixel"
 
 interface CoursePageProps {
   params: {
@@ -24,7 +25,8 @@ export default function CoursePage({ params }: CoursePageProps) {
 
   return (
     <main className="min-h-screen">
-      <HeroSection courseData={courseData} />
+      <MetaPixel pixelId={courseData.integrations.metaPixelId} courseData={courseData} />
+      <HeroSection courseData={courseData} courseKey={params.course} />
       <AboutSection courseData={courseData} />
       <AboutTeacherSection courseData={courseData} />
       <TestimonialsSection courseData={courseData} />
