@@ -77,7 +77,7 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
       }
 
       // Send to Pably webhook
-      await fetch(courseData.integrations.pablyWebhookUrl, {
+      const response = await fetch(courseData.integrations.pablyWebhookUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -85,13 +85,26 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
         body: JSON.stringify(webhookData),
       })
 
-      // Track lead with Meta Pixel
-      trackLead(formData, courseData)
+      // Check if response is ok
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
 
-      // Reset form
-      setFormData({ name: "", email: "", phone: "", countryCode: "+91" })
-      // Redirect to thank you page
-      router.push(`/${courseKey}/thank-you`)
+      // Parse response to check for success
+      const responseData = await response.json()
+      console.log("Pabbly response:", responseData)
+
+      // Check if Pabbly returned success
+      if (responseData.status === "success" || responseData.status === "Success") {
+        // Track lead with Meta Pixel (don't let this block the form submission)
+
+        // Reset form
+        setFormData({ name: "", email: "", phone: "", countryCode: "+91" })
+        // Redirect to thank you page
+        router.push(`/${courseKey}/thank-you`)
+      } else {
+        throw new Error(responseData.message || "Form submission failed")
+      }
     } catch (error) {
       console.error("Error submitting form:", error)
       alert("Something went wrong. Please try again.")
