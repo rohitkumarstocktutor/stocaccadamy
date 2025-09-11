@@ -1,6 +1,5 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
 import { Clock, Zap } from "lucide-react"
 
 interface StickyFooterProps {
@@ -26,15 +25,14 @@ export function StickyFooter({ courseData }: StickyFooterProps) {
               <span className="text-primary-foreground/90">Ends: {courseData.course.offerEnd}</span>
             </div>
           </div>
-          <Button
-            size="lg"
-            className="w-full bg-background cursor-pointer text-primary hover:bg-background/90 font-bold py-3 border-2 border-background/20 transition-all duration-300 text-sm"
+          <div
+              className="w-full text-center bg-background cursor-pointer text-primary hover:bg-background/90 font-bold py-3 border-2 border-background/20 transition-all duration-300 text-sm"
             onClick={() => {
               document.querySelector("form")?.scrollIntoView({ behavior: "smooth" })
             }}
           >
-            Submit 
-          </Button>
+            Submit
+          </div>
         </div>
 
         {/* Desktop Layout */}
@@ -52,15 +50,14 @@ export function StickyFooter({ courseData }: StickyFooterProps) {
               <span className="text-primary-foreground/90">Offer ends: {courseData.course.offerEnd}</span>
             </div>
           </div>
-          <Button
-            size="lg"
-            className="bg-background cursor-pointer text-primary hover:bg-background/90 font-bold px-8 py-3 border-2 border-background/20 transition-all duration-300 transform hover:scale-105"
+          <div
+            className="bg-background rounded-lg text-center cursor-pointer text-primary hover:bg-background/90 font-bold px-8 py-3 border-2 border-background/20 transition-all duration-300 transform hover:scale-105"
             onClick={() => {
               document.querySelector("form")?.scrollIntoView({ behavior: "smooth" })
             }}
           >
             Submit 
-          </Button>
+          </div>
         </div>
       </div>
     </div>
