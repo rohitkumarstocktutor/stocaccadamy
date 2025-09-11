@@ -153,7 +153,7 @@
       },
       "integrations": {
         "googleScriptUrl": "https://script.google.com/macros/s/AKfycby-TiE4gLk4bUC-mSYaT_lDwyOU1T6JTMNw2pIeYQ59qJ2Mk0x9jk_6x47QR5ASCcdasQ/exec",
-        "pablyWebhookUrl": "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjYwNTY4MDYzMzA0MzM1MjY5NTUzMjUxM2Ii_pc",
+        "pablyWebhookUrl": "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjYwNTY4MDYzMzA0M2Q1MjZjNTUzZDUxMzMi_pc",
         "metaPixelId": "1114097650238318"
       },
       "features": [
