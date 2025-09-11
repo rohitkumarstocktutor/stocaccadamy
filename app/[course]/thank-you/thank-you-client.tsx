@@ -17,17 +17,13 @@ export default function ThankYouClient({ courseData, courseKey }: ThankYouClient
   const [showConfetti, setShowConfetti] = useState(true);
   const [workshopData, setWorkshopData] = useState<WorkshopData | null>(null);
   const [isLoadingWorkshop, setIsLoadingWorkshop] = useState(true);
-  const { trackPurchase } = useMetaPixelTracking(courseData.integrations.metaPixelId);
+  // Meta Pixel tracking removed - only using for PageView
 
   useEffect(() => {
     const timer = setTimeout(() => setShowConfetti(false), 3500);
     return () => clearTimeout(timer);
   }, []);
 
-  useEffect(() => {
-    // Track purchase on thank you page load
-    trackPurchase(courseData);
-  }, [trackPurchase, courseData]);
 
   useEffect(() => {
     // Fetch workshop data

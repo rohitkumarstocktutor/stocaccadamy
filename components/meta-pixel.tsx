@@ -117,36 +117,6 @@ export function useMetaPixelTracking(pixelId: string) {
     }
   }
 
-  const trackPurchase = (courseData: any) => {
-    if (!pixelId || pixelId === 'YOUR_META_PIXEL_ID_HERE') return
-
-    // Only track when user reaches thank you page
-    if (typeof window !== 'undefined') {
-      try {
-        // Check if Meta Pixel was blocked by ad blocker
-        if ((window as any).metaPixelBlocked) {
-          console.warn('Meta Pixel blocked by ad blocker - skipping tracking')
-          return
-        }
-
-        // Check if fbq is available and is a function
-        if ((window as any).fbq && typeof (window as any).fbq === 'function') {
-          (window as any).fbq('track', 'Purchase', {
-            content_name: courseData.title,
-            content_category: 'Course',
-            value: courseData.course.price,
-            currency: 'INR'
-          })
-          console.log('Meta Pixel Purchase event tracked successfully')
-        } else {
-          console.warn('Meta Pixel fbq function not available yet')
-        }
-      } catch (error) {
-        console.error('Error tracking Meta Pixel Purchase event:', error)
-      }
-    }
-  }
-
-  return { trackLead, trackPurchase }
+  return { trackLead }
 }
 
