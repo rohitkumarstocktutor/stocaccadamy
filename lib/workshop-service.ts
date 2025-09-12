@@ -5,6 +5,9 @@ export interface WorkshopData {
   wDate: string;
   wDay: string;
   wAurl: string;
+  offerEnd?: string;
+  language?: string;
+  duration?: string;
 }
 
 export async function fetchWorkshopData(teacherName: string = 'vibhor'): Promise<WorkshopData | null> {
@@ -61,7 +64,12 @@ export function formatWorkshopDateTime(dateTimeString: string): string {
     hours = hours ? hours : 12; // 0 should be 12
     const minutesStr = minutes < 10 ? '0' + minutes : minutes;
     
-    return `${weekday}, ${day} ${month} at ${hours}:${minutesStr} ${ampm}`;
+    // Format as "12th September, Friday | 7:00 PM"
+    const dayWithSuffix = day + (day === 1 || day === 21 || day === 31 ? 'st' : 
+                                day === 2 || day === 22 ? 'nd' : 
+                                day === 3 || day === 23 ? 'rd' : 'th');
+    
+    return `${dayWithSuffix} ${month}, ${weekday} | ${hours}:${minutesStr} ${ampm}`;
   } catch (error) {
     console.error('Error formatting date:', error);
     return 'Date TBA';

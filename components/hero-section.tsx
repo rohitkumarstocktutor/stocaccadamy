@@ -80,7 +80,7 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
         return `${day}/${month}/${year} ${displayHours}:${minutes}:${seconds} ${ampm}`
       }
 
-      // Get workshop time from workshopData or fallback to course data
+      // Get workshop time from workshopData (prioritize script data)
       const workshopTime = workshopData 
         ? formatWorkshopDateTime(workshopData.wDateTime)
         : courseData.course.date
@@ -175,7 +175,7 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
                   <Clock className="w-4 h-4 mx-auto mb-1 text-muted-foreground" />
                   <div className="text-xs text-muted-foreground">Date</div>
                   <div className="font-semibold text-sm">
-                    {courseData.course.offerEnd}
+                    {workshopData ? formatWorkshopDateTime(workshopData.wDateTime) : courseData.course.date}
                   </div>
                 </CardContent>
               </Card>
@@ -183,14 +183,14 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
                 <CardContent className="p-0">
                   <Users className="w-4 h-4 mx-auto mb-1 text-muted-foreground" />
                   <div className="text-xs text-muted-foreground">Language</div>
-                  <div className="font-semibold text-sm">{courseData.course.language}</div>
+                  <div className="font-semibold text-sm">{workshopData?.language || courseData.course.language}</div>
                 </CardContent>
               </Card>
               <Card className="text-center p-3  border-border/50">
                 <CardContent className="p-0">
                   <Clock className="w-4 h-4 mx-auto mb-1 text-muted-foreground" />
                   <div className="text-xs text-muted-foreground">Duration</div>
-                  <div className="font-semibold text-sm">{courseData.course.duration}</div>
+                  <div className="font-semibold text-sm">{workshopData?.duration || courseData.course.duration}</div>
                 </CardContent>
               </Card>
             </div>
@@ -336,21 +336,21 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
                 <CardContent className="p-0">
                   <Shield className="w-4 h-4 mx-auto mb-1 text-muted-foreground" />
                   <div className="text-xs text-muted-foreground">Offer End</div>
-                  <div className="font-semibold text-sm">{courseData.course.offerEnd}</div>
+                  <div className="font-semibold text-sm">{workshopData?.offerEnd || courseData.course.offerEnd}</div>
                 </CardContent>
               </Card>
               <Card className="text-center p-3  border-border/50">
                 <CardContent className="p-0">
                   <Users className="w-4 h-4 mx-auto mb-1 text-muted-foreground" />
                   <div className="text-xs text-muted-foreground">Language</div>
-                  <div className="font-semibold text-sm">{courseData.course.language}</div>
+                  <div className="font-semibold text-sm">{workshopData?.language || courseData.course.language}</div>
                 </CardContent>
               </Card>
               <Card className="text-center p-3  border-border/50">
                 <CardContent className="p-0">
                   <Clock className="w-4 h-4 mx-auto mb-1 text-muted-foreground" />
                   <div className="text-xs text-muted-foreground">Duration</div>
-                  <div className="font-semibold text-sm">{courseData.course.duration}</div>
+                  <div className="font-semibold text-sm">{workshopData?.duration || courseData.course.duration}</div>
                 </CardContent>
               </Card>
             </div>
