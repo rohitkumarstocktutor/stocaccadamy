@@ -34,12 +34,12 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
   const { trackLead } = useMetaPixelTracking(courseData.integrations.metaPixelId);
 
   useEffect(() => {
-    // Capture UTM parameters from URL
+    // Capture UTM parameters and ad tracking parameters from URL
     const urlParams = new URLSearchParams(window.location.search)
     const params: Record<string, string> = {}
 
     for (const [key, value] of urlParams.entries()) {
-      if (key.startsWith("utm_") || ["source", "medium", "campaign", "term", "content"].includes(key)) {
+      if (key.startsWith("utm_") || ["source", "medium", "campaign", "term", "content", "adsetName", "adName"].includes(key)) {
         params[key] = value
       }
     }
@@ -66,14 +66,42 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
     setIsSubmitting(true)
 
     try {
-      // Prepare data for Pably webhook
+      // Format date to DD/MM/YYYY HH:MM:SS AM/PM
+      const formatDate = (date: Date) => {
+        const day = date.getDate().toString().padStart(2, '0')
+        const month = (date.getMonth() + 1).toString().padStart(2, '0')
+        const year = date.getFullYear()
+        const hours = date.getHours()
+        const minutes = date.getMinutes().toString().padStart(2, '0')
+        const seconds = date.getSeconds().toString().padStart(2, '0')
+        const ampm = hours >= 12 ? 'PM' : 'AM'
+        const displayHours = hours % 12 || 12
+        
+        return `${day}/${month}/${year} ${displayHours}:${minutes}:${seconds} ${ampm}`
+      }
+
+      // Get workshop time from workshopData or fallback to course data
+      const workshopTime = workshopData 
+        ? formatWorkshopDateTime(workshopData.wDateTime)
+        : courseData.course.date
+
+      // Prepare data for Pably webhook with new format
       const webhookData = {
-        ...formData,
-        phone: `${formData.countryCode}${formData.phone}`,
-        ...utmParams,
-        timestamp: new Date().toISOString(),
-        source: "landing_page",
-        course: courseData.title,
+        submittedAt: formatDate(new Date()),
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone, // Remove country code prefix
+        CampeignName: courseKey || 'default',
+        WorkShopTime: workshopTime,
+        utm_source: utmParams.utm_source || null,
+        utm_medium: utmParams.utm_medium || null,
+        utm_campaign: utmParams.utm_campaign || null,
+        utm_adgroup: utmParams.utm_adgroup || null,
+        utm_content: utmParams.utm_content || null,
+        utm_term: utmParams.utm_term || null,
+        adsetName: utmParams.adsetName || null,
+        adName: utmParams.adName || null,
+        landingPageUrl: typeof window !== 'undefined' ? window.location.href : null,
       }
 
       // Send to Pably webhook
