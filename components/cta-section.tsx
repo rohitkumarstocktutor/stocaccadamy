@@ -3,6 +3,8 @@
 // import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { CheckCircle, ArrowRight, Clock } from "lucide-react"
+import { formatWorkshopDateTime, fetchWorkshopData, getTeacherNameFromCourseKey, WorkshopData } from "@/lib/workshop-service"
+import { useEffect, useState } from "react"
 
 const benefits = [
   "Live interactive sessions with Q&A",
@@ -15,12 +17,40 @@ const benefits = [
 
 interface CtaSectionProps {
   courseData: any
+  courseKey?: string
 }
 
-export function CtaSection({ courseData }: CtaSectionProps) {
+export function CtaSection({ courseData, courseKey }: CtaSectionProps) {
+  const [workshopData, setWorkshopData] = useState<WorkshopData | null>(null);
+  const [isLoadingWorkshop, setIsLoadingWorkshop] = useState(true);
+
   const scrollToForm = () => {
     window.scrollTo({ top: 0, behavior: "smooth" })
   }
+
+  useEffect(() => {
+    // Fetch workshop data
+    const loadWorkshopData = async () => {
+      try {
+        if (courseKey) {
+          console.log('Loading workshop data for courseKey:', courseKey);
+          const teacherName = getTeacherNameFromCourseKey(courseKey);
+          console.log('Teacher name:', teacherName);
+          const data = await fetchWorkshopData(teacherName);
+          console.log('Workshop data received:', data);
+          setWorkshopData(data);
+        } else {
+          console.log('No courseKey provided to CtaSection');
+        }
+      } catch (error) {
+        console.error('Failed to load workshop data:', error);
+      } finally {
+        setIsLoadingWorkshop(false);
+      }
+    };
+
+    loadWorkshopData();
+  }, [courseKey]);
 
   return (
     <section className="py-24 bg-gradient-to-br from-primary via-primary to-secondary text-primary-foreground relative overflow-hidden">
@@ -60,8 +90,14 @@ export function CtaSection({ courseData }: CtaSectionProps) {
                     <div className="text-lg opacity-60 line-through">Worth {courseData.course.price}</div>
                     <div className="flex items-center justify-center gap-2 text-yellow-300">
                       <Clock className="w-5 h-5" />
-                      <span>Offer ends: {courseData.course.offerEnd}</span>
-                    </div>
+                      <span>
+                        Offer ends: {isLoadingWorkshop 
+                          ? "Loading..." 
+                          : workshopData 
+                            ? formatWorkshopDateTime(workshopData.wDateTime)
+                            : "Limited Time"
+                        }
+                      </span>                    </div>
                   </div>
 
                   <div

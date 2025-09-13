@@ -136,7 +136,7 @@ export default function ThankYouClient({ courseData, courseKey }: ThankYouClient
   const theme = getCourseTheme(courseKey);
 
   return (
-    <div className={`min-h-screen w-full relative overflow-hidden flex flex-col items-center px-6 py-8 bg-gradient-to-br ${theme.bgGradient} ${theme.darkBgGradient}`}>
+    <div className={`min-h-screen w-full relative overflow-hidden flex flex-col items-center px-4 py-4 bg-gradient-to-br ${theme.bgGradient} ${theme.darkBgGradient}`}>
       <MetaPixel pixelId={courseData.integrations.metaPixelId} courseData={courseData} />
       {/* Decorative background shapes */}
       <div className="absolute inset-0 pointer-events-none z-0">
@@ -158,63 +158,40 @@ export default function ThankYouClient({ courseData, courseKey }: ThankYouClient
         />
       )}
 
-      {/* Main content container */}
-      <div className="z-10 flex flex-col items-center w-full max-w-4xl mx-auto flex-1 justify-center">
-        {/* Animated checkmark */}
-        <div className="mb-6">
-          <svg width="80" height="80" viewBox="0 0 56 56" fill="none" className="animate-bounce">
-            <circle cx="28" cy="28" r="28" fill={theme.primaryColor} />
-            <path d="M18 29.5L25 36.5L38 23.5" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
+      {/* Main content container - Optimized for viewport */}
+      <div className="z-10 flex flex-col items-center w-full max-w-4xl mx-auto flex-1 justify-center space-y-4">
+        {/* Compact header section */}
+        <div className="text-center space-y-3">
+          {/* Animated checkmark */}
+          <div className="mb-4">
+            <svg width="60" height="60" viewBox="0 0 56 56" fill="none" className="animate-bounce mx-auto">
+              <circle cx="28" cy="28" r="28" fill={theme.primaryColor} />
+              <path d="M18 29.5L25 36.5L38 23.5" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </div>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-primary tracking-tight">Thank You!</h1>
+          <p className="text-lg md:text-xl lg:text-2xl text-muted-foreground font-medium">Welcome to {courseData.title}!</p>
+          <p className="text-sm md:text-base lg:text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">You&apos;ve successfully enrolled in {theme.teacherName}&apos;s {courseData.title} course. Get ready to {courseData.subtitle.toLowerCase()}!</p>
         </div>
-        <h1 className="text-5xl lg:text-6xl font-black text-primary mb-4 tracking-tight text-center">Thank You!</h1>
-        <p className="text-xl lg:text-2xl text-muted-foreground mb-3 text-center font-medium">Welcome to {courseData.title}!</p>
-        <p className="text-base lg:text-lg text-muted-foreground mb-6 text-center max-w-3xl leading-relaxed">You&apos;ve successfully enrolled in {theme.teacherName}&apos;s {courseData.title} course. Get ready to {courseData.subtitle.toLowerCase()}!</p>
         
-        {/* Workshop Date/Time Information - Compact version */}
-        {workshopData && (
-          <div className={`mb-6 p-4 rounded-xl border-2 ${theme.borderColor} bg-gradient-to-r ${theme.bgGradientCTA} ${theme.darkBgGradientCTA}`}>
-            <div className="text-center">
-              <h3 className={`text-lg font-bold ${theme.textColorDark} mb-1`}>Workshop Details</h3>
-              <p className={`text-sm ${theme.textColor} mb-1`}>
-                <strong>Date & Time:</strong> {formatWorkshopDateTime(workshopData.wDateTime)}
-              </p>
-              <p className={`text-sm ${theme.textColor} mb-1`}>
-                <strong>Day:</strong> {workshopData.wDay}
-              </p>
-              <p className={`text-sm ${theme.textColor}`}>
-                <strong>Workshop:</strong> {workshopData.name}
-              </p>
-            </div>
-          </div>
-        )}
-        
-        {isLoadingWorkshop && (
-          <div className="mb-6 p-4 rounded-xl border-2 border-gray-300 bg-gray-100 dark:bg-gray-800">
-            <div className="text-center">
-              <p className="text-sm text-gray-600 dark:text-gray-400">Loading workshop details...</p>
-            </div>
-          </div>
-        )}
-
-        {/* Course-specific CTA - Now prominently positioned */}
-        <div className={`w-full flex flex-col items-center justify-center py-8 mb-6 bg-gradient-to-r ${theme.bgGradientCTA} ${theme.darkBgGradientCTA} border-2 ${theme.borderColor} rounded-3xl relative`}>
-          <div className="absolute -top-6 left-1/2 -translate-x-1/2">
-            <svg xmlns="http://www.w3.org/2000/svg" fill={theme.primaryColor} viewBox="0 0 48 48" width="48" height="48">
+        {/* Course-specific CTA - Prominently positioned and optimized */}
+        <div className={`w-full max-w-2xl flex flex-col items-center justify-center py-6 bg-gradient-to-r ${theme.bgGradientCTA} ${theme.darkBgGradientCTA} border-2 ${theme.borderColor} rounded-3xl relative shadow-lg`}>
+          <div className="absolute -top-4 left-1/2 -translate-x-1/2">
+            <svg xmlns="http://www.w3.org/2000/svg" fill={theme.primaryColor} viewBox="0 0 48 48" width="40" height="40">
               <circle cx="24" cy="24" r="24" fill={theme.primaryColor} />
               <path d="M24 8C15.16 8 8 15.16 8 24s7.16 16 16 16 16-7.16 16-16S32.84 8 24 8zm-2 24l-6-6 1.41-1.41L22 28.17l8.59-8.59L32 21l-10 11z" fill="#fff" />
             </svg>
           </div>
-          <div className="flex flex-col items-center gap-4 mt-6 px-4">
-            <span className={`text-2xl lg:text-3xl font-bold ${theme.textColor} text-center`}>Join {theme.communityName}</span>
-            <p className={`text-base lg:text-lg ${theme.textColorDark} mb-4 text-center max-w-2xl leading-relaxed`}>Connect with fellow traders, share insights, and get exclusive updates from {theme.teacherName}. Click below to join our community!</p>
+          <div className="flex flex-col items-center gap-3 mt-4 px-4">
+            <span className={`text-xl md:text-2xl lg:text-3xl font-bold ${theme.textColor} text-center`}>Join {theme.communityName}</span>
+            <p className={`text-sm md:text-base lg:text-lg ${theme.textColorDark} text-center max-w-2xl leading-relaxed`}>Connect with fellow traders, share insights, and get exclusive updates from {theme.teacherName}. Click below to join our community!</p>
             <Link 
               href={workshopData?.wAurl || "https://chat.whatsapp.com/your-group-link"} 
               target="_blank" 
               rel="noopener noreferrer"
             >
-              <button className={`${theme.buttonColor} transition-colors text-white font-extrabold py-4 px-12 rounded-full flex items-center gap-3 text-lg lg:text-xl tracking-wide`}>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
+              <button className={`${theme.buttonColor} transition-all duration-200 text-white font-extrabold py-3 px-8 md:py-4 md:px-12 rounded-full flex items-center gap-3 text-lg md:text-xl lg:text-xl tracking-wide shadow-lg hover:shadow-xl transform hover:scale-105`}>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 md:w-6 md:h-6">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 17.487A9.001 9.001 0 1 1 21 12c0 1.657-.45 3.214-1.238 4.55l1.13 4.13a1 1 0 0 1-1.25 1.25l-4.13-1.13z" />
                 </svg>
                 {isLoadingWorkshop ? "Loading..." : `Join ${theme.groupName}`}
@@ -223,7 +200,33 @@ export default function ThankYouClient({ courseData, courseKey }: ThankYouClient
           </div>
         </div>
 
-        <p className="text-sm lg:text-base text-muted-foreground text-center max-w-2xl">If you have any questions, feel free to <Link href={`mailto:${theme.contactEmail}`} className="underline text-primary font-semibold">contact {theme.teacherName}</Link>.</p>
+        {/* Workshop Date/Time Information - Compact version */}
+        {workshopData && (
+          <div className={`w-full max-w-2xl p-3 rounded-xl border-2 ${theme.borderColor} bg-gradient-to-r ${theme.bgGradientCTA} ${theme.darkBgGradientCTA}`}>
+            <div className="text-center">
+              <h3 className={`text-base md:text-lg font-bold ${theme.textColorDark} mb-1`}>Workshop Details</h3>
+              <p className={`text-xs md:text-sm ${theme.textColor} mb-1`}>
+                <strong>Date & Time:</strong> {formatWorkshopDateTime(workshopData.wDateTime)}
+              </p>
+              <p className={`text-xs md:text-sm ${theme.textColor} mb-1`}>
+                <strong>Day:</strong> {workshopData.wDay}
+              </p>
+              <p className={`text-xs md:text-sm ${theme.textColor}`}>
+                <strong>Workshop:</strong> {workshopData.name}
+              </p>
+            </div>
+          </div>
+        )}
+        
+        {isLoadingWorkshop && (
+          <div className="w-full max-w-2xl p-3 rounded-xl border-2 border-gray-300 bg-gray-100 dark:bg-gray-800">
+            <div className="text-center">
+              <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400">Loading workshop details...</p>
+            </div>
+          </div>
+        )}
+
+        <p className="text-xs md:text-sm lg:text-base text-muted-foreground text-center max-w-2xl">If you have any questions, feel free to <Link href={`mailto:${theme.contactEmail}`} className="underline text-primary font-semibold">contact {theme.teacherName}</Link>.</p>
       </div>
     </div>
   );
