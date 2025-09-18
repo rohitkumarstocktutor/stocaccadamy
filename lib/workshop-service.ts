@@ -81,9 +81,9 @@ export function getTeacherNameFromCourseKey(courseKey: string): string {
   const teacherMap: Record<string, string> = {
     'vibhor': 'vibhor',
     'ayushi': 'ayushi',
-    'crypto-skills': 'vibhor', // Default to vibhor if not specified
-    'funded-accounts': 'vibhor', // Default to vibhor if not specified
-    'ai-trading-indicator': 'vibhor', // Default to vibhor if not specified
+    'crypto-skills': 'ayushi', // Default to vibhor if not specified
+    'funded-accounts': 'ayushi', // Default to vibhor if not specified
+    'ai-trading-indicator': 'ayushi', // Default to vibhor if not specified
     'options-trading': 'vibhor' // Default to vibhor if not specified
   };
   
