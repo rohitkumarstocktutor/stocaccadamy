@@ -6,6 +6,13 @@ import { useEffect, useState } from "react";
 import { MetaPixel, useMetaPixelTracking } from "@/components/meta-pixel";
 import { fetchWorkshopData, formatWorkshopDateTime, getTeacherNameFromCourseKey, WorkshopData } from "@/lib/workshop-service";
 
+// Declare gtag function for TypeScript
+declare global {
+  interface Window {
+    gtag: (...args: any[]) => void;
+  }
+}
+
 const Confetti = dynamic(() => import("react-confetti"), { ssr: false });
 
 interface ThankYouClientProps {
@@ -23,6 +30,13 @@ export default function ThankYouClient({ courseData, courseKey }: ThankYouClient
     const timer = setTimeout(() => setShowConfetti(false), 3500);
     return () => clearTimeout(timer);
   }, []);
+
+  // Google Analytics conversion tracking for Vibhor course
+  useEffect(() => {
+    if (courseKey === 'vibhor' && typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', 'conversion', {'send_to': 'AW-16491466128/P-ebCJeD454bEJCb37c9'});
+    }
+  }, [courseKey]);
 
 
   useEffect(() => {
