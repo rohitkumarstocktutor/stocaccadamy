@@ -42,8 +42,8 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
       const decodedValue = decodeURIComponent(value)
       
       if (key.startsWith("utm_") || 
-          ["source", "medium", "campaign", "term", "content", "adsetName", "adName", "placement", "campaign.name", "adset.name", "ad.name", "adset+name", "ad+name", "adset name", "ad name"].includes(key) ||
-          key.includes("campaign") || key.includes("adset") || key.includes("placement") || key.includes("ad")) {
+          ["source", "medium", "campaign", "term", "content", "adsetName", "adName", "placement", "campaign.name", "adset.name", "ad.name", "adset+name", "ad+name", "adset name", "ad name", "fbclid", "gclid", "msclkid", "ttclid", "adgroup", "adgroupid", "adsetid", "campaignid", "adid", "creative", "keyword", "matchtype", "device", "network", "placement", "audience"].includes(key) ||
+          key.includes("campaign") || key.includes("adset") || key.includes("placement") || key.includes("ad") || key.includes("fb") || key.includes("google") || key.includes("tiktok") || key.includes("microsoft")) {
         
         // Normalize the key
         let normalizedKey = key
@@ -110,21 +110,46 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
         phone: formData.phone,
         CampeignName: courseKey || 'default',
         WorkShopTime: workshopTime,
+        // Standard UTM Parameters
         utm_source: utmParams.utm_source || utmParams.source || null,
         utm_medium: utmParams.utm_medium || utmParams.medium || null,
         utm_campaign: utmParams.utm_campaign || utmParams.campaign || utmParams["campaign.name"] || null,
-        utm_adgroup: utmParams.utm_adgroup || null,
-        utm_content: utmParams.utm_content || utmParams.content || null,
-        utm_term: utmParams.utm_term || utmParams.term || null,
+        utm_adgroup: utmParams.utm_adgroup || utmParams.adgroup || utmParams.adgroupid || null,
+        utm_content: utmParams.utm_content || utmParams.content || utmParams.creative || null,
+        utm_term: utmParams.utm_term || utmParams.term || utmParams.keyword || null,
+        
+        // Facebook Ad Parameters
         "adset.name": utmParams["adset.name"] || null,
         "ad.name": utmParams["ad.name"] || null,
-        placement: utmParams.placement || utmParams.utm_placement || null,
         "campaign.name": utmParams["campaign.name"] || utmParams.utm_campaign || null,
+        placement: utmParams.placement || utmParams.utm_placement || null,
+        adsetid: utmParams.adsetid || null,
+        campaignid: utmParams.campaignid || null,
+        adid: utmParams.adid || null,
+        
+        // Platform-specific Click IDs
+        fbclid: utmParams.fbclid || null,
+        gclid: utmParams.gclid || null,
+        msclkid: utmParams.msclkid || null,
+        ttclid: utmParams.ttclid || null,
+        
+        // Additional Ad Parameters
+        creative: utmParams.creative || null,
+        keyword: utmParams.keyword || null,
+        matchtype: utmParams.matchtype || null,
+        device: utmParams.device || null,
+        network: utmParams.network || null,
+        audience: utmParams.audience || null,
         landingPageUrl: typeof window !== 'undefined' ? window.location.href : null,
         // Include all other captured parameters
         ...Object.keys(utmParams).reduce((acc, key) => {
           // Skip if already included above
-          const skipKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_adgroup', 'utm_content', 'utm_term', 'adset.name', 'ad.name', 'placement', 'campaign.name', 'source', 'medium', 'campaign', 'term', 'content']
+          const skipKeys = [
+            'utm_source', 'utm_medium', 'utm_campaign', 'utm_adgroup', 'utm_content', 'utm_term',
+            'adset.name', 'ad.name', 'campaign.name', 'placement', 'adsetid', 'campaignid', 'adid',
+            'fbclid', 'gclid', 'msclkid', 'ttclid', 'creative', 'keyword', 'matchtype', 'device', 'network', 'audience',
+            'source', 'medium', 'campaign', 'term', 'content', 'adgroup', 'adgroupid'
+          ]
           if (!skipKeys.includes(key) && utmParams[key]) {
             acc[key] = utmParams[key]
           }
