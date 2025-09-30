@@ -68,7 +68,7 @@ export default function ThankYouPage() {
             <p className="text-sm md:text-base text-green-800 dark:text-green-200 text-center max-w-lg">Get instant updates, connect with fellow learners, and never miss an announcement. Click below to join now!</p>
             <Link href="https://chat.whatsapp.com/your-group-link" target="_blank" rel="noopener noreferrer">
               <button className="bg-green-500 hover:bg-green-600 transition-all duration-200 text-white font-extrabold py-3 px-8 rounded-full flex items-center gap-3 text-lg md:text-xl tracking-wide shadow-lg hover:shadow-xl transform hover:scale-105">
-                <img 
+                <img
                   src="/whatsapp.jpg" 
                   alt="WhatsApp" 
                   className="w-5 h-5 md:w-6 md:h-6 rounded-full object-cover"
@@ -79,7 +79,7 @@ export default function ThankYouPage() {
           </div>
         </div>
 
-        <p className="text-xs md:text-sm text-muted-foreground text-center">If you have any questions, feel free to <Link href="mailto:support@example.com" className="underline text-primary font-semibold">contact us</Link>.</p>
+        <p className="text-xs md:text-sm text-muted-foreground text-center">If you have any rohit, feel free to <Link href="mailto:support@example.com" className="underline text-primary font-semibold">contact us</Link>.</p>
       </div>
     </div>
   );

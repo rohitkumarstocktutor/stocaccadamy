@@ -34,37 +34,35 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
   const { trackLead } = useMetaPixelTracking(courseData.integrations.metaPixelId);
 
   useEffect(() => {
-    // Capture UTM parameters and ad tracking parameters from URL
     const urlParams = new URLSearchParams(window.location.search)
     const params: Record<string, string> = {}
-
+  
     for (const [key, value] of urlParams.entries()) {
-      // Capture UTM parameters, Facebook ad parameters, and other tracking parameters
+      // Decode the URL-encoded value
+      const decodedValue = decodeURIComponent(value)
+      
       if (key.startsWith("utm_") || 
           ["source", "medium", "campaign", "term", "content", "adsetName", "adName", "placement", "campaign.name", "adset.name", "ad.name", "adset+name", "ad+name", "adset name", "ad name"].includes(key) ||
           key.includes("campaign") || key.includes("adset") || key.includes("placement") || key.includes("ad")) {
         
-        // Handle Facebook template variables - decode them properly
-        let processedValue = value
-        if (value.includes("{{") && value.includes("}}")) {
-          // Keep template variables as-is for now, but you might want to process them
-          processedValue = value
-        }
-        
-        // Normalize parameter names (handle + vs . vs spaces in parameter names)
+        // Normalize the key
         let normalizedKey = key
-        if (key === "adset+name" || key === "adset name") {
+        if (key === "adset+name" || key === "adset name" || key === "adsetName") {
           normalizedKey = "adset.name"
-        } else if (key === "ad+name" || key === "ad name") {
+        } else if (key === "ad+name" || key === "ad name" || key === "adName") {
           normalizedKey = "ad.name"
+        } else if (key === "campaign name" || key === "campaignName") {
+          normalizedKey = "campaign.name"
         }
         
-        params[normalizedKey] = processedValue
+        params[normalizedKey] = decodedValue
       }
     }
-    console.log("Captured UTM parameters:", params)
+    
+    // IMPORTANT: Save params to state
     setUtmParams(params)
-  }, [])
+  }, []) // Add empty dependency array to run once on mount
+  
 
   useEffect(() => {
     // Fetch workshop data
@@ -84,9 +82,8 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-
+  
     try {
-      // Format date to DD/MM/YYYY HH:MM:SS AM/PM
       const formatDate = (date: Date) => {
         const day = date.getDate().toString().padStart(2, '0')
         const month = (date.getMonth() + 1).toString().padStart(2, '0')
@@ -99,43 +96,45 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
         
         return `${day}/${month}/${year} ${displayHours}:${minutes}:${seconds} ${ampm}`
       }
-
+  
       // Get workshop time from workshopData (prioritize script data)
       const workshopTime = workshopData 
         ? formatWorkshopDateTime(workshopData.wDateTime)
         : courseData.course.date
-
-      // Prepare data for Pably webhook with new format
+  
+      // Prepare data for Pabbly webhook with new format
       const webhookData = {
         submittedAt: formatDate(new Date()),
         name: formData.name,
         email: formData.email,
-        phone: formData.phone, // Remove country code prefix
+        phone: formData.phone,
         CampeignName: courseKey || 'default',
         WorkShopTime: workshopTime,
-        utm_source: utmParams.utm_source || null,
-        utm_medium: utmParams.utm_medium || null,
-        utm_campaign: utmParams.utm_campaign || null,
+        utm_source: utmParams.utm_source || utmParams.source || null,
+        utm_medium: utmParams.utm_medium || utmParams.medium || null,
+        utm_campaign: utmParams.utm_campaign || utmParams.campaign || utmParams["campaign.name"] || null,
         utm_adgroup: utmParams.utm_adgroup || null,
-        utm_content: utmParams.utm_content || null,
-        utm_term: utmParams.utm_term || null,
-        adsetName: utmParams.adsetName || null,
-        adName: utmParams.adName || null,
-        placement: utmParams.placement || null,
-        "campaign.name": utmParams["campaign.name"] || null,
+        utm_content: utmParams.utm_content || utmParams.content || null,
+        utm_term: utmParams.utm_term || utmParams.term || null,
         "adset.name": utmParams["adset.name"] || null,
         "ad.name": utmParams["ad.name"] || null,
+        placement: utmParams.placement || utmParams.utm_placement || null,
+        "campaign.name": utmParams["campaign.name"] || utmParams.utm_campaign || null,
         landingPageUrl: typeof window !== 'undefined' ? window.location.href : null,
         // Include all other captured parameters
         ...Object.keys(utmParams).reduce((acc, key) => {
-          if (!acc[key]) {
+          // Skip if already included above
+          const skipKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_adgroup', 'utm_content', 'utm_term', 'adset.name', 'ad.name', 'placement', 'campaign.name', 'source', 'medium', 'campaign', 'term', 'content']
+          if (!skipKeys.includes(key) && utmParams[key]) {
             acc[key] = utmParams[key]
           }
           return acc
         }, {} as Record<string, string>)
       }
-
-      // Send to Pably webhook
+  
+      console.log("Sending to Pabbly:", webhookData) // Debug log
+  
+      // Send to Pabbly webhook
       const response = await fetch(courseData.integrations.pablyWebhookUrl, {
         method: "POST",
         headers: {
@@ -143,20 +142,18 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
         },
         body: JSON.stringify(webhookData),
       })
-
+  
       // Check if response is ok
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`)
       }
-
+  
       // Parse response to check for success
       const responseData = await response.json()
       console.log("Pabbly response:", responseData)
-
+  
       // Check if Pabbly returned success
       if (responseData.status === "success" || responseData.status === "Success") {
-        // Track lead with Meta Pixel (don't let this block the form submission)
-
         // Reset form
         setFormData({ name: "", email: "", phone: "", countryCode: "+91" })
         // Redirect to thank you page
