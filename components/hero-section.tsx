@@ -39,10 +39,30 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
     const params: Record<string, string> = {}
 
     for (const [key, value] of urlParams.entries()) {
-      if (key.startsWith("utm_") || ["source", "medium", "campaign", "term", "content", "adsetName", "adName"].includes(key)) {
-        params[key] = value
+      // Capture UTM parameters, Facebook ad parameters, and other tracking parameters
+      if (key.startsWith("utm_") || 
+          ["source", "medium", "campaign", "term", "content", "adsetName", "adName", "placement", "campaign.name", "adset.name", "ad.name", "adset+name", "ad+name"].includes(key) ||
+          key.includes("campaign") || key.includes("adset") || key.includes("placement") || key.includes("ad")) {
+        
+        // Handle Facebook template variables - decode them properly
+        let processedValue = value
+        if (value.includes("{{") && value.includes("}}")) {
+          // Keep template variables as-is for now, but you might want to process them
+          processedValue = value
+        }
+        
+        // Normalize parameter names (handle + vs . in parameter names)
+        let normalizedKey = key
+        if (key === "adset+name") {
+          normalizedKey = "adset.name"
+        } else if (key === "ad+name") {
+          normalizedKey = "ad.name"
+        }
+        
+        params[normalizedKey] = processedValue
       }
     }
+    console.log("Captured UTM parameters:", params)
     setUtmParams(params)
   }, [])
 
@@ -101,7 +121,21 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
         utm_term: utmParams.utm_term || null,
         adsetName: utmParams.adsetName || null,
         adName: utmParams.adName || null,
+        placement: utmParams.placement || null,
+        "campaign.name": utmParams["campaign.name"] || null,
+        "adset.name": utmParams["adset.name"] || null,
+        "ad.name": utmParams["ad.name"] || null,
+        // Also include the original parameter names for backward compatibility
+        "adset+name": utmParams["adset+name"] || null,
+        "ad+name": utmParams["ad+name"] || null,
         landingPageUrl: typeof window !== 'undefined' ? window.location.href : null,
+        // Include all other captured parameters
+        ...Object.keys(utmParams).reduce((acc, key) => {
+          if (!acc[key]) {
+            acc[key] = utmParams[key]
+          }
+          return acc
+        }, {} as Record<string, string>)
       }
 
       // Send to Pably webhook

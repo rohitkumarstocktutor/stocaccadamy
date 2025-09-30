@@ -68,9 +68,11 @@ export default function ThankYouPage() {
             <p className="text-sm md:text-base text-green-800 dark:text-green-200 text-center max-w-lg">Get instant updates, connect with fellow learners, and never miss an announcement. Click below to join now!</p>
             <Link href="https://chat.whatsapp.com/your-group-link" target="_blank" rel="noopener noreferrer">
               <button className="bg-green-500 hover:bg-green-600 transition-all duration-200 text-white font-extrabold py-3 px-8 rounded-full flex items-center gap-3 text-lg md:text-xl tracking-wide shadow-lg hover:shadow-xl transform hover:scale-105">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 md:w-6 md:h-6">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 17.487A9.001 9.001 0 1 1 21 12c0 1.657-.45 3.214-1.238 4.55l1.13 4.13a1 1 0 0 1-1.25 1.25l-4.13-1.13z" />
-                </svg>
+                <img 
+                  src="/whatsapp.jpg" 
+                  alt="WhatsApp" 
+                  className="w-5 h-5 md:w-6 md:h-6 rounded-full object-cover"
+                />
                 Join WhatsApp Group
               </button>
             </Link>
