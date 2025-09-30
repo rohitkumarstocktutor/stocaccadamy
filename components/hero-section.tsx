@@ -41,7 +41,7 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
     for (const [key, value] of urlParams.entries()) {
       // Capture UTM parameters, Facebook ad parameters, and other tracking parameters
       if (key.startsWith("utm_") || 
-          ["source", "medium", "campaign", "term", "content", "adsetName", "adName", "placement", "campaign.name", "adset.name", "ad.name", "adset+name", "ad+name"].includes(key) ||
+          ["source", "medium", "campaign", "term", "content", "adsetName", "adName", "placement", "campaign.name", "adset.name", "ad.name", "adset+name", "ad+name", "adset name", "ad name"].includes(key) ||
           key.includes("campaign") || key.includes("adset") || key.includes("placement") || key.includes("ad")) {
         
         // Handle Facebook template variables - decode them properly
@@ -51,11 +51,11 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
           processedValue = value
         }
         
-        // Normalize parameter names (handle + vs . in parameter names)
+        // Normalize parameter names (handle + vs . vs spaces in parameter names)
         let normalizedKey = key
-        if (key === "adset+name") {
+        if (key === "adset+name" || key === "adset name") {
           normalizedKey = "adset.name"
-        } else if (key === "ad+name") {
+        } else if (key === "ad+name" || key === "ad name") {
           normalizedKey = "ad.name"
         }
         
@@ -125,9 +125,6 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
         "campaign.name": utmParams["campaign.name"] || null,
         "adset.name": utmParams["adset.name"] || null,
         "ad.name": utmParams["ad.name"] || null,
-        // Also include the original parameter names for backward compatibility
-        "adset+name": utmParams["adset+name"] || null,
-        "ad+name": utmParams["ad+name"] || null,
         landingPageUrl: typeof window !== 'undefined' ? window.location.href : null,
         // Include all other captured parameters
         ...Object.keys(utmParams).reduce((acc, key) => {
