@@ -197,9 +197,6 @@ export default function ThankYouClient({ courseData, courseKey }: ThankYouClient
         {workshopData && (
           <div className="w-full bg-white rounded-2xl p-4 shadow-lg">
             <div className="flex items-center justify-center gap-3">
-              <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
-                17
-              </div>
               <p className="text-gray-600 font-medium">
                 {formatWorkshopDateTime(workshopData.wDateTime)}
               </p>
