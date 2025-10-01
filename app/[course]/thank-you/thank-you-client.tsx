@@ -150,17 +150,8 @@ export default function ThankYouClient({ courseData, courseKey }: ThankYouClient
   const theme = getCourseTheme(courseKey);
 
   return (
-    <div className={`min-h-screen w-full relative overflow-hidden flex flex-col items-center px-4 py-4 bg-gradient-to-br ${theme.bgGradient} ${theme.darkBgGradient}`}>
+    <div className="min-h-screen w-full relative overflow-hidden flex flex-col items-center px-4 py-4 bg-teal-500">
       <MetaPixel pixelId={courseData.integrations.metaPixelId} courseData={courseData} />
-      {/* Decorative background shapes */}
-      <div className="absolute inset-0 pointer-events-none z-0">
-        <svg className="absolute top-0 left-0 w-1/2 h-1/2 opacity-20" viewBox="0 0 400 400" fill="none">
-          <circle cx="200" cy="200" r="200" fill={theme.primaryColor} />
-        </svg>
-        <svg className="absolute bottom-0 right-0 w-1/3 h-1/3 opacity-10" viewBox="0 0 300 300" fill="none">
-          <circle cx="150" cy="150" r="150" fill={theme.secondaryColor} />
-        </svg>
-      </div>
 
       {/* Confetti animation */}
       {showConfetti && (
@@ -172,77 +163,67 @@ export default function ThankYouClient({ courseData, courseKey }: ThankYouClient
         />
       )}
 
-      {/* Main content container - Optimized for viewport */}
-      <div className="z-10 flex flex-col items-center w-full max-w-4xl mx-auto flex-1 justify-center space-y-4">
-        {/* Compact header section */}
+      {/* Main content container - Clean and clear */}
+      <div className="z-10 flex flex-col items-center w-full max-w-2xl mx-auto flex-1 justify-center space-y-6 px-4">
+        {/* Simple header */}
         <div className="text-center space-y-3">
-          {/* Animated checkmark */}
-          <div className="mb-4">
-            <svg width="60" height="60" viewBox="0 0 56 56" fill="none" className="animate-bounce mx-auto">
-              <circle cx="28" cy="28" r="28" fill={theme.primaryColor} />
-              <path d="M18 29.5L25 36.5L38 23.5" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-primary tracking-tight">Thank You!</h1>
-          <p className="text-lg md:text-xl lg:text-2xl text-muted-foreground font-medium">Welcome to {courseData.title}!</p>
-          <p className="text-sm md:text-base lg:text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">You&apos;ve successfully enrolled in {theme.teacherName}&apos;s {courseData.title} course. Get ready to {courseData.subtitle.toLowerCase()}!</p>
+          <h1 className="text-4xl md:text-5xl font-black text-white tracking-tight">
+            Congrats! You're In! 🎉
+          </h1>
+          <p className="text-lg md:text-xl text-white font-medium">
+            You have successfully reserved your seat for the Masterclass.
+          </p>
         </div>
         
-        {/* Course-specific CTA - Prominently positioned and optimized */}
-        <div className={`w-full max-w-2xl flex flex-col items-center justify-center py-6 bg-gradient-to-r ${theme.bgGradientCTA} ${theme.darkBgGradientCTA} border-2 ${theme.borderColor} rounded-3xl relative shadow-lg`}>
-          <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-            <svg xmlns="http://www.w3.org/2000/svg" fill={theme.primaryColor} viewBox="0 0 48 48" width="40" height="40">
-              <circle cx="24" cy="24" r="24" fill={theme.primaryColor} />
-              <path d="M24 8C15.16 8 8 15.16 8 24s7.16 16 16 16 16-7.16 16-16S32.84 8 24 8zm-2 24l-6-6 1.41-1.41L22 28.17l8.59-8.59L32 21l-10 11z" fill="#fff" />
-            </svg>
-          </div>
-          <div className="flex flex-col items-center gap-3 mt-4 px-4">
-            <span className={`text-xl md:text-2xl lg:text-3xl font-bold ${theme.textColor} text-center`}>Join {theme.communityName}</span>
-            <p className={`text-sm md:text-base lg:text-lg ${theme.textColorDark} text-center max-w-2xl leading-relaxed`}>Connect with fellow traders, share insights, and get exclusive updates from {theme.teacherName}. Click below to join our community!</p>
-            <Link 
-              href={workshopData?.wAurl || "https://chat.whatsapp.com/your-group-link"} 
-              target="_blank" 
-              rel="noopener noreferrer"
-            >
-              <button className={`${theme.buttonColor} transition-all duration-200 text-white font-extrabold py-3 px-8 md:py-4 md:px-12 rounded-full flex items-center gap-3 text-lg md:text-xl lg:text-xl tracking-wide shadow-lg hover:shadow-xl transform hover:scale-105`}>
-                <img
-                  src="/whatsapp.jpg" 
-                  alt="WhatsApp" 
-                  className="w-5 h-5 md:w-6 md:h-6 rounded-full object-cover"
-                />
-                {isLoadingWorkshop ? "Loading..." : `Join ${theme.groupName}`}
-              </button>
-            </Link>
-          </div>
+        {/* WhatsApp Group Card */}
+        <div className="w-full bg-white rounded-2xl p-6 shadow-lg border-t-4 border-yellow-400">
+          <Link 
+            href={workshopData?.wAurl || "https://chat.whatsapp.com/your-group-link"} 
+            target="_blank" 
+            rel="noopener noreferrer"
+          >
+            <button className="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 text-lg transition-all duration-200">
+              <img
+                src="/whatsapp.jpg" 
+                alt="WhatsApp" 
+                className="w-6 h-6 rounded-full object-cover"
+              />
+              Join WhatsApp Group
+            </button>
+          </Link>
         </div>
 
-        {/* Workshop Date/Time Information - Compact version */}
+        {/* Workshop Details Card */}
         {workshopData && (
-          <div className={`w-full max-w-2xl p-3 rounded-xl border-2 ${theme.borderColor} bg-gradient-to-r ${theme.bgGradientCTA} ${theme.darkBgGradientCTA}`}>
-            <div className="text-center">
-              <h3 className={`text-base md:text-lg font-bold ${theme.textColorDark} mb-1`}>Workshop Details</h3>
-              <p className={`text-xs md:text-sm ${theme.textColor} mb-1`}>
-                <strong>Date & Time:</strong> {formatWorkshopDateTime(workshopData.wDateTime)}
-              </p>
-              <p className={`text-xs md:text-sm ${theme.textColor} mb-1`}>
-                <strong>Day:</strong> {workshopData.wDay}
-              </p>
-              <p className={`text-xs md:text-sm ${theme.textColor}`}>
-                <strong>Workshop:</strong> {workshopData.name}
+          <div className="w-full bg-white rounded-2xl p-4 shadow-lg">
+            <div className="flex items-center justify-center gap-3">
+              <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                17
+              </div>
+              <p className="text-gray-600 font-medium">
+                {formatWorkshopDateTime(workshopData.wDateTime)}
               </p>
             </div>
           </div>
         )}
         
         {isLoadingWorkshop && (
-          <div className="w-full max-w-2xl p-3 rounded-xl border-2 border-gray-300 bg-gray-100 dark:bg-gray-800">
+          <div className="w-full bg-white rounded-2xl p-4 shadow-lg">
             <div className="text-center">
-              <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400">Loading workshop details...</p>
+              <p className="text-gray-600">Loading workshop details...</p>
             </div>
           </div>
         )}
 
-        <p className="text-xs md:text-sm lg:text-base text-muted-foreground text-center max-w-2xl">If you have any questions, feel free to <Link href={`mailto:${theme.contactEmail}`} className="underline text-primary font-semibold">contact {theme.teacherName}</Link>.</p>
+        {/* Clear instructions */}
+        <div className="text-center space-y-2">
+          <p className="text-white text-sm">
+            Click on the button above to join the WhatsApp group.
+          </p>
+          <p className="text-white text-lg font-bold">
+            Do Not Forget to Join WhatsApp Group Before Jumping into the Masterclass
+          </p>
+        </div>
       </div>
     </div>
   );

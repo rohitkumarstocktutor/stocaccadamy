@@ -73,6 +73,7 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
         setWorkshopData(data)
       } catch (error) {
         console.error('Failed to load workshop data:', error)
+        setWorkshopData(null)
       }
     }
 
@@ -84,6 +85,7 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
     setIsSubmitting(true)
   
     try {
+      const urlParams = new URLSearchParams(window.location.search);
       const formatDate = (date: Date) => {
         const day = date.getDate().toString().padStart(2, '0')
         const month = (date.getMonth() + 1).toString().padStart(2, '0')
@@ -97,69 +99,33 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
         return `${day}/${month}/${year} ${displayHours}:${minutes}:${seconds} ${ampm}`
       }
   
-      // Get workshop time from workshopData (prioritize script data)
+      // Get workshop time from workshopData (send empty string if not available)
       const workshopTime = workshopData 
         ? formatWorkshopDateTime(workshopData.wDateTime)
-        : courseData.course.date
+        : ""
   
+      // Clean phone number - remove country code if present
+      const cleanPhone = formData.phone.replace(/^\+91/, '').replace(/^91/, '').trim()
+      
       // Prepare data for Pabbly webhook with new format
       const webhookData = {
         submittedAt: formatDate(new Date()),
         name: formData.name,
         email: formData.email,
-        phone: formData.phone,
+        phone: cleanPhone,
         CampeignName: courseKey || 'default',
         WorkShopTime: workshopTime,
-        // Standard UTM Parameters
-        utm_source: utmParams.utm_source || utmParams.source || null,
-        utm_medium: utmParams.utm_medium || utmParams.medium || null,
-        utm_campaign: utmParams.utm_campaign || utmParams.campaign || utmParams["campaign.name"] || null,
-        utm_adgroup: utmParams.utm_adgroup || utmParams.adgroup || utmParams.adgroupid || null,
-        utm_content: utmParams.utm_content || utmParams.content || utmParams.creative || null,
-        utm_term: utmParams.utm_term || utmParams.term || utmParams.keyword || null,
-        
-        // Facebook Ad Parameters
-        "adset.name": utmParams["adset.name"] || null,
-        "ad.name": utmParams["ad.name"] || null,
-        "campaign.name": utmParams["campaign.name"] || utmParams.utm_campaign || null,
-        placement: utmParams.placement || utmParams.utm_placement || null,
-        adsetid: utmParams.adsetid || null,
-        campaignid: utmParams.campaignid || null,
-        adid: utmParams.adid || null,
-        
-        // Platform-specific Click IDs
-        fbclid: utmParams.fbclid || null,
-        gclid: utmParams.gclid || null,
-        msclkid: utmParams.msclkid || null,
-        ttclid: utmParams.ttclid || null,
-        
-        // Additional Ad Parameters
-        creative: utmParams.creative || null,
-        keyword: utmParams.keyword || null,
-        matchtype: utmParams.matchtype || null,
-        device: utmParams.device || null,
-        network: utmParams.network || null,
-        audience: utmParams.audience || null,
-        landingPageUrl: typeof window !== 'undefined' ? window.location.href : null,
-        // Include all other captured parameters
-        ...Object.keys(utmParams).reduce((acc, key) => {
-          // Skip if already included above
-          const skipKeys = [
-            'utm_source', 'utm_medium', 'utm_campaign', 'utm_adgroup', 'utm_content', 'utm_term',
-            'adset.name', 'ad.name', 'campaign.name', 'placement', 'adsetid', 'campaignid', 'adid',
-            'fbclid', 'gclid', 'msclkid', 'ttclid', 'creative', 'keyword', 'matchtype', 'device', 'network', 'audience',
-            'source', 'medium', 'campaign', 'term', 'content', 'adgroup', 'adgroupid'
-          ]
-          if (!skipKeys.includes(key) && utmParams[key]) {
-            acc[key] = utmParams[key]
-          }
-          return acc
-        }, {} as Record<string, string>)
+        utm_source: urlParams.get("utm_source"),
+        utm_medium: urlParams.get("utm_medium"),
+        utm_campaign: urlParams.get("utm_campaign"),
+        utm_adgroup: urlParams.get("utm_adgroup"),
+        utm_content: urlParams.get("utm_content"),
+        utm_term: urlParams.get("utm_term"),
+        adsetName: urlParams.get("adset name"),
+        adName: urlParams.get("ad name"),
+        landingPageUrl: window.location.href,
       }
   
-      console.log("Sending to Pabbly:", webhookData) // Debug log
-  
-      // Send to Pabbly webhook
       const response = await fetch(courseData.integrations.pablyWebhookUrl, {
         method: "POST",
         headers: {
@@ -323,7 +289,7 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
                       className="w-full h-12 text-base font-bold bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-primary-foreground transition-all duration-300"
                       disabled={isSubmitting}
                     >
-                      {isSubmitting ? "Registering..." : "Submit "}
+                      {isSubmitting ? "Registering..." : "Submit"}
                     </Button>
                   </form>
 
