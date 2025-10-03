@@ -154,7 +154,7 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
         submittedAt: formatDate(new Date()),
         name: formData.name,
         email: formData.email,
-        phone: cleanPhone.trim(),
+        phone: cleanPhone.replace(/\s+/g, ""), 
         CampeignName: courseKey || 'default',
         WorkShopTime: workshopTime,
         utm_source: urlParams.get("utm_source"),
