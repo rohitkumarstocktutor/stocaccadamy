@@ -30,8 +30,44 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
   const [utmParams, setUtmParams] = useState<Record<string, string>>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [workshopData, setWorkshopData] = useState<WorkshopData | null>(null)
+  const [phoneError, setPhoneError] = useState("")
   const router = useRouter();
   const { trackLead } = useMetaPixelTracking(courseData.integrations.metaPixelId);
+
+  // Phone number validation function for Indian mobile numbers
+  const validatePhoneNumber = (phone: string): string => {
+    // Remove any non-digit characters
+    const cleanPhone = phone.replace(/\D/g, '');
+    
+    // Check if empty
+    if (!cleanPhone) {
+      return "Phone number is required";
+    }
+    
+    // Check if it starts with country code 91
+    let phoneNumber = cleanPhone;
+    if (cleanPhone.startsWith('91') && cleanPhone.length === 12) {
+      phoneNumber = cleanPhone.substring(2);
+    }
+    
+    // Check length (should be 10 digits for Indian mobile)
+    if (phoneNumber.length !== 10) {
+      return "Phone number must be 10 digits";
+    }
+    
+    // Check if it starts with valid Indian mobile prefixes (6, 7, 8, 9)
+    const validPrefixes = ['6', '7', '8', '9'];
+    if (!validPrefixes.includes(phoneNumber[0])) {
+      return "Please enter a valid Indian mobile number";
+    }
+    
+    // Check if all digits are the same (like 1111111111)
+    if (/^(\d)\1{9}$/.test(phoneNumber)) {
+      return "Please enter a valid phone number";
+    }
+    
+    return ""; // No error
+  };
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search)
@@ -82,6 +118,14 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    // Validate phone number before submission
+    const phoneValidationError = validatePhoneNumber(formData.phone);
+    if (phoneValidationError) {
+      setPhoneError(phoneValidationError);
+      return; // Prevent form submission
+    }
+    
     setIsSubmitting(true)
   
     try {
@@ -147,6 +191,7 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
       if (responseData.status === "success" || responseData.status === "Success") {
         // Reset form
         setFormData({ name: "", email: "", phone: "", countryCode: "+91" })
+        setPhoneError("") // Clear phone validation error
         // Redirect to thank you page
         router.push(`/${courseKey}/thank-you`)
       } else {
@@ -277,11 +322,22 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
                           type="tel"
                           placeholder="Enter your phone number"
                           value={formData.phone}
-                          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                          onChange={(e) => {
+                            const value = e.target.value;
+                            setFormData({ ...formData, phone: value });
+                            // Real-time validation
+                            const error = validatePhoneNumber(value);
+                            setPhoneError(error);
+                          }}
                           required
-                          className="pl-12 h-10 border-border/50 focus:border-primary"
+                          className={`pl-12 h-10 border-border/50 focus:border-primary ${
+                            phoneError ? 'border-red-500 focus:border-red-500' : ''
+                          }`}
                         />
                       </div>
+                      {phoneError && (
+                        <p className="text-sm text-red-500 mt-1">{phoneError}</p>
+                      )}
                     </div>
 
                     <Button
