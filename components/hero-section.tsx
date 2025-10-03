@@ -45,14 +45,14 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
     }
     
     // Check if it starts with country code 91
-    let phoneNumber = cleanPhone;
+    let phoneNumber = cleanPhone.trim();
     if (cleanPhone.startsWith('91') && cleanPhone.length === 12) {
       phoneNumber = cleanPhone.substring(2);
     }
     
     // Check length (should be 10 digits for Indian mobile)
     if (phoneNumber.length !== 10) {
-      return "Phone number must be 10 digits";
+      return "Phone number must be valid";
     }
     
     // Check if it starts with valid Indian mobile prefixes (6, 7, 8, 9)
@@ -119,13 +119,11 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     
-    // Validate phone number before submission
     const phoneValidationError = validatePhoneNumber(formData.phone);
     if (phoneValidationError) {
       setPhoneError(phoneValidationError);
-      return; // Prevent form submission
+      return;
     }
-    
     setIsSubmitting(true)
   
     try {
@@ -156,7 +154,7 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
         submittedAt: formatDate(new Date()),
         name: formData.name,
         email: formData.email,
-        phone: cleanPhone,
+        phone: cleanPhone.trim(),
         CampeignName: courseKey || 'default',
         WorkShopTime: workshopTime,
         utm_source: urlParams.get("utm_source"),
