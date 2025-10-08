@@ -62,12 +62,7 @@ export function StickyFooter({ courseData, courseKey }: StickyFooterProps) {
               </span>
             </div>
           </div>
-          <a
-              href="#form"
-              className="w-full text-center bg-background cursor-pointer text-primary hover:bg-background/90 font-bold py-3 rounded-md border-2 border-background/20 transition-all duration-300 text-sm block"
-          >
-            Grab Your Spot Now
-          </a>
+
         </div>
 
         {/* Desktop Layout */}
@@ -92,12 +87,7 @@ export function StickyFooter({ courseData, courseKey }: StickyFooterProps) {
               </span>
             </div>
           </div>
-          <a
-            href="#form"
-            className="bg-background text-center cursor-pointer text-primary hover:bg-background/90 font-bold px-8 py-3 rounded-md border-2 border-background/20 transition-all duration-300 transform hover:scale-105 block"
-          >
-            Grab Your Spot Now 
-          </a>
+
         </div>
       </div>
     </div>
