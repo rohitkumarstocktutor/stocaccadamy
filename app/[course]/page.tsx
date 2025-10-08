@@ -54,16 +54,29 @@ export default function CoursePage({ params }: CoursePageProps) {
   }
 
   return (
-    <main className="min-h-screen">
-      <MetaPixel pixelId={courseData.integrations.metaPixelId} courseData={courseData} />
-      <HeroSection courseData={courseData} courseKey={params.course} />
-      <AboutSection courseData={courseData} />
-      <AboutTeacherSection courseData={courseData} />
-      <TestimonialsSection courseData={courseData} />
-      <CtaSection courseData={courseData} courseKey={params.course} />
-      <BottomSection />
-      <StickyFooter courseData={courseData} courseKey={params.course} />
-    </main>
+    <>
+      {/* Add pixel ID to head for Meta Pixel extension detection */}
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `
+            if (typeof fbq !== 'undefined') {
+              fbq('init', '${courseData.integrations.metaPixelId}');
+              fbq('track', 'PageView');
+            }
+          `,
+        }}
+      />
+      <main className="min-h-screen">
+        <MetaPixel pixelId={courseData.integrations.metaPixelId} courseData={courseData} />
+        <HeroSection courseData={courseData} courseKey={params.course} />
+        <AboutSection courseData={courseData} />
+        <AboutTeacherSection courseData={courseData} />
+        <TestimonialsSection courseData={courseData} />
+        <CtaSection courseData={courseData} courseKey={params.course} />
+        <BottomSection />
+        <StickyFooter courseData={courseData} courseKey={params.course} />
+      </main>
+    </>
   )
 }
 
