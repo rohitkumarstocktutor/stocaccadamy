@@ -43,7 +43,6 @@ export function BottomSection() {
                             <Link href="#form">
                                 <div 
                                     className="bg-background text-primary hover:bg-background/90 font-bold px-8 py-3 border-2 border-background/20 border-radius-lg transition-all duration-300 border-cursor-pointer border-1 border-solid"
-                                    data-meta-pixel-exclude="true"
                                     role="button"
                                     tabIndex={0}
                                 >

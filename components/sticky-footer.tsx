@@ -63,7 +63,6 @@ export function StickyFooter({ courseData, courseKey }: StickyFooterProps) {
             </div>
           </div>
           <span
-            data-meta-pixel-exclude="true"
               className="w-full text-center bg-background cursor-pointer text-primary hover:bg-background/90 font-bold py-3 rounded-md border-2 border-background/20 transition-all duration-300 text-sm"
             onClick={() => {
               document.querySelector("form")?.scrollIntoView({ behavior: "smooth" })
@@ -96,7 +95,6 @@ export function StickyFooter({ courseData, courseKey }: StickyFooterProps) {
             </div>
           </div>
           <span
-            data-meta-pixel-exclude="true"
             className="bg-background text-center cursor-pointer text-primary hover:bg-background/90 font-bold px-8 py-3 rounded-md border-2 border-background/20 transition-all duration-300 transform hover:scale-105"
             onClick={() => {
               document.querySelector("form")?.scrollIntoView({ behavior: "smooth" })
