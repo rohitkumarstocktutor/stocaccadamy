@@ -62,14 +62,14 @@ export function StickyFooter({ courseData, courseKey }: StickyFooterProps) {
               </span>
             </div>
           </div>
-          <div
-              className="w-full text-center bg-background cursor-pointer text-primary hover:bg-background/90 font-bold py-3 border-2 border-background/20 transition-all duration-300 text-sm"
+          <span
+              className="w-full text-center bg-background cursor-pointer text-primary hover:bg-background/90 font-bold py-3 rounded-md border-2 border-background/20 transition-all duration-300 text-sm"
             onClick={() => {
               document.querySelector("form")?.scrollIntoView({ behavior: "smooth" })
             }}
           >
-            Submit
-          </div>
+            Grab Your Spot Now
+          </span>
         </div>
 
         {/* Desktop Layout */}
@@ -94,14 +94,14 @@ export function StickyFooter({ courseData, courseKey }: StickyFooterProps) {
               </span>
             </div>
           </div>
-          <div
-            className="bg-background rounded-lg text-center cursor-pointer text-primary hover:bg-background/90 font-bold px-8 py-3 border-2 border-background/20 transition-all duration-300 transform hover:scale-105"
+          <span
+            className="bg-background rounded-lg text-center cursor-pointer text-primary hover:bg-background/90 font-bold px-8 py-3 rounded-md border-2 border-background/20 transition-all duration-300 transform hover:scale-105"
             onClick={() => {
               document.querySelector("form")?.scrollIntoView({ behavior: "smooth" })
             }}
           >
-            Submit 
-          </div>
+            Grab Your Spot Now 
+          </span>
         </div>
       </div>
     </div>
