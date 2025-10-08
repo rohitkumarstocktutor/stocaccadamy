@@ -63,27 +63,6 @@ export function useMetaPixelTracking(pixelId: string) {
         }
 
         // Check if fbq is available and is a function
-        if ((window as any).fbq && typeof (window as any).fbq === 'function') {
-          (window as any).fbq('track', 'Lead', {
-            content_name: courseData.title,
-            content_category: 'Course Registration',
-            value: courseData.course.price,
-            currency: 'INR',
-            email: formData.email,
-            phone: formData.phone
-          })
-          
-          // Also track ViewContent when form is submitted
-          (window as any).fbq('track', 'ViewContent', {
-            content_name: courseData.title,
-            content_category: 'Course',
-            value: courseData.course.price,
-            currency: 'INR'
-          })
-          console.log('Meta Pixel Lead event tracked successfully')
-        } else {
-          console.warn('Meta Pixel fbq function not available yet')
-        }
       } catch (error) {
         console.error('Error tracking Meta Pixel Lead event:', error)
       }
