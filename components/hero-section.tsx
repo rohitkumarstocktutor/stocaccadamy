@@ -9,7 +9,6 @@ import { Label } from "@/components/ui/label"
 import { Card, CardContent } from "@/components/ui/card"
 import { Star, Shield, Users, Clock } from "lucide-react"
 import Image from "next/image"
-import { useMetaPixelTracking } from "@/components/meta-pixel"
 import { fetchWorkshopData, formatWorkshopDateTime, getTeacherNameFromCourseKey, WorkshopData } from "@/lib/workshop-service"
 import { useRouter } from 'next/navigation'
 
@@ -32,7 +31,6 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
   const [workshopData, setWorkshopData] = useState<WorkshopData | null>(null)
   const [phoneError, setPhoneError] = useState("")
   const router = useRouter();
-  const { trackLead } = useMetaPixelTracking(courseData.integrations.metaPixelId);
 
   // Phone number validation function for Indian mobile numbers
   const validatePhoneNumber = (phone: string): string => {
@@ -125,8 +123,6 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
       return;
     }
     
-    // Track form submission with Meta Pixel
-    trackLead(formData, courseData);
     
     setIsSubmitting(true)
   
