@@ -124,6 +124,10 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
       setPhoneError(phoneValidationError);
       return;
     }
+    
+    // Track form submission with Meta Pixel
+    trackLead(formData, courseData);
+    
     setIsSubmitting(true)
   
     try {

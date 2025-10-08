@@ -18,9 +18,12 @@ export function MetaPixel({ pixelId, courseData }: MetaPixelProps) {
     const initializePixel = () => {
       if (typeof window !== 'undefined' && (window as any).fbq) {
         try {
-          // Initialize pixel if not already initialized
-          (window as any).fbq('init', pixelId)
-          console.log(`Meta Pixel initialized with ID: ${pixelId}`)
+          // Initialize pixel with autodetect events disabled
+          (window as any).fbq('init', pixelId, {
+            autoConfig: false,
+            debug: false
+          })
+          console.log(`Meta Pixel initialized with ID: ${pixelId} (autodetect disabled)`)
           
           // Set a flag to indicate Meta Pixel is available
           ;(window as any).metaPixelBlocked = false
