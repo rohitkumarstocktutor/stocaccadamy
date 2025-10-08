@@ -280,7 +280,7 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
                     </div>
                   </div>
 
-                  <form onSubmit={handleSubmit} className="space-y-3">
+                  <form id="form" onSubmit={handleSubmit} className="space-y-3">
                     <div className="space-y-1">
                       <Label htmlFor="name" className="text-sm font-medium">
                         Full Name
@@ -344,6 +344,7 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
 
                     <Button
                       type="submit"
+                      data-meta-pixel-track="Lead"
                       className="w-full h-12 text-base font-bold bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-primary-foreground transition-all duration-300"
                       disabled={isSubmitting}
                     >
