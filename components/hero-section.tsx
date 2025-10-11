@@ -43,14 +43,14 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
     }
     
     // Check if it starts with country code 91
-    let phoneNumber = cleanPhone.trim();
+    let phoneNumber = cleanPhone;
     if (cleanPhone.startsWith('91') && cleanPhone.length === 12) {
       phoneNumber = cleanPhone.substring(2);
     }
     
     // Check length (should be 10 digits for Indian mobile)
     if (phoneNumber.length !== 10) {
-      return "Phone number must be valid";
+      return "Phone number must be 10 digits";
     }
     
     // Check if it starts with valid Indian mobile prefixes (6, 7, 8, 9)
@@ -65,6 +65,20 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
     }
     
     return ""; // No error
+  };
+
+  // Phone number cleaning function (consistent with validation)
+  const cleanPhoneNumber = (phone: string): string => {
+    // Remove any non-digit characters (same as validation)
+    const cleanPhone = phone.replace(/\D/g, '');
+    
+    // Remove country code if present (same logic as validation)
+    let phoneNumber = cleanPhone;
+    if (cleanPhone.startsWith('91') && cleanPhone.length === 12) {
+      phoneNumber = cleanPhone.substring(2);
+    }
+    
+    return phoneNumber;
   };
 
   useEffect(() => {
@@ -146,15 +160,15 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
         ? formatWorkshopDateTime(workshopData.wDateTime)
         : ""
   
-      // Clean phone number - remove country code if present
-      const cleanPhone = formData.phone.replace(/^\+91/, '').replace(/^91/, '').trim()
+      // Clean phone number using consistent logic
+      const cleanPhone = cleanPhoneNumber(formData.phone)
       
       // Prepare data for Pabbly webhook with new format
       const webhookData = {
         submittedAt: formatDate(new Date()),
         name: formData.name,
         email: formData.email,
-        phone: cleanPhone.replace(/\s+/g, ""), 
+        phone: cleanPhone, 
         CampeignName: courseKey || 'default',
         WorkShopTime: workshopTime,
         utm_source: urlParams.get("utm_source"),
