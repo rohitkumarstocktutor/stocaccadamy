@@ -40,42 +40,17 @@ export default function ThankYouClient({ courseData, courseKey }: ThankYouClient
 
 
   useEffect(() => {
-    // Fetch workshop data with retry logic for mobile
+    // Fetch workshop data
     const loadWorkshopData = async () => {
-      let retries = 3;
-      let lastError = null;
-      
-      while (retries > 0) {
-        try {
-          const teacherName = getTeacherNameFromCourseKey(courseKey);
-          const data = await fetchWorkshopData(teacherName);
-          
-          if (data && data.wAurl) {
-            setWorkshopData(data);
-            break;
-          } else {
-            console.warn('Workshop data loaded but no WhatsApp URL found');
-            setWorkshopData(null);
-            break;
-          }
-        } catch (error) {
-          lastError = error;
-          console.error(`Failed to load workshop data (${4 - retries}/3):`, error);
-          retries--;
-          
-          if (retries > 0) {
-            // Wait before retrying
-            await new Promise(resolve => setTimeout(resolve, 1000));
-          }
-        }
+      try {
+        const teacherName = getTeacherNameFromCourseKey(courseKey);
+        const data = await fetchWorkshopData(teacherName);
+        setWorkshopData(data);
+      } catch (error) {
+        console.error('Failed to load workshop data:', error);
+      } finally {
+        setIsLoadingWorkshop(false);
       }
-      
-      if (retries === 0 && lastError) {
-        console.error('All retry attempts failed for workshop data:', lastError);
-        setWorkshopData(null);
-      }
-      
-      setIsLoadingWorkshop(false);
     };
 
     loadWorkshopData();
@@ -219,23 +194,17 @@ export default function ThankYouClient({ courseData, courseKey }: ThankYouClient
               </button>
             </Link>
           ) : (
-            <div className="w-full">
-              <button 
-                onClick={() => {
-                  // Fallback WhatsApp URL for when workshop data fails to load
-                  const fallbackUrl = `https://wa.me/919876543210?text=Hi, I want to join the trading group for ${courseKey} course`;
-                  window.open(fallbackUrl, '_blank');
-                }}
-                className="w-full bg-green-500 hover:bg-green-600 active:bg-green-700 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 text-lg transition-all duration-200 touch-manipulation select-none"
-              >
-                <img
-                  src="/whatsapp.jpg" 
-                  alt="WhatsApp" 
-                  className="w-6 h-6 rounded-full object-cover"
-                />
-                {isLoadingWorkshop ? "Loading WhatsApp Group..." : "Join WhatsApp Group"}
-              </button>
-            </div>
+            <button 
+              disabled 
+              className="w-full bg-green-500 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 text-lg transition-all duration-200 opacity-50 cursor-not-allowed touch-manipulation"
+            >
+              <img
+                src="/whatsapp.jpg" 
+                alt="WhatsApp" 
+                className="w-6 h-6 rounded-full object-cover"
+              />
+              {isLoadingWorkshop ? "Loading WhatsApp Group..." : "Join WhatsApp Group"}
+            </button>
           )}
         </div>
 
