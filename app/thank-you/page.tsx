@@ -11,10 +11,15 @@ const Confetti = dynamic(() => import("react-confetti"), { ssr: false });
 
 export default function ThankYouPage() {
   const [showConfetti, setShowConfetti] = useState(true);
+  const [hasWhatsAppData, setHasWhatsAppData] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => setShowConfetti(false), 3500);
     return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    setHasWhatsAppData(false);
   }, []);
 
   return (
@@ -66,16 +71,30 @@ export default function ThankYouPage() {
           <div className="flex flex-col items-center gap-3 mt-4 px-4">
             <span className="text-xl md:text-2xl font-bold text-green-700 dark:text-green-300 text-center">Join our WhatsApp Group</span>
             <p className="text-sm md:text-base text-green-800 dark:text-green-200 text-center max-w-lg">Get instant updates, connect with fellow learners, and never miss an announcement. Click below to join now!</p>
-            <Link href="https://chat.whatsapp.com/your-group-link" target="_blank" rel="noopener noreferrer">
-              <button className="bg-green-500 hover:bg-green-600 transition-all duration-200 text-white font-extrabold py-3 px-8 rounded-full flex items-center gap-3 text-lg md:text-xl tracking-wide shadow-lg hover:shadow-xl transform hover:scale-105">
+            {hasWhatsAppData ? (
+              <Link href="https://chat.whatsapp.com/your-group-link" target="_blank" rel="noopener noreferrer">
+                <button className="bg-green-500 hover:bg-green-600 transition-all duration-200 text-white font-extrabold py-3 px-8 rounded-full flex items-center gap-3 text-lg md:text-xl tracking-wide shadow-lg hover:shadow-xl transform hover:scale-105">
+                  <img
+                    src="/whatsapp.jpg" 
+                    alt="WhatsApp" 
+                    className="w-5 h-5 md:w-6 md:h-6 rounded-full object-cover"
+                  />
+                  Join WhatsApp Group
+                </button>
+              </Link>
+            ) : (
+              <button 
+                disabled 
+                className="bg-gray-400 cursor-not-allowed transition-all duration-200 text-white font-extrabold py-3 px-8 rounded-full flex items-center gap-3 text-lg md:text-xl tracking-wide shadow-lg opacity-60"
+              >
                 <img
                   src="/whatsapp.jpg" 
                   alt="WhatsApp" 
                   className="w-5 h-5 md:w-6 md:h-6 rounded-full object-cover"
                 />
-                Join WhatsApp Group
+                WhatsApp Group Unavailable
               </button>
-            </Link>
+            )}
           </div>
         </div>
 
