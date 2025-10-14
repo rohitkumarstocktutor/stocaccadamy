@@ -15,6 +15,9 @@ export async function fetchWorkshopData(teacherName: string = 'vibhor'): Promise
     const baseUrl = 'https://script.google.com/macros/s/AKfycby-TiE4gLk4bUC-mSYaT_lDwyOU1T6JTMNw2pIeYQ59qJ2Mk0x9jk_6x47QR5ASCcdasQ/exec';
     const url = `${baseUrl}?q=${encodeURIComponent(teacherName)}`;
     
+    // Detect if we're on mobile
+    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+    
     const response = await fetch(url, {
       method: 'GET',
       headers: {
@@ -25,8 +28,12 @@ export async function fetchWorkshopData(teacherName: string = 'vibhor'): Promise
         'sec-fetch-dest': 'empty',
         'sec-fetch-mode': 'cors',
         'sec-fetch-site': 'cross-site',
-        'user-agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Mobile Safari/537.36'
-      }
+        'user-agent': isMobile 
+          ? 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1'
+          : 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Mobile Safari/537.36'
+      },
+      // Add timeout for mobile networks
+      signal: AbortSignal.timeout(10000)
     });
 
     if (!response.ok) {
@@ -34,6 +41,12 @@ export async function fetchWorkshopData(teacherName: string = 'vibhor'): Promise
     }
 
     const data: WorkshopData = await response.json();
+    
+    // Validate the data structure
+    if (!data || typeof data !== 'object') {
+      throw new Error('Invalid data format received');
+    }
+    
     return data;
   } catch (error) {
     console.error('Error fetching workshop data:', error);
