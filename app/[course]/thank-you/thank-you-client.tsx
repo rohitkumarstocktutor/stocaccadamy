@@ -177,20 +177,34 @@ export default function ThankYouClient({ courseData, courseKey }: ThankYouClient
         
         {/* WhatsApp Group Card */}
         <div className="w-full bg-white rounded-2xl p-6 shadow-lg border-t-4 border-yellow-400">
-          <Link 
-            href={workshopData?.wAurl || "https://chat.whatsapp.com/your-group-link"} 
-            target="_blank" 
-            rel="noopener noreferrer"
-          >
-            <button className="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 text-lg transition-all duration-200">
+          {workshopData?.wAurl ? (
+            <Link 
+              href={workshopData.wAurl} 
+              target="_blank" 
+              rel="noopener noreferrer"
+            >
+              <button className="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 text-lg transition-all duration-200">
+                <img
+                  src="/whatsapp.jpg" 
+                  alt="WhatsApp" 
+                  className="w-6 h-6 rounded-full object-cover"
+                />
+                Join WhatsApp Group
+              </button>
+            </Link>
+          ) : (
+            <button 
+              disabled 
+              className="w-full bg-green-500 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 text-lg transition-all duration-200 opacity-50 cursor-not-allowed"
+            >
               <img
                 src="/whatsapp.jpg" 
                 alt="WhatsApp" 
                 className="w-6 h-6 rounded-full object-cover"
               />
-              Join WhatsApp Group
+              {isLoadingWorkshop ? "Loading WhatsApp Group..." : "Join WhatsApp Group"}
             </button>
-          </Link>
+          )}
         </div>
 
         {/* Workshop Details Card */}
