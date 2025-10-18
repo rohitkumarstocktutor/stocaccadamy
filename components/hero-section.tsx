@@ -9,8 +9,9 @@ import { Label } from "@/components/ui/label"
 import { Card, CardContent } from "@/components/ui/card"
 import { Star, Shield, Users, Clock } from "lucide-react"
 import Image from "next/image"
-import { fetchWorkshopData, formatWorkshopDateTime, getTeacherNameFromCourseKey, WorkshopData } from "@/lib/workshop-service"
+import { formatWorkshopDateTime } from "@/lib/workshop-service"
 import { useRouter } from 'next/navigation'
+import { useWorkshop } from "@/contexts/workshop-context"
 
 // Removed countryCodes array - now using fixed +91 for India
 
@@ -28,9 +29,9 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
   })
   const [utmParams, setUtmParams] = useState<Record<string, string>>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [workshopData, setWorkshopData] = useState<WorkshopData | null>(null)
   const [phoneError, setPhoneError] = useState("")
   const router = useRouter();
+  const { workshopData, fetchWorkshopDataForCourse } = useWorkshop();
 
   // Phone number validation function for Indian mobile numbers
   const validatePhoneNumber = (phone: string): string => {
@@ -113,20 +114,11 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
   
 
   useEffect(() => {
-    // Fetch workshop data
-    const loadWorkshopData = async () => {
-      try {
-        const teacherName = getTeacherNameFromCourseKey(courseKey || 'vibhor')
-        const data = await fetchWorkshopData(teacherName)
-        setWorkshopData(data)
-      } catch (error) {
-        console.error('Failed to load workshop data:', error)
-        setWorkshopData(null)
-      }
+    // Fetch workshop data using context
+    if (courseKey) {
+      fetchWorkshopDataForCourse(courseKey)
     }
-
-    loadWorkshopData()
-  }, [courseKey])
+  }, [courseKey, fetchWorkshopDataForCourse])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -204,6 +196,12 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
         // Reset form
         setFormData({ name: "", email: "", phone: "", countryCode: "+91" })
         setPhoneError("") // Clear phone validation error
+        
+        // Store workshop data in localStorage for thank you page
+        if (workshopData) {
+          localStorage.setItem('workshopData', JSON.stringify(workshopData));
+        }
+        
         // Redirect to thank you page
         router.push(`/${courseKey}/thank-you`)
       } else {

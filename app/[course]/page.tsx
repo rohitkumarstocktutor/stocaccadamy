@@ -10,6 +10,7 @@ import { Bot } from "lucide-react"
 import { BottomSection } from "@/components/bottom-section"
 import { MetaPixel } from "@/components/meta-pixel"
 import { Metadata } from "next"
+import { WorkshopProvider } from "@/contexts/workshop-context"
 
 interface CoursePageProps {
   params: {
@@ -54,7 +55,7 @@ export default function CoursePage({ params }: CoursePageProps) {
   }
 
   return (
-    <>
+    <WorkshopProvider>
       {/* Add pixel ID to head for Meta Pixel extension detection */}
       <script
         dangerouslySetInnerHTML={{
@@ -76,7 +77,7 @@ export default function CoursePage({ params }: CoursePageProps) {
         <BottomSection />
         <StickyFooter courseData={courseData} courseKey={params.course} />
       </main>
-    </>
+    </WorkshopProvider>
   )
 }
 

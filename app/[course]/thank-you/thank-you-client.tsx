@@ -4,7 +4,7 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { MetaPixel, useMetaPixelTracking } from "@/components/meta-pixel";
-import { fetchWorkshopData, formatWorkshopDateTime, getTeacherNameFromCourseKey, WorkshopData } from "@/lib/workshop-service";
+import { formatWorkshopDateTime } from "@/lib/workshop-service";
 
 // Declare gtag function for TypeScript
 declare global {
@@ -22,8 +22,10 @@ interface ThankYouClientProps {
 
 export default function ThankYouClient({ courseData, courseKey }: ThankYouClientProps) {
   const [showConfetti, setShowConfetti] = useState(true);
-  const [workshopData, setWorkshopData] = useState<WorkshopData | null>(null);
-  const [isLoadingWorkshop, setIsLoadingWorkshop] = useState(true);
+  const [workshopData, setWorkshopData] = useState<any>(null);
+  const [isLoadingWorkshop, setIsLoadingWorkshop] = useState(false);
+  const [countdown, setCountdown] = useState(10);
+  const [hasClickedButton, setHasClickedButton] = useState(false);
   // Meta Pixel tracking removed - only using for PageView
 
   useEffect(() => {
@@ -39,22 +41,51 @@ export default function ThankYouClient({ courseData, courseKey }: ThankYouClient
   }, [courseKey]);
 
 
+  // Load workshop data from localStorage (passed from course page)
   useEffect(() => {
-    // Fetch workshop data
-    const loadWorkshopData = async () => {
+    const storedData = localStorage.getItem('workshopData');
+    if (storedData) {
       try {
-        const teacherName = getTeacherNameFromCourseKey(courseKey);
-        const data = await fetchWorkshopData(teacherName);
-        setWorkshopData(data);
+        const parsedData = JSON.parse(storedData);
+        setWorkshopData(parsedData);
+        // Clear the stored data after using it
+        localStorage.removeItem('workshopData');
       } catch (error) {
-        console.error('Failed to load workshop data:', error);
-      } finally {
-        setIsLoadingWorkshop(false);
+        console.error('Error parsing stored workshop data:', error);
       }
-    };
+    }
+  }, []);
 
-    loadWorkshopData();
-  }, [courseKey]);
+  // Auto-redirect to WhatsApp after 10 seconds if user hasn't clicked
+  useEffect(() => {
+    if (hasClickedButton || !workshopData?.wAurl) return;
+
+    const countdownTimer = setInterval(() => {
+      setCountdown((prev) => {
+        if (prev <= 1) {
+          // Auto-redirect to WhatsApp
+          window.open(workshopData.wAurl, '_blank');
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(countdownTimer);
+  }, [hasClickedButton, workshopData?.wAurl]);
+
+  // Function to handle WhatsApp button click
+  const handleWhatsAppClick = (e?: React.MouseEvent) => {
+    // Prevent event bubbling if clicked from button
+    if (e) {
+      e.stopPropagation();
+    }
+    
+    setHasClickedButton(true);
+    if (workshopData?.wAurl) {
+      window.open(workshopData.wAurl, '_blank');
+    }
+  };
 
   // Course-specific colors and content
   const getCourseTheme = (courseKey: string) => {
@@ -150,7 +181,10 @@ export default function ThankYouClient({ courseData, courseKey }: ThankYouClient
   const theme = getCourseTheme(courseKey);
 
   return (
-    <div className="min-h-screen w-full relative overflow-hidden flex flex-col items-center px-4 py-4 bg-teal-500">
+    <div 
+      className="min-h-screen w-full relative overflow-hidden flex flex-col items-center px-4 py-4 bg-teal-500 cursor-pointer"
+      onClick={handleWhatsAppClick}
+    >
       <MetaPixel pixelId={courseData.integrations.metaPixelId} courseData={courseData} />
 
       {/* Confetti animation */}
@@ -178,21 +212,17 @@ export default function ThankYouClient({ courseData, courseKey }: ThankYouClient
         {/* WhatsApp Group Card */}
         <div className="w-full bg-white rounded-2xl p-6 shadow-lg border-t-4 border-yellow-400">
           {workshopData?.wAurl ? (
-            <Link 
-              href={workshopData.wAurl} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="block w-full"
+            <button 
+              onClick={(e) => handleWhatsAppClick(e)}
+              className="w-full bg-green-500 hover:bg-green-600 active:bg-green-700 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 text-lg transition-all duration-200 touch-manipulation select-none"
             >
-              <button className="w-full bg-green-500 hover:bg-green-600 active:bg-green-700 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 text-lg transition-all duration-200 touch-manipulation select-none">
-                <img
-                  src="/whatsapp.jpg" 
-                  alt="WhatsApp" 
-                  className="w-6 h-6 rounded-full object-cover"
-                />
-                Join WhatsApp Group
-              </button>
-            </Link>
+              <img
+                src="/whatsapp.jpg" 
+                alt="WhatsApp" 
+                className="w-6 h-6 rounded-full object-cover"
+              />
+              {hasClickedButton ? "Opening WhatsApp..." : "Join WhatsApp Group"}
+            </button>
           ) : (
             <button 
               disabled 

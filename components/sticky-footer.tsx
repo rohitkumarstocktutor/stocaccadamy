@@ -1,8 +1,8 @@
 "use client"
 
 import { Clock, Zap } from "lucide-react"
-import { formatWorkshopDateTime, fetchWorkshopData, getTeacherNameFromCourseKey, WorkshopData } from "@/lib/workshop-service"
-import { useEffect, useState } from "react"
+import { formatWorkshopDateTime } from "@/lib/workshop-service"
+import { useWorkshop } from "@/contexts/workshop-context"
 
 interface StickyFooterProps {
   courseData: any
@@ -10,32 +10,7 @@ interface StickyFooterProps {
 }
 
 export function StickyFooter({ courseData, courseKey }: StickyFooterProps) {
-  const [workshopData, setWorkshopData] = useState<WorkshopData | null>(null);
-  const [isLoadingWorkshop, setIsLoadingWorkshop] = useState(true);
-
-  useEffect(() => {
-    // Fetch workshop data
-    const loadWorkshopData = async () => {
-      try {
-        if (courseKey) {
-          console.log('Loading workshop data for courseKey:', courseKey);
-          const teacherName = getTeacherNameFromCourseKey(courseKey);
-          console.log('Teacher name:', teacherName);
-          const data = await fetchWorkshopData(teacherName);
-          console.log('Workshop data received:', data);
-          setWorkshopData(data);
-        } else {
-          console.log('No courseKey provided to StickyFooter');
-        }
-      } catch (error) {
-        console.error('Failed to load workshop data:', error);
-      } finally {
-        setIsLoadingWorkshop(false);
-      }
-    };
-
-    loadWorkshopData();
-  }, [courseKey]);
+  const { workshopData, isLoading: isLoadingWorkshop } = useWorkshop();
 
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-gradient-to-r from-primary via-primary to-primary/95 text-primary-foreground z-50 border-t-2 border-secondary/30 backdrop-blur-md">

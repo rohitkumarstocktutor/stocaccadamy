@@ -3,8 +3,8 @@
 // import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { CheckCircle, ArrowRight, Clock } from "lucide-react"
-import { formatWorkshopDateTime, fetchWorkshopData, getTeacherNameFromCourseKey, WorkshopData } from "@/lib/workshop-service"
-import { useEffect, useState } from "react"
+import { formatWorkshopDateTime } from "@/lib/workshop-service"
+import { useWorkshop } from "@/contexts/workshop-context"
 
 const benefits = [
   "Live interactive sessions with Q&A",
@@ -21,36 +21,11 @@ interface CtaSectionProps {
 }
 
 export function CtaSection({ courseData, courseKey }: CtaSectionProps) {
-  const [workshopData, setWorkshopData] = useState<WorkshopData | null>(null);
-  const [isLoadingWorkshop, setIsLoadingWorkshop] = useState(true);
+  const { workshopData, isLoading: isLoadingWorkshop } = useWorkshop();
 
   const scrollToForm = () => {
     window.scrollTo({ top: 0, behavior: "smooth" })
   }
-
-  useEffect(() => {
-    // Fetch workshop data
-    const loadWorkshopData = async () => {
-      try {
-        if (courseKey) {
-          console.log('Loading workshop data for courseKey:', courseKey);
-          const teacherName = getTeacherNameFromCourseKey(courseKey);
-          console.log('Teacher name:', teacherName);
-          const data = await fetchWorkshopData(teacherName);
-          console.log('Workshop data received:', data);
-          setWorkshopData(data);
-        } else {
-          console.log('No courseKey provided to CtaSection');
-        }
-      } catch (error) {
-        console.error('Failed to load workshop data:', error);
-      } finally {
-        setIsLoadingWorkshop(false);
-      }
-    };
-
-    loadWorkshopData();
-  }, [courseKey]);
 
   return (
     <section className="py-24 bg-gradient-to-br from-primary via-primary to-secondary text-primary-foreground relative overflow-hidden">
