@@ -33,6 +33,8 @@ export default function ThankYouClient({ courseData, courseKey }: ThankYouClient
     return () => clearTimeout(timer);
   }, []);
 
+
+
   // Google Analytics conversion tracking for Vibhor course
   useEffect(() => {
     if (courseKey === 'vibhor' && typeof window !== 'undefined' && window.gtag) {
@@ -84,6 +86,8 @@ export default function ThankYouClient({ courseData, courseKey }: ThankYouClient
     setHasClickedButton(true);
     if (workshopData?.wAurl) {
       window.open(workshopData.wAurl, '_blank');
+    }else{
+      window.open("https://chat.whatsapp.com/F1lOXWUqthzBFtYuvK7WYb", '_blank');
     }
   };
 
@@ -211,7 +215,6 @@ export default function ThankYouClient({ courseData, courseKey }: ThankYouClient
         
         {/* WhatsApp Group Card */}
         <div className="w-full bg-white rounded-2xl p-6 shadow-lg border-t-4 border-yellow-400">
-          {workshopData?.wAurl ? (
             <button 
               onClick={(e) => handleWhatsAppClick(e)}
               className="w-full bg-green-500 hover:bg-green-600 active:bg-green-700 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 text-lg transition-all duration-200 touch-manipulation select-none"
@@ -223,31 +226,9 @@ export default function ThankYouClient({ courseData, courseKey }: ThankYouClient
               />
               {hasClickedButton ? "Opening WhatsApp..." : "Join WhatsApp Group"}
             </button>
-          ) : (
-            <button 
-              disabled 
-              className="w-full bg-green-500 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 text-lg transition-all duration-200 opacity-50 cursor-not-allowed touch-manipulation"
-            >
-              <img
-                src="/whatsapp.jpg" 
-                alt="WhatsApp" 
-                className="w-6 h-6 rounded-full object-cover"
-              />
-              {isLoadingWorkshop ? "Loading WhatsApp Group..." : "Join WhatsApp Group"}
-            </button>
-          )}
         </div>
 
-        {/* Workshop Details Card */}
-        {workshopData && (
-          <div className="w-full bg-white rounded-2xl p-4 shadow-lg">
-            <div className="flex items-center justify-center gap-3">
-              <p className="text-gray-600 font-medium">
-                {formatWorkshopDateTime(workshopData.wDateTime)}
-              </p>
-            </div>
-          </div>
-        )}
+
         
         {isLoadingWorkshop && (
           <div className="w-full bg-white rounded-2xl p-4 shadow-lg">
