@@ -87,7 +87,7 @@ export default function ThankYouClient({ courseData, courseKey }: ThankYouClient
     if (workshopData?.wAurl) {
       window.open(workshopData.wAurl, '_blank');
     }else{
-      window.open("https://chat.whatsapp.com/F1lOXWUqthzBFtYuvK7WYb", '_blank');
+      window.open("https://chat.whatsapp.com/GLvPantxs3pAjbbovvV1PH", '_blank');
     }
   };
 
