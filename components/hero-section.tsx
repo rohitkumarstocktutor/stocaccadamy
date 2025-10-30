@@ -170,6 +170,7 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
         adsetName: urlParams.get("adset name"),
         adName: urlParams.get("ad name"),
         landingPageUrl: window.location.href,
+        whatsappUrl: workshopData?.wAurl || "",
       }
   
       const response = await fetch(courseData.integrations.pablyWebhookUrl, {
