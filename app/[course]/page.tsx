@@ -18,34 +18,7 @@ interface CoursePageProps {
   }
 }
 
-export async function generateMetadata({ params }: CoursePageProps): Promise<Metadata> {
-  const courseData = coursesData.courses[params.course as keyof typeof coursesData.courses]
-  
-  if (!courseData) {
-    return {
-      title: "Course Not Found",
-      description: "The requested course could not be found."
-    }
-  }
 
-  return {
-    title: courseData.metaTitle || courseData.title,
-    description: `${courseData.subtitle} - ${courseData.teacher.name} with ${courseData.teacher.experience} experience. Join ${courseData.course.students} students in this free masterclass.`,
-    keywords: `${courseData.title}, ${courseData.subtitle}, trading, stock market, free course, ${courseData.teacher.name}`,
-    openGraph: {
-      title: courseData.metaTitle || courseData.title,
-      description: `${courseData.subtitle} - ${courseData.teacher.name} with ${courseData.teacher.experience} experience.`,
-      images: [courseData.coverImage],
-      type: 'website',
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: courseData.metaTitle || courseData.title,
-      description: `${courseData.subtitle} - ${courseData.teacher.name} with ${courseData.teacher.experience} experience.`,
-      images: [courseData.coverImage],
-    },
-  }
-}
 
 export default function CoursePage({ params }: CoursePageProps) {
   const courseData = coursesData.courses[params.course as keyof typeof coursesData.courses]

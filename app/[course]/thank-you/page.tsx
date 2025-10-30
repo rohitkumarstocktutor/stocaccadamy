@@ -44,9 +44,8 @@ export default function ThankYouPage({ params }: ThankYouPageProps) {
   const courseData = coursesData.courses[params.course as keyof typeof coursesData.courses];
 
   if (!courseData) {
-    notFound()
+    notFound();
   }
-
   return (
     <>
       {/* Add pixel ID to head for Meta Pixel extension detection */}

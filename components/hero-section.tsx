@@ -31,7 +31,7 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [phoneError, setPhoneError] = useState("")
   const router = useRouter();
-  const { workshopData, fetchWorkshopDataForCourse } = useWorkshop();
+  const { workshopData, fetchWorkshopDataForCourse, isLoading } = useWorkshop();
 
   // Phone number validation function for Indian mobile numbers
   const validatePhoneNumber = (phone: string): string => {
@@ -108,13 +108,11 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
       }
     }
     
-    // IMPORTANT: Save params to state
     setUtmParams(params)
-  }, []) // Add empty dependency array to run once on mount
+  }, []) 
   
 
   useEffect(() => {
-    // Fetch workshop data using context
     if (courseKey) {
       fetchWorkshopDataForCourse(courseKey)
     }
@@ -249,7 +247,7 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
                   <Clock className="w-4 h-4 mx-auto mb-1 text-muted-foreground" />
                   <div className="text-xs text-muted-foreground">Date</div>
                   <div className="font-semibold text-sm">
-                    {workshopData ? formatWorkshopDateTime(workshopData.wDateTime) : courseData.course.date}
+                 {formatWorkshopDateTime(workshopData?.wDateTime || "")}
                   </div>
                 </CardContent>
               </Card>
@@ -335,7 +333,6 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
                           onChange={(e) => {
                             const value = e.target.value;
                             setFormData({ ...formData, phone: value });
-                            // Real-time validation
                             const error = validatePhoneNumber(value);
                             setPhoneError(error);
                           }}
@@ -354,7 +351,7 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
                       type="submit"
                       data-meta-pixel-track="Lead"
                       className="w-full h-12 text-base font-bold bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-primary-foreground transition-all duration-300"
-                      disabled={isSubmitting}
+                      disabled={isSubmitting || isLoading}
                     >
                       {isSubmitting ? "Registering..." : "Submit"}
                     </Button>
@@ -414,7 +411,7 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
                   <Clock className="w-4 h-4 mx-auto mb-1 text-muted-foreground" />
                   <div className="text-xs text-muted-foreground">Date</div>
                   <div className="font-semibold text-sm">
-                    {workshopData ? formatWorkshopDateTime(workshopData.wDateTime) : courseData.course.date}
+                      {formatWorkshopDateTime(workshopData?.wDateTime || "")}
                   </div>
                 </CardContent>
               </Card>
@@ -422,7 +419,7 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
                 <CardContent className="p-0">
                   <Shield className="w-4 h-4 mx-auto mb-1 text-muted-foreground" />
                   <div className="text-xs text-muted-foreground">Offer End</div>
-                  <div className="font-semibold text-sm">{workshopData?.offerEnd || courseData.course.offerEnd}</div>
+                  <div className="font-semibold text-sm">{workshopData?.offerEnd || ""}</div>
                 </CardContent>
               </Card>
               <Card className="text-center p-3  border-border/50">

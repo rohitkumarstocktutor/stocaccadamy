@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { GeistSans, GeistMono } from 'geist/font'
 import './globals.css'
+import { WorkshopProvider } from '@/contexts/workshop-context'
 
 export const metadata: Metadata = {
   title: 'stutoracademy | Learn Stock Market Trading',
@@ -53,7 +54,9 @@ export default function RootLayout({
             style={{display: 'none', visibility: 'hidden'}}
           />
         </noscript>
-        {children}
+        <WorkshopProvider>
+          {children}
+        </WorkshopProvider>
       </body>
     </html>
   )

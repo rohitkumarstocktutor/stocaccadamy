@@ -7,7 +7,7 @@ interface WorkshopContextType {
   workshopData: WorkshopData | null;
   isLoading: boolean;
   error: string | null;
-  fetchWorkshopDataForCourse: (courseKey: string) => Promise<void>;
+  fetchWorkshopDataForCourse: (courseKey: string) => Promise<WorkshopData | null>;
   clearWorkshopData: () => void;
 }
 
@@ -24,10 +24,10 @@ export function WorkshopProvider({ children }: WorkshopProviderProps) {
   const [currentCourseKey, setCurrentCourseKey] = useState<string | null>(null);
   const [isFetching, setIsFetching] = useState(false);
 
-  const fetchWorkshopDataForCourse = async (courseKey: string) => {
+  const fetchWorkshopDataForCourse = async (courseKey: string): Promise<WorkshopData | null> => {
     // Prevent duplicate calls for the same course
     if (isFetching || (currentCourseKey === courseKey && workshopData)) {
-      return;
+      return workshopData;
     }
 
     setIsFetching(true);
@@ -41,15 +41,18 @@ export function WorkshopProvider({ children }: WorkshopProviderProps) {
       
       if (data && data.wAurl) {
         setWorkshopData(data);
+        return data;
       } else {
         setError('No WhatsApp URL found for this course');
         setWorkshopData(null);
+        return null;
       }
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Failed to fetch workshop data';
       setError(errorMessage);
       setWorkshopData(null);
       console.error('Failed to load workshop data:', err);
+      return null;
     } finally {
       setIsLoading(false);
       setIsFetching(false);

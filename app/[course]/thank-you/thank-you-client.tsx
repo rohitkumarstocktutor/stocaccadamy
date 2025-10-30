@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { MetaPixel, useMetaPixelTracking } from "@/components/meta-pixel";
 import { formatWorkshopDateTime } from "@/lib/workshop-service";
+import { useWorkshop } from "@/contexts/workshop-context";
 
 // Declare gtag function for TypeScript
 declare global {
@@ -22,50 +23,28 @@ interface ThankYouClientProps {
 
 export default function ThankYouClient({ courseData, courseKey }: ThankYouClientProps) {
   const [showConfetti, setShowConfetti] = useState(true);
-  const [workshopData, setWorkshopData] = useState<any>(null);
-  const [isLoadingWorkshop, setIsLoadingWorkshop] = useState(false);
   const [countdown, setCountdown] = useState(10);
   const [hasClickedButton, setHasClickedButton] = useState(false);
-  // Meta Pixel tracking removed - only using for PageView
+
+  const { workshopData, isLoading, error, fetchWorkshopDataForCourse } = useWorkshop();
 
   useEffect(() => {
     const timer = setTimeout(() => setShowConfetti(false), 3500);
     return () => clearTimeout(timer);
   }, []);
 
-
-
-  // Google Analytics conversion tracking for Vibhor course
   useEffect(() => {
-    if (courseKey === 'vibhor' && typeof window !== 'undefined' && window.gtag) {
-      window.gtag('event', 'conversion', {'send_to': 'AW-16491466128/P-ebCJeD454bEJCb37c9'});
+    if (courseKey && !workshopData) {
+      fetchWorkshopDataForCourse(courseKey);
     }
-  }, [courseKey]);
+  }, [courseKey, workshopData, fetchWorkshopDataForCourse]);
 
-
-  // Load workshop data from localStorage (passed from course page)
-  useEffect(() => {
-    const storedData = localStorage.getItem('workshopData');
-    if (storedData) {
-      try {
-        const parsedData = JSON.parse(storedData);
-        setWorkshopData(parsedData);
-        // Clear the stored data after using it
-        localStorage.removeItem('workshopData');
-      } catch (error) {
-        console.error('Error parsing stored workshop data:', error);
-      }
-    }
-  }, []);
-
-  // Auto-redirect to WhatsApp after 10 seconds if user hasn't clicked
   useEffect(() => {
     if (hasClickedButton || !workshopData?.wAurl) return;
 
     const countdownTimer = setInterval(() => {
       setCountdown((prev) => {
         if (prev <= 1) {
-          // Auto-redirect to WhatsApp
           window.open(workshopData.wAurl, '_blank');
           return 0;
         }
@@ -76,9 +55,7 @@ export default function ThankYouClient({ courseData, courseKey }: ThankYouClient
     return () => clearInterval(countdownTimer);
   }, [hasClickedButton, workshopData?.wAurl]);
 
-  // Function to handle WhatsApp button click
-  const handleWhatsAppClick = (e?: React.MouseEvent) => {
-    // Prevent event bubbling if clicked from button
+  const handleWhatsAppClick = async (e?: React.MouseEvent) => {
     if (e) {
       e.stopPropagation();
     }
@@ -86,9 +63,17 @@ export default function ThankYouClient({ courseData, courseKey }: ThankYouClient
     setHasClickedButton(true);
     if (workshopData?.wAurl) {
       window.open(workshopData.wAurl, '_blank');
-    }else{
-      window.open("https://chat.whatsapp.com/FGwh4v5olmq5lfY6erLGY1", '_blank');
+      return;
     }
+
+    const fetched = await fetchWorkshopDataForCourse(courseKey);
+    if (fetched?.wAurl) {
+      window.open(fetched.wAurl, '_blank');
+      return;
+    }
+
+    // No static fallback. Optionally notify user.
+    console.warn('WhatsApp URL not available for this course.');
   };
 
   // Course-specific colors and content
@@ -230,15 +215,7 @@ export default function ThankYouClient({ courseData, courseKey }: ThankYouClient
 
 
         
-        {isLoadingWorkshop && (
-          <div className="w-full bg-white rounded-2xl p-4 shadow-lg">
-            <div className="text-center">
-              <p className="text-gray-600">Loading workshop details...</p>
-            </div>
-          </div>
-        )}
 
-        {/* Clear instructions */}
         <div className="text-center space-y-2">
           <p className="text-white text-sm">
             Click on the button above to join the WhatsApp group.
