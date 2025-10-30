@@ -3,11 +3,9 @@
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
-import { MetaPixel, useMetaPixelTracking } from "@/components/meta-pixel";
-import { formatWorkshopDateTime } from "@/lib/workshop-service";
+import { MetaPixel } from "@/components/meta-pixel";
 import { useWorkshop } from "@/contexts/workshop-context";
 
-// Declare gtag function for TypeScript
 declare global {
   interface Window {
     gtag: (...args: any[]) => void;
@@ -212,9 +210,6 @@ export default function ThankYouClient({ courseData, courseKey }: ThankYouClient
               {hasClickedButton ? "Opening WhatsApp..." : "Join WhatsApp Group"}
             </button>
         </div>
-
-
-        
 
         <div className="text-center space-y-2">
           <p className="text-white text-sm">
