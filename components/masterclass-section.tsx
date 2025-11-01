@@ -24,17 +24,14 @@ export function MasterclassSection() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Fetch course data from Google Sheets API
+    // Fetch course data through Next.js API route to avoid CORS issues
     const fetchCourses = async () => {
       try {
         const response = await fetch(
-          "https://script.google.com/macros/s/AKfycby-TiE4gLk4bUC-mSYaT_lDwyOU1T6JTMNw2pIeYQ59qJ2Mk0x9jk_6x47QR5ASCcdasQ/exec?q=courses",
+          "/api/course-details?q=courses",
           {
             headers: {
-              accept: "*/*",
-              "accept-language": "en-GB,en;q=0.5",
-              origin: window.location.origin,
-              referer: window.location.origin + "/",
+              accept: "application/json",
             },
           },
         )

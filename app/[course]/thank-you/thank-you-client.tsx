@@ -21,8 +21,6 @@ interface ThankYouClientProps {
 
 export default function ThankYouClient({ courseData, courseKey }: ThankYouClientProps) {
   const [showConfetti, setShowConfetti] = useState(true);
-  const [countdown, setCountdown] = useState(10);
-  const [hasClickedButton, setHasClickedButton] = useState(false);
 
   const { workshopData, isLoading, error, fetchWorkshopDataForCourse } = useWorkshop();
 
@@ -39,38 +37,16 @@ export default function ThankYouClient({ courseData, courseKey }: ThankYouClient
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [courseKey]); // Only run on mount or when courseKey changes
 
-  // Auto-open WhatsApp when data becomes available after user clicks
-  useEffect(() => {
-    if (hasClickedButton && workshopData?.wAurl && !isLoading) {
-      // User clicked button, and now we have the URL - open it
-      window.open(workshopData.wAurl, '_blank');
-    }
-  }, [hasClickedButton, workshopData?.wAurl, isLoading]);
-
-
-
-
   const handleWhatsAppClick = (e?: React.MouseEvent) => {
     if (e) {
       e.preventDefault();
       e.stopPropagation();
     }
     
-    // Prevent multiple clicks
-    if (hasClickedButton) {
-      return;
-    }
-
-    setHasClickedButton(true);
-    
-    // If we already have the URL, open it immediately (within user gesture context for mobile)
+    // If we have the URL, open it immediately
     if (workshopData?.wAurl) {
       window.open(workshopData.wAurl, '_blank');
-      return;
     }
-
-    // If URL not ready yet, the useEffect will auto-open it when data loads
-    // Just show loading state for now
   };
 
   // Course-specific colors and content
@@ -199,8 +175,8 @@ export default function ThankYouClient({ courseData, courseKey }: ThankYouClient
         <div className="w-full bg-white rounded-2xl p-6 shadow-lg border-t-4 border-yellow-400">
             <button 
               onClick={(e) => handleWhatsAppClick(e)}
-              className="w-full bg-green-500 hover:bg-green-600 active:bg-green-700 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 text-lg transition-all duration-200 touch-manipulation select-none"
-              disabled={hasClickedButton}
+              className="w-full bg-green-500 cursor-pointer hover:bg-green-600 active:bg-green-700 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 text-lg transition-all duration-200 touch-manipulation select-none"
+              disabled={isLoading && !workshopData?.wAurl}
             >
               <img
                 src="/whatsapp.jpg" 
@@ -209,8 +185,6 @@ export default function ThankYouClient({ courseData, courseKey }: ThankYouClient
               />
               {isLoading && !workshopData?.wAurl 
                 ? "Loading..." 
-                : hasClickedButton 
-                ? "Opening WhatsApp..." 
                 : "Join WhatsApp Group"}
             </button>
         </div>

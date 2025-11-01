@@ -12,28 +12,14 @@ export interface WorkshopData {
 
 export async function fetchWorkshopData(teacherName: string = 'vibhor'): Promise<WorkshopData | null> {
   try {
-    const baseUrl = 'https://script.google.com/macros/s/AKfycby-TiE4gLk4bUC-mSYaT_lDwyOU1T6JTMNw2pIeYQ59qJ2Mk0x9jk_6x47QR5ASCcdasQ/exec';
-    const url = `${baseUrl}?q=${encodeURIComponent(teacherName)}`;
+    // Use Next.js API route as a proxy to avoid CORS issues
+    const apiUrl = `/api/course-details?q=${encodeURIComponent(teacherName)}`;
     
-    // Detect if we're on mobile
-    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
-    
-    const response = await fetch(url, {
+    const response = await fetch(apiUrl, {
       method: 'GET',
       headers: {
-        'accept': '*/*',
-        'accept-language': 'en-GB,en;q=0.8',
-        'origin': 'https://www.stocktutor.co',
-        'referer': 'https://www.stocktutor.co/',
-        'sec-fetch-dest': 'empty',
-        'sec-fetch-mode': 'cors',
-        'sec-fetch-site': 'cross-site',
-        'user-agent': isMobile 
-          ? 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1'
-          : 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Mobile Safari/537.36'
+        'accept': 'application/json',
       },
-      // Add timeout for mobile networks
-      signal: AbortSignal.timeout(10000)
     });
 
     if (!response.ok) {
