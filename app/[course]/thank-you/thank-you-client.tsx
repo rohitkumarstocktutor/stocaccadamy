@@ -31,47 +31,46 @@ export default function ThankYouClient({ courseData, courseKey }: ThankYouClient
     return () => clearTimeout(timer);
   }, []);
 
+  // Fetch workshop data immediately when component mounts
   useEffect(() => {
-    if (courseKey && !workshopData) {
+    if (courseKey) {
       fetchWorkshopDataForCourse(courseKey);
     }
-  }, [courseKey, workshopData, fetchWorkshopDataForCourse]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [courseKey]); // Only run on mount or when courseKey changes
 
+  // Auto-open WhatsApp when data becomes available after user clicks
   useEffect(() => {
-    if (hasClickedButton || !workshopData?.wAurl) return;
+    if (hasClickedButton && workshopData?.wAurl && !isLoading) {
+      // User clicked button, and now we have the URL - open it
+      window.open(workshopData.wAurl, '_blank');
+    }
+  }, [hasClickedButton, workshopData?.wAurl, isLoading]);
 
-    const countdownTimer = setInterval(() => {
-      setCountdown((prev) => {
-        if (prev <= 1) {
-          window.open(workshopData.wAurl, '_blank');
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
 
-    return () => clearInterval(countdownTimer);
-  }, [hasClickedButton, workshopData?.wAurl]);
 
-  const handleWhatsAppClick = async (e?: React.MouseEvent) => {
+
+  const handleWhatsAppClick = (e?: React.MouseEvent) => {
     if (e) {
+      e.preventDefault();
       e.stopPropagation();
     }
     
+    // Prevent multiple clicks
+    if (hasClickedButton) {
+      return;
+    }
+
     setHasClickedButton(true);
+    
+    // If we already have the URL, open it immediately (within user gesture context for mobile)
     if (workshopData?.wAurl) {
       window.open(workshopData.wAurl, '_blank');
       return;
     }
 
-    const fetched = await fetchWorkshopDataForCourse(courseKey);
-    if (fetched?.wAurl) {
-      window.open(fetched.wAurl, '_blank');
-      return;
-    }
-
-    // No static fallback. Optionally notify user.
-    console.warn('WhatsApp URL not available for this course.');
+    // If URL not ready yet, the useEffect will auto-open it when data loads
+    // Just show loading state for now
   };
 
   // Course-specific colors and content
@@ -201,13 +200,18 @@ export default function ThankYouClient({ courseData, courseKey }: ThankYouClient
             <button 
               onClick={(e) => handleWhatsAppClick(e)}
               className="w-full bg-green-500 hover:bg-green-600 active:bg-green-700 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 text-lg transition-all duration-200 touch-manipulation select-none"
+              disabled={hasClickedButton}
             >
               <img
                 src="/whatsapp.jpg" 
                 alt="WhatsApp" 
-                className="w-6 h-6 rounded-full object-cover"
+                className="w-6 h-6 rounded-full object-cover cursor-pointer"
               />
-              {hasClickedButton ? "Opening WhatsApp..." : "Join WhatsApp Group"}
+              {isLoading && !workshopData?.wAurl 
+                ? "Loading..." 
+                : hasClickedButton 
+                ? "Opening WhatsApp..." 
+                : "Join WhatsApp Group"}
             </button>
         </div>
 
