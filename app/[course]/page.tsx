@@ -48,7 +48,7 @@ export default function CoursePage({ params }: CoursePageProps) {
         <TestimonialsSection courseData={courseData} />
         <CtaSection courseData={courseData} courseKey={params.course} />
         <BottomSection />
-        <StickyFooter courseData={courseData} courseKey={params.course} />
+        {/* <StickyFooter courseData={courseData} courseKey={params.course} /> */}
       </main>
     </WorkshopProvider>
   )
