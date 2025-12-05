@@ -9,6 +9,7 @@ import { useWorkshop } from "@/contexts/workshop-context";
 declare global {
   interface Window {
     gtag: (...args: any[]) => void;
+    fbq: (...args: any[]) => void;
   }
 }
 
@@ -36,6 +37,43 @@ export default function ThankYouClient({ courseData, courseKey }: ThankYouClient
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [courseKey]); // Only run on mount or when courseKey changes
+
+  // Direct Meta Pixel initialization and PageView tracking
+  useEffect(() => {
+    if (typeof window !== 'undefined' && courseData?.integrations?.metaPixelId) {
+      const pixelId = courseData.integrations.metaPixelId;
+      
+      // Initialize pixel if fbq is available
+      if ((window as any).fbq) {
+        try {
+          (window as any).fbq('init', pixelId);
+          (window as any).fbq('track', 'PageView');
+          console.log(`Meta Pixel initialized and PageView tracked for pixel: ${pixelId}`);
+        } catch (error) {
+          console.error('Error initializing Meta Pixel:', error);
+        }
+      } else {
+        // Wait for fbq to be available
+        const checkFbq = setInterval(() => {
+          if ((window as any).fbq) {
+            try {
+              (window as any).fbq('init', pixelId);
+              (window as any).fbq('track', 'PageView');
+              console.log(`Meta Pixel initialized and PageView tracked for pixel: ${pixelId}`);
+            } catch (error) {
+              console.error('Error initializing Meta Pixel:', error);
+            }
+            clearInterval(checkFbq);
+          }
+        }, 100);
+        
+        // Clear interval after 5 seconds if fbq still not available
+        setTimeout(() => {
+          clearInterval(checkFbq);
+        }, 5000);
+      }
+    }
+  }, [courseData]);
 
   const handleWhatsAppClick = (e?: React.MouseEvent) => {
     if (e) {
