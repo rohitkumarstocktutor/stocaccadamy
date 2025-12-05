@@ -350,7 +350,6 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
 
                     <Button
                       type="submit"
-                      data-meta-pixel-track="Lead"
                       className="w-full h-12 cursor-pointer text-base font-bold bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-primary-foreground transition-all duration-300"
                       disabled={isSubmitting || isLoading}
                     >
