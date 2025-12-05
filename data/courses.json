@@ -251,6 +251,48 @@
         "Profit Sharing Models",
         "Account Scaling Strategies"
       ]
+    },
+    "propfirmchallenge": {
+      "title": "Funded Trading Accounts",
+      "subtitle": "Trade with Capital, Keep the Profits",
+      "metaTitle": "⭐⭐⭐⭐⭐ (4.9/5) - Join Free Funded Trading Masterclass",
+      "coverImage": "/ayushi-funded-account.jpg",
+      "teacherImage": "/ayushi-funded-account.jpg",
+      "teacher": {
+        "name": "Rajesh Sir",
+        "experience": "10+ Years",
+        "certification": "Prop Trading Expert",
+        "description": "Expert in funded trading programs and prop trading. Helps traders secure funding and maximize profits through disciplined trading strategies.",
+        "achievements": [
+          "12,000+ Students Trained",
+          "Prop Trading Expert",
+          "10+ Years Experience",
+          "Funded Account Specialist"
+        ]
+      },
+      "course": {
+        "price": "₹499",
+        "discountPrice": "₹0",
+        "language": "Hindi & English",
+        "duration": "4.5+ Hours",
+        "date": "30th September, Sunday | 3:00 PM",
+        "offerEnd": "Oct 5, 2025",
+        "students": "30k+",
+        "rating": "4.9",
+        "reviews": "10k+"
+      },
+      "integrations": {
+        "googleScriptUrl": "https://script.google.com/macros/s/AKfycby-TiE4gLk4bUC-mSYaT_lDwyOU1T6JTMNw2pIeYQ59qJ2Mk0x9jk_6x47QR5ASCcdasQ/exec",
+        "pablyWebhookUrl": "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjYwNTY4MDYzMzA0M2Q1MjZjNTUzZDUxMzMi_pc",
+        "metaPixelId": "1114097650238318",
+        "whatsappUrl": "https://chat.whatsapp.com/FGwh4v5olmq5lfY6erLGY1"
+      },
+      "features": [
+        "Funded Account Programs",
+        "Risk Management Rules",
+        "Profit Sharing Models",
+        "Account Scaling Strategies"
+      ]
     }
   }
 }
