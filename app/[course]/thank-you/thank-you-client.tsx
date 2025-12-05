@@ -147,16 +147,7 @@ export default function ThankYouClient({ courseData, courseKey }: ThankYouClient
       className="min-h-screen w-full relative overflow-hidden flex flex-col items-center px-4 py-4 bg-teal-500 cursor-pointer"
       onClick={handleWhatsAppClick}
     >
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
-            if (typeof fbq !== 'undefined') {
-              fbq('init', '${courseData.integrations.metaPixelId}');
-              fbq('track', 'PageView');
-            }
-          `,
-        }}
-      />
+      <MetaPixel pixelId={courseData.integrations.metaPixelId} courseData={courseData} />
       {/* Confetti animation */}
       {showConfetti && (
         <Confetti

@@ -5,6 +5,7 @@
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
+import { MetaPixel } from "@/components/meta-pixel";
 
 const Confetti = dynamic(() => import("react-confetti"), { ssr: false });
 
@@ -24,6 +25,7 @@ export default function ThankYouPage() {
 
   return (
     <div className="min-h-screen w-full relative overflow-hidden flex flex-col items-center px-4 py-4 bg-gradient-to-br from-green-50 via-blue-50 to-yellow-50 dark:from-zinc-900 dark:via-zinc-800 dark:to-zinc-900">
+      <MetaPixel pixelId="1114097650238318" />
       {/* Decorative background shapes */}
       <div className="absolute inset-0 pointer-events-none z-0">
         <svg className="absolute top-0 left-0 w-1/2 h-1/2 opacity-20" viewBox="0 0 400 400" fill="none">

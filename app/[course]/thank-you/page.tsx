@@ -48,17 +48,6 @@ export default function ThankYouPage({ params }: ThankYouPageProps) {
   }
   return (
     <>
-      {/* Add pixel ID to head for Meta Pixel extension detection */}
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
-            if (typeof fbq !== 'undefined') {
-              fbq('init', '${courseData.integrations.metaPixelId}');
-              fbq('track', 'PageView');
-            }
-          `,
-        }}
-      />
       <ThankYouClient courseData={courseData} courseKey={params.course} />
     </>
   );
