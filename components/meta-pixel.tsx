@@ -45,30 +45,8 @@ export function MetaPixel({ pixelId, courseData }: MetaPixelProps) {
   return null
 }
 
-// Hook for tracking form submissions only
+// Hook for checking pixel status only (no tracking)
 export function useMetaPixelTracking(pixelId: string) {
-  const trackLead = (formData: any, courseData: any) => {
-    if (!pixelId || pixelId === 'YOUR_META_PIXEL_ID_HERE') {
-      console.warn('Meta Pixel ID not configured - skipping lead tracking')
-      return
-    }
-
-    // Only track when form is actually submitted
-    if (typeof window !== 'undefined') {
-      try {
-        // Check if Meta Pixel was blocked by ad blocker
-        if ((window as any).metaPixelBlocked) {
-          console.warn('Meta Pixel blocked by ad blocker - skipping tracking')
-          return
-        }
-
-        // Check if fbq is available and is a function
-      } catch (error) {
-        console.error('Error tracking Meta Pixel Lead event:', error)
-      }
-    }
-  }
-
   const checkPixelStatus = () => {
     if (typeof window !== 'undefined') {
       const status = {
@@ -83,7 +61,7 @@ export function useMetaPixelTracking(pixelId: string) {
     return null
   }
 
-  return { trackLead, checkPixelStatus }
+  return { checkPixelStatus }
 }
 
 // Debug component to check pixel status (only in development)
