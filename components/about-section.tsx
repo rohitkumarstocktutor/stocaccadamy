@@ -6,7 +6,8 @@ interface AboutSectionProps {
 }
 
 export function AboutSection({ courseData }: AboutSectionProps) {
-  const features = [
+  // Use courseData.whyJoin if available, otherwise use default hardcoded features
+  const defaultFeatures = [
     {
       icon: BookOpen,
       title: "Expert-Led Training",
@@ -29,21 +30,27 @@ export function AboutSection({ courseData }: AboutSectionProps) {
     },
   ]
 
+  const displayFeatures = courseData.whyJoin ? courseData.whyJoin.map((item: any) => ({
+    icon: Target, // Default icon for dynamic content
+    title: item.title,
+    description: item.description
+  })) : defaultFeatures
+
   return (
     <section className="pt-0 pb-24 bg-background">
       <div className="container mx-auto px-4">
         <div className="text-center space-y-6 mb-20">
           <h2 className="text-4xl lg:text-5xl font-bold text-balance text-foreground">
-            Why Choose Our <span className="text-primary">Stock Market Education?</span>
+            Why Choose Our <span className="text-primary">{courseData.title.includes("Dropshipping") ? "Masterclass" : "Stock Market Education"}?</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-pretty leading-relaxed">
-            We've helped thousands of students transform from beginners to confident traders through our comprehensive
+            We've helped thousands of students transform from beginners to confident pros through our comprehensive
             live training programs with proven results.
           </p>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {features.map((feature, index) => (
+          {displayFeatures.map((feature: any, index: number) => (
             <Card
               key={index}
               className="border-border/50 transition-all duration-300 bg-card/50 backdrop-blur-sm group"
@@ -61,7 +68,7 @@ export function AboutSection({ courseData }: AboutSectionProps) {
 
         <div className="mt-20 text-center">
           <h3 className="text-2xl font-bold mb-8 text-foreground">What You'll Learn:</h3>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-4 max-w-4xl mx-auto">
             {courseData.features.map((feature: string, index: number) => (
               <div key={index} className="bg-primary/5 border border-primary/20 rounded-xl p-4 text-center">
                 <span className="text-primary font-semibold">{feature}</span>
@@ -69,6 +76,32 @@ export function AboutSection({ courseData }: AboutSectionProps) {
             ))}
           </div>
         </div>
+
+        {courseData.whatsIncluded && (
+          <div className="mt-20 text-center">
+            <h3 className="text-2xl font-bold mb-8 text-foreground">What's Included:</h3>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
+              {courseData.whatsIncluded.map((item: string, index: number) => (
+                <div key={index} className="bg-secondary/10 border border-secondary/20 rounded-xl p-4 text-center">
+                  <span className="text-foreground font-semibold">{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {courseData.bonuses && (
+          <div className="mt-20 text-center">
+            <h3 className="text-2xl font-bold mb-8 text-foreground">Exclusive Bonuses (Live Attendees Only):</h3>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
+              {courseData.bonuses.map((item: string, index: number) => (
+                <div key={index} className="bg-accent/10 border border-accent/20 rounded-xl p-4 text-center">
+                  <span className="text-foreground font-semibold">{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </section>
   )

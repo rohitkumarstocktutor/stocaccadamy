@@ -5,7 +5,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Star, ChevronLeft, ChevronRight, TrendingUp } from "lucide-react"
 
-const testimonials = [
+const defaultTestimonials = [
   {
     name: "Rahul Verma",
     role: "Software Engineer",
@@ -47,12 +47,15 @@ interface TestimonialsSectionProps {
 export function TestimonialsSection({ courseData }: TestimonialsSectionProps) {
   const [currentIndex, setCurrentIndex] = useState(0)
 
+  // Use courseData.testimonials if available, otherwise default
+  const testimonials = courseData.testimonials || defaultTestimonials
+
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % testimonials.length)
     }, 5000)
     return () => clearInterval(timer)
-  }, [])
+  }, [testimonials.length])
 
   const nextTestimonial = () => {
     setCurrentIndex((prev) => (prev + 1) % testimonials.length)
@@ -131,15 +134,14 @@ export function TestimonialsSection({ courseData }: TestimonialsSectionProps) {
 
             {/* Dots indicator */}
             <div className="flex justify-center gap-3 mt-6">
-              {testimonials.map((_, index) => (
+              {testimonials.map((_: any, index: number) => (
                 <button
                   key={index}
                   onClick={() => setCurrentIndex(index)}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                    index === currentIndex
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${index === currentIndex
                       ? "bg-primary scale-125"
                       : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
-                  }`}
+                    }`}
                 />
               ))}
             </div>
