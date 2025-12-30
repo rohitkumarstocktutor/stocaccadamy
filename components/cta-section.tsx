@@ -10,7 +10,7 @@ const defaultBenefits = [
   "Live interactive sessions with Q&A",
   "Real-time market analysis and trades",
   "Lifetime access to recorded sessions",
-  "Exclusive trading community access",
+  "Exclusive community access",
   "Personal mentorship opportunities",
   "Certificate of completion",
 ]
