@@ -6,7 +6,7 @@ import { CheckCircle, ArrowRight, Clock } from "lucide-react"
 import { formatWorkshopDateTime } from "@/lib/workshop-service"
 import { useWorkshop } from "@/contexts/workshop-context"
 
-const benefits = [
+const defaultBenefits = [
   "Live interactive sessions with Q&A",
   "Real-time market analysis and trades",
   "Lifetime access to recorded sessions",
@@ -36,10 +36,10 @@ export function CtaSection({ courseData, courseKey }: CtaSectionProps) {
         <div className="max-w-5xl mx-auto text-center space-y-12">
           <div className="space-y-6">
             <h2 className="text-4xl lg:text-6xl font-bold text-balance leading-tight">
-              Ready to Transform Your <span className="text-yellow-300">Trading Journey?</span>
+              {courseData.ctaTitle || "Ready to Transform Your Trading Journey?"}
             </h2>
             <p className="text-xl lg:text-2xl opacity-90 text-pretty max-w-3xl mx-auto leading-relaxed">
-              Join thousands of successful traders who started with our masterclasses and achieved financial freedom
+              {courseData.ctaSubtitle || "Join thousands of successful students who started with our masterclasses and achieved their goals"}
             </p>
           </div>
 
@@ -49,7 +49,7 @@ export function CtaSection({ courseData, courseKey }: CtaSectionProps) {
                 <div className="space-y-6">
                   <h3 className="text-3xl font-bold text-left">What's Included:</h3>
                   <div className="space-y-4">
-                    {benefits.map((benefit, index) => (
+                    {(courseData.whatsIncluded || defaultBenefits).map((benefit: string, index: number) => (
                       <div key={index} className="flex items-center gap-4 text-left">
                         <CheckCircle className="w-6 h-6 text-green-400 flex-shrink-0" />
                         <span className="text-lg">{benefit}</span>
@@ -66,9 +66,9 @@ export function CtaSection({ courseData, courseKey }: CtaSectionProps) {
                     <div className="flex items-center justify-center gap-2 text-yellow-300">
                       <Clock className="w-5 h-5" />
                       <span>
-                        Offer ends: {isLoadingWorkshop 
-                          ? "Loading..." 
-                          : workshopData 
+                        Offer ends: {isLoadingWorkshop
+                          ? "Loading..."
+                          : workshopData
                             ? formatWorkshopDateTime(workshopData.wDateTime)
                             : "Limited Time"
                         }

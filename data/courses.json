@@ -40,7 +40,16 @@
         "Learn, Trade & Earn",
         "Live Trading Sessions",
         "AI-Powered Indicators"
-      ]
+      ],
+      "specializations": [
+        "AI Trading Indicators",
+        "Nifty Options",
+        "Stock Options",
+        "Risk Management",
+        "Technical Analysis"
+      ],
+      "ctaTitle": "Ready to Transform Your Trading Journey?",
+      "ctaSubtitle": "Join thousands of successful traders who started with our masterclasses and achieved financial freedom"
     },
     "options-trading": {
       "title": "Options Trading Mastery",
@@ -82,7 +91,16 @@
         "Risk Management Techniques",
         "Live Market Analysis",
         "Profit Maximization Methods"
-      ]
+      ],
+      "specializations": [
+        "Options Strategies",
+        "Advanced Greeks",
+        "Risk Management",
+        "Technical Analysis",
+        "Live Trading"
+      ],
+      "ctaTitle": "Ready to Transform Your Trading Journey?",
+      "ctaSubtitle": "Join thousands of successful traders who started with our masterclasses and achieved financial freedom"
     },
     "vibhor": {
       "title": "Algorithmic Trading Mastery",
@@ -124,7 +142,15 @@
         "Backtesting Strategies",
         "Risk Management Systems",
         "Live Algorithm Deployment"
-      ]
+      ],
+      "specializations": [
+        "Algo Strategy Building",
+        "Python for Trading",
+        "Backtesting Systems",
+        "Systematic Trading"
+      ],
+      "ctaTitle": "Ready to Transform Your Trading Journey?",
+      "ctaSubtitle": "Join thousands of successful traders who started with our masterclasses and achieved financial freedom"
     },
     "ayushi": {
       "title": "Forex Trading Mastery",
@@ -166,7 +192,15 @@
         "Technical Analysis Mastery",
         "Risk Management in Forex",
         "Live Trading Sessions"
-      ]
+      ],
+      "specializations": [
+        "Forex Analysis",
+        "Price Action",
+        "Global Economics",
+        "Risk Management"
+      ],
+      "ctaTitle": "Ready to Transform Your Trading Journey?",
+      "ctaSubtitle": "Join thousands of successful traders who started with our masterclasses and achieved financial freedom"
     },
     "crypto-skills": {
       "title": "Crypto Trading Skills",
@@ -208,7 +242,15 @@
         "DeFi Trading Strategies",
         "NFT Market Analysis",
         "Portfolio Management"
-      ]
+      ],
+      "specializations": [
+        "Crypto Fundamentals",
+        "DeFi Mastery",
+        "Altcoin Strategies",
+        "Risk Management"
+      ],
+      "ctaTitle": "Ready to Transform Your Trading Journey?",
+      "ctaSubtitle": "Join thousands of successful traders who started with our masterclasses and achieved financial freedom"
     },
     "funded-accounts": {
       "title": "Funded Trading Accounts",
@@ -250,7 +292,15 @@
         "Risk Management Rules",
         "Profit Sharing Models",
         "Account Scaling Strategies"
-      ]
+      ],
+      "specializations": [
+        "Prop Trading Mastery",
+        "Risk Management",
+        "Account Scaling",
+        "Phased Challenges"
+      ],
+      "ctaTitle": "Ready to Transform Your Trading Journey?",
+      "ctaSubtitle": "Join thousands of successful traders who started with our masterclasses and achieved financial freedom"
     },
     "propfirmchallenge": {
       "title": "Prop Firm Challenge",
@@ -292,7 +342,15 @@
         "Risk Management Rules",
         "Profit Sharing Models",
         "Account Scaling Strategies"
-      ]
+      ],
+      "specializations": [
+        "Prop Firm Mastery",
+        "Challenge Strategies",
+        "Risk Management",
+        "Account Growth"
+      ],
+      "ctaTitle": "Ready to Transform Your Trading Journey?",
+      "ctaSubtitle": "Join thousands of successful traders who started with our masterclasses and achieved financial freedom"
     },
     "drop-shipping": {
       "title": "Dropshipping Masterclass — Build + Scale Your 6-Figure Store",
@@ -303,7 +361,7 @@
       "teacher": {
         "name": "Prabhu Selvaraj",
         "experience": "10+ Years",
-        "certification": "E-commerce Expert",
+        "certification": "Dropshipping Expert",
         "description": "10+ years building online stores. Helped 1000s launch and scale profitable businesses. Proven frameworks taught in live sessions.",
         "achievements": [
           "10+ years building online stores",
@@ -357,17 +415,20 @@
           "description": "Discover how to find reliable suppliers and avoid common fulfillment pitfalls."
         }
       ],
-      "whatsIncluded": [
-        "Live interactive masterclass with Q&A",
-        "Step-by-step action plan",
-        "Templates, tools, & swipe files",
-        "Community access",
-        "Recording access (after live session)"
-      ],
       "bonuses": [
         "Exclusive product research checklist",
         "High-converting ad template pack",
         "Supplier negotiation script"
+      ],
+      "ctaTitle": "Ready to Enjoy more financial and lifestyle freedom.",
+      "ctaSubtitle": "Join thousands of successful businessman who started with our masterclasses and achieved their goals",
+      "whatsIncluded": [
+        "Live interactive sessions with Q&A",
+        "Advanced Facebook Ad Strategies to Boost Growth",
+        "Lifetime access to recorded sessions",
+        "Exclusive trading community access",
+        "Personal mentorship opportunities",
+        "Certificate of completion"
       ],
       "testimonials": [
         {

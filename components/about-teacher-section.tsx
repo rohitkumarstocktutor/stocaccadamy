@@ -74,32 +74,36 @@ export function AboutTeacherSection({ courseData }: AboutTeacherSectionProps) {
               </div>
 
               {/* Specializations */}
-              <div className="space-y-4">
-                <h3 className="text-xl font-semibold text-foreground">Specializations:</h3>
-                <div className="flex flex-wrap gap-3">
-                  <Badge variant="outline" className="border-primary/30 text-primary hover:bg-primary/10 px-4 py-2">
-                    AI Trading Indicators
-                  </Badge>
-                  <Badge
-                    variant="outline"
-                    className="border-secondary/30 text-secondary hover:bg-secondary/10 px-4 py-2"
-                  >
-                    Nifty Options
-                  </Badge>
-                  <Badge variant="outline" className="border-accent/30 text-accent hover:bg-accent/10 px-4 py-2">
-                    Stock Options
-                  </Badge>
-                  <Badge variant="outline" className="border-primary/30 text-primary hover:bg-primary/10 px-4 py-2">
-                    Risk Management
-                  </Badge>
-                  <Badge
-                    variant="outline"
-                    className="border-secondary/30 text-secondary hover:bg-secondary/10 px-4 py-2"
-                  >
-                    Technical Analysis
-                  </Badge>
+              {courseData.title !== "Dropshipping Masterclass — Build + Scale Your 6-Figure Store" && (
+                <div className="space-y-4">
+                  <h3 className="text-xl font-semibold text-foreground">Specializations:</h3>
+                  <div className="flex flex-wrap gap-3">
+                    {(courseData.specializations || [
+                      "AI Trading Indicators",
+                      "Nifty Options",
+                      "Stock Options",
+                      "Risk Management",
+                      "Technical Analysis"
+                    ]).map((spec: string, idx: number) => {
+                      const badgeVariants = [
+                        "border-primary/30 text-primary hover:bg-primary/10",
+                        "border-secondary/30 text-secondary hover:bg-secondary/10",
+                        "border-accent/30 text-accent hover:bg-accent/10"
+                      ]
+                      const variantClass = badgeVariants[idx % badgeVariants.length]
+                      return (
+                        <Badge
+                          key={idx}
+                          variant="outline"
+                          className={`${variantClass} px-4 py-2`}
+                        >
+                          {spec}
+                        </Badge>
+                      )
+                    })}
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
         </div>
