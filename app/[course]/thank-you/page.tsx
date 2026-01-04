@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import coursesData from "@/data/courses.json";
 import { Metadata } from "next";
 import ThankYouClient from "./thank-you-client";
+import Script from "next/script";
 interface ThankYouPageProps {
   params: {
     course: string
@@ -11,7 +12,7 @@ interface ThankYouPageProps {
 
 export async function generateMetadata({ params }: ThankYouPageProps): Promise<Metadata> {
   const courseData = coursesData.courses[params.course as keyof typeof coursesData.courses]
-  
+
   if (!courseData) {
     return {
       title: "Thank You - Course Not Found",
@@ -48,6 +49,14 @@ export default function ThankYouPage({ params }: ThankYouPageProps) {
   }
   return (
     <>
+      {/* Google conversion snippet */}
+      {params.course === "drop-shipping" && (
+        <Script id="google-conversion" strategy="afterInteractive">
+          {`
+            gtag('event', 'conversion', {'send_to': 'AW-16491466128/bod1CMa159sbEJCb37c9'});
+          `}
+        </Script>
+      )}
       {/* Add pixel ID to head for Meta Pixel extension detection */}
       <script
         dangerouslySetInnerHTML={{
