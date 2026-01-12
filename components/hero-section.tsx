@@ -37,34 +37,34 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
   const validatePhoneNumber = (phone: string): string => {
     // Remove any non-digit characters
     const cleanPhone = phone.replace(/\D/g, '');
-    
+
     // Check if empty
     if (!cleanPhone) {
       return "Phone number is required";
     }
-    
+
     // Check if it starts with country code 91
     let phoneNumber = cleanPhone;
     if (cleanPhone.startsWith('91') && cleanPhone.length === 12) {
       phoneNumber = cleanPhone.substring(2);
     }
-    
+
     // Check length (should be 10 digits for Indian mobile)
     if (phoneNumber.length !== 10) {
       return "Phone number must be 10 digits";
     }
-    
+
     // Check if it starts with valid Indian mobile prefixes (6, 7, 8, 9)
     const validPrefixes = ['6', '7', '8', '9'];
     if (!validPrefixes.includes(phoneNumber[0])) {
       return "Please enter a valid Indian mobile number";
     }
-    
+
     // Check if all digits are the same (like 1111111111)
     if (/^(\d)\1{9}$/.test(phoneNumber)) {
       return "Please enter a valid phone number";
     }
-    
+
     return ""; // No error
   };
 
@@ -72,28 +72,28 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
   const cleanPhoneNumber = (phone: string): string => {
     // Remove any non-digit characters (same as validation)
     const cleanPhone = phone.replace(/\D/g, '');
-    
+
     // Remove country code if present (same logic as validation)
     let phoneNumber = cleanPhone;
     if (cleanPhone.startsWith('91') && cleanPhone.length === 12) {
       phoneNumber = cleanPhone.substring(2);
     }
-    
+
     return phoneNumber;
   };
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search)
     const params: Record<string, string> = {}
-  
+
     for (const [key, value] of urlParams.entries()) {
       // Decode the URL-encoded value
       const decodedValue = decodeURIComponent(value)
-      
-      if (key.startsWith("utm_") || 
-          ["source", "medium", "campaign", "term", "content", "adsetName", "adName", "placement", "campaign.name", "adset.name", "ad.name", "adset+name", "ad+name", "adset name", "ad name", "fbclid", "gclid", "msclkid", "ttclid", "adgroup", "adgroupid", "adsetid", "campaignid", "adid", "creative", "keyword", "matchtype", "device", "network", "placement", "audience"].includes(key) ||
-          key.includes("campaign") || key.includes("adset") || key.includes("placement") || key.includes("ad") || key.includes("fb") || key.includes("google") || key.includes("tiktok") || key.includes("microsoft")) {
-        
+
+      if (key.startsWith("utm_") ||
+        ["source", "medium", "campaign", "term", "content", "adsetName", "adName", "placement", "campaign.name", "adset.name", "ad.name", "adset+name", "ad+name", "adset name", "ad name", "fbclid", "gclid", "msclkid", "ttclid", "adgroup", "adgroupid", "adsetid", "campaignid", "adid", "creative", "keyword", "matchtype", "device", "network", "placement", "audience"].includes(key) ||
+        key.includes("campaign") || key.includes("adset") || key.includes("placement") || key.includes("ad") || key.includes("fb") || key.includes("google") || key.includes("tiktok") || key.includes("microsoft")) {
+
         // Normalize the key
         let normalizedKey = key
         if (key === "adset+name" || key === "adset name" || key === "adsetName") {
@@ -103,14 +103,14 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
         } else if (key === "campaign name" || key === "campaignName") {
           normalizedKey = "campaign.name"
         }
-        
+
         params[normalizedKey] = decodedValue
       }
     }
-    
+
     setUtmParams(params)
-  }, []) 
-  
+  }, [])
+
 
   useEffect(() => {
     if (courseKey) {
@@ -120,16 +120,16 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    
+
     const phoneValidationError = validatePhoneNumber(formData.phone);
     if (phoneValidationError) {
       setPhoneError(phoneValidationError);
       return;
     }
-    
-    
+
+
     setIsSubmitting(true)
-  
+
     try {
       const urlParams = new URLSearchParams(window.location.search);
       const formatDate = (date: Date) => {
@@ -141,24 +141,24 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
         const seconds = date.getSeconds().toString().padStart(2, '0')
         const ampm = hours >= 12 ? 'PM' : 'AM'
         const displayHours = hours % 12 || 12
-        
+
         return `${day}/${month}/${year} ${displayHours}:${minutes}:${seconds} ${ampm}`
       }
-  
+
       // Get workshop time from workshopData (send empty string if not available)
-      const workshopTime = workshopData 
+      const workshopTime = workshopData
         ? formatWorkshopDateTime(workshopData.wDateTime)
         : ""
-  
+
       // Clean phone number using consistent logic
       const cleanPhone = cleanPhoneNumber(formData.phone)
-      
+
       // Prepare data for Pabbly webhook with new format
       const webhookData = {
         submittedAt: formatDate(new Date()),
         name: formData.name,
         email: formData.email,
-        phone: cleanPhone, 
+        phone: cleanPhone,
         CampeignName: courseKey || 'default',
         WorkShopTime: workshopTime,
         utm_source: urlParams.get("utm_source"),
@@ -172,7 +172,7 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
         landingPageUrl: window.location.href,
         whatsappUrl: workshopData?.wAurl || "",
       }
-  
+
       const response = await fetch(courseData.integrations.pablyWebhookUrl, {
         method: "POST",
         headers: {
@@ -180,29 +180,30 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
         },
         body: JSON.stringify(webhookData),
       })
-  
+
       // Check if response is ok
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`)
       }
-  
+
       // Parse response to check for success
       const responseData = await response.json()
       console.log("Pabbly response:", responseData)
-  
+
       // Check if Pabbly returned success
       if (responseData.status === "success" || responseData.status === "Success") {
         // Reset form
         setFormData({ name: "", email: "", phone: "", countryCode: "+91" })
         setPhoneError("") // Clear phone validation error
-        
+
         // Store workshop data in localStorage for thank you page
         if (workshopData) {
           localStorage.setItem('workshopData', JSON.stringify(workshopData));
         }
-        
+
         // Redirect to thank you page
-        router.push(`/${courseKey}/thank-you`)
+        router.replace(`/${courseKey}/thank-you`)
+
       } else {
         throw new Error(responseData.message || "Form submission failed")
       }
@@ -248,7 +249,7 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
                   <Clock className="w-4 h-4 mx-auto mb-1 text-muted-foreground" />
                   <div className="text-xs text-muted-foreground">Date</div>
                   <div className="font-semibold text-sm">
-                 {formatWorkshopDateTime(workshopData?.wDateTime || "")}
+                    {formatWorkshopDateTime(workshopData?.wDateTime || "")}
                   </div>
                 </CardContent>
               </Card>
@@ -338,9 +339,8 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
                             setPhoneError(error);
                           }}
                           required
-                          className={`pl-12 h-10 border-border/50 focus:border-primary ${
-                            phoneError ? 'border-red-500 focus:border-red-500' : ''
-                          }`}
+                          className={`pl-12 h-10 border-border/50 focus:border-primary ${phoneError ? 'border-red-500 focus:border-red-500' : ''
+                            }`}
                         />
                       </div>
                       {phoneError && (
@@ -411,7 +411,7 @@ export function HeroSection({ courseData, courseKey }: HeroSectionProps) {
                   <Clock className="w-4 h-4 mx-auto mb-1 text-muted-foreground" />
                   <div className="text-xs text-muted-foreground">Date</div>
                   <div className="font-semibold text-sm">
-                      {formatWorkshopDateTime(workshopData?.wDateTime || "")}
+                    {formatWorkshopDateTime(workshopData?.wDateTime || "")}
                   </div>
                 </CardContent>
               </Card>
